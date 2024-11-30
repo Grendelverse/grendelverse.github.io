@@ -544,12 +544,10 @@ He continues, &quot;None of these qualities are enough. The Draugr are relentles
 Ha bad choice, you get burned up and die.
 &#39;&#39;Game Over&#39;&#39;</tw-passagedata><tw-passagedata pid="38" name="Attack Véfrøðr" tags="" position="4000,5525" size="100,100">(display: &quot;header&quot;)
 Ha bad choice, you get burned up and die.
-&#39;&#39;Game Over&#39;&#39;</tw-passagedata><tw-passagedata pid="39" name="Attack the Sceadugenga" tags="" position="400,4250" size="100,100">(display: &quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
+&#39;&#39;Game Over&#39;&#39;</tw-passagedata><tw-passagedata pid="39" name="Attack the Sceadugenga" tags="" position="350,4225" size="100,100">(display: &quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
 (display: &quot;updateCombatBonus&quot;)
 
-Your comrades cluster nervously around you, clutching their weapons. The air is thick with the scent of moss and an electric buzz of dread. As the last rays of sunlight retreat, the shadows cast by the ancient trees grow longer, more menacing.
-
-You feel the oppressive presence of the Sceadugenga all around you, and your heart pounds with fear. But you steel yourself and decide that the best defense is a good offense. &quot;We need to attack,&quot; you say, trying to sound confident. &quot;If we drive them off, we&#39;ll be safer.&quot;
+Steeling yourself, you decide that the best defense is a good offense. &quot;We can&#39;t evade them, so let&#39;s show them we&#39;re not to be trifled with.&quot; you say, trying to sound confident. &quot;Hit them hard, take down a few, then make our escape.&quot;
 
 Hroald looks at you with a mix of surprise and approval. &quot;Aye, let&#39;s show these shadow walkers that we&#39;re not afraid.&quot;
 
@@ -557,21 +555,15 @@ Edda nods, gripping her shield tightly. &quot;Let&#39;s do it. Stay close and wa
 
 Lothar raises his axe, a grim smile on his face. &quot;We&#39;ll make them regret stalking us.&quot;
 
-Ciar&#39;s expression is more cautious, but she nods in agreement, her raven taking flight with a sharp caw. &quot;Be careful. These are no ordinary foes.&quot;
+Ciar&#39;s expression is more cautious, but she nods in agreement. &quot;Be careful. These are no ordinary foes.&quot;
 
-The group tightens their formation, weapons at the ready. Hroald leads the charge, his battle-axe gleaming in the dim light. You move forward, every sense heightened, the forest around you growing darker and more oppressive.
+Resolved to confront the threat head-on, you grip your weapon, reassured by its weight and fine balance. //&quot;Let&#39;s slaughter these beasts!&quot;// you shout.
 
-Resolved to confront the threat head-on, you grip your weapon, reassured by its weight and fine balance. Raising it above your head, you shout, &quot;let&#39;s slaughter these beasts!&quot;
-
-With a collective shout that seems to momentarily dispel the gathering darkness, you charge into the forest. The canopy above obscures the sky, turning the world into a rush of shadow.
+With a collective battle-cry that seems to momentarily dispel the gathering darkness, your party charges into the forest. The canopy above obscures the sky, turning the world into a rush of shadow.
 
 As you penetrate into the forest, an eerie howl pierces the night quickly answered by another from the other side, and then another, surrounding you in a chorus of primal fury. Forms emerge from the trees, long arms, great shaggy heads and torsos covered in fur like a bear’s. They carry long staves or spears and you see charms of stone or bone woven into their coats, as well as the sheen of some strange leather or metal scales worn as armor. 
 
 Suddenly you lock eyes with one of the creatures, and you understand your folly in coming here.
-
----
-Current Energy: $energy
-Current combat bonus: $totalCombatBonus
 
 (if: $energy &gt; 50)[
 [[Curl into a ball and play dead-&gt;Scream]]
@@ -834,7 +826,7 @@ A brewer with a ruddy complexion and a jovial demeanor serves tankards of ale fr
 (for: each _item, ...$foodForSaleMarket)[(set:_label to &quot;purchase &quot; + &quot;name&quot; of _item)
 (set: _descriptionLabel to &quot;Description of &quot; + _item&#39;s &quot;name&quot;)
 ---
-(print: &quot;name&quot; of _item) |  Price: (print: &quot;price&quot; of _item) silver penningar | (link: &quot;description&quot; )[(print: &quot;description&quot; of _item)] | (link:&quot;purchase&quot;)[
+(print: &quot;name&quot; of _item) |  Price: (print: &quot;price&quot; of _item) silver penningar | (link: &quot;description&quot; )[(print: &quot;description&quot; of _item)] | (link-repeat:&quot;purchase&quot;)[
 	(set: $purchaseItem to _item)
     (display: &quot;Purchase confirmation&quot;)
     (replace: ?sp)[ [Your current silver: (print: $sp)]&lt;sp|]
@@ -1849,7 +1841,7 @@ Edda raises her mug, her eyes glistening with unshed tears. &quot;To Lothar, a b
 
 The fear and shame of your flight lingers, a stark reminder of the dangers that still loom outside the village walls. You all drink deeply, seeking respite at the bottom of the cup. 
 
-[[Drink yourself to sleep-&gt;Grendel Attack]]</tw-passagedata><tw-passagedata pid="116" name="Explain that Unferth has tasked you with an official investigation of the facts around the attack." tags="" position="3425,3100" size="100,100">(display: &quot;header&quot;)
+[[Drink yourself to sleep-&gt;Grendel Attack Inn]]</tw-passagedata><tw-passagedata pid="116" name="Explain that Unferth has tasked you with an official investigation of the facts around the attack." tags="" position="3425,3100" size="100,100">(display: &quot;header&quot;)
 Sir Thryth&#39;s face seems to harden at Unferth&#39;s name, but his nod of acknowledgment seems grudging. 
 &quot;Ah,&quot; he says flatly, &quot;Unferth wishes to... investigate. I was hoping to receive support in the form of reinforcements, as I carry out the King&#39;s fight on the very front of this war. But I suppose I must deal with a minister if the purse strings are to be loosened, pagan serpent though he may be. Tell me, what does //Unferth// wish to know?&quot;
 {(set:$reputation&#39;s &quot;Thryth&quot; to &quot;suspicious&quot;)}
@@ -2444,53 +2436,22 @@ You are in a small clearing in the deep forest. The moon hangs high in the sky, 
 }</tw-passagedata><tw-passagedata pid="145" name="Grendel Attack" tags="" position="6150,575" size="100,100">(display:&quot;header&quot;)
 Grendel kills everyone GRAAAAAH!!!
 ---
-THE END</tw-passagedata><tw-passagedata pid="146" name="Head back to town from the tree" tags="" position="550,4125" size="100,100">(display:&quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
-The eerie atmosphere around the ancient tree weighs heavily on you. With the branch in hand, you turn to the others. &quot;We should head back to town and report what we&#39;ve found. This place is making me uneasy.&quot;
+THE END</tw-passagedata><tw-passagedata pid="146" name="Head back to town from the tree" tags="" position="550,4050" size="100,100">(display:&quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
+As the group begins the trek back towards Heorot, the forest seems changed, more menacing. Every leaf-rustle and twig-snap rings out like a bell in the thick quiet.
 
-Hroald nods, his face grim. &quot;Agreed. Let&#39;s move out.&quot;
+A chill descends over the woods, and with it a ghostly mist. The sense of being watched is almost tangible, and you find yourself glancing over your shoulder repeatedly.
 
-You gather your belongings, and the group begins the trek back towards Heorot. The dense forest, which felt mysterious before, now seems menacing. Every rustle of leaves and snap of a twig sets your nerves on edge. The shadows cast by the trees seem to move, as if watching your every step.
-
-The deeper you go, the more oppressive the forest feels. The air grows colder, and an unnatural silence falls over the woods, broken only by your cautious footsteps. The sense of being watched is almost tangible, and you find yourself glancing over your shoulder repeatedly.
-
-Ciar&#39;s raven takes flight, circling above the group, its caws echoing eerily through the trees. Ciar herself is tense, her eyes scanning the forest with a mixture of curiosity and fear. &quot;The magic here is strong,&quot; she whispers. &quot;The Sceadugenga might be closer than we think.&quot;
+Ciar&#39;s raven takes flight, circling above the group, its caws echoing eerily through the trees. Ciar herself seems to be in shock, almost in a dream-like state of bemusement. &quot;The magic here is strong,&quot; she whispers. &quot;The Sceadugenga may be very close.&quot;
 
 Hroald keeps his battle-axe ready, his muscles taut with readiness. &quot;Stay alert, everyone. We don&#39;t want to be caught off guard.&quot;
 
-Lothar and Edda flank the group, their weapons drawn, eyes darting to every shadow. The tension is palpable, a thick blanket of unease that hangs over the group.
-
-As you move further, the feeling of eyes watching intensifies. You hear a soft rustling behind you, and everyone stops, weapons at the ready. The silence that follows is deafening, the forest holding its breath along with you.
+Lothar and Edda flank the group,  weapons drawn, eyes darting to every shadow.
 
 Suddenly, from the corner of your eye, you catch a glimpse of movement—a shadow shifting among the trees. You turn, heart pounding, but see nothing. The sensation of being surrounded becomes overwhelming.
 
 &quot;We&#39;re not alone,&quot; Edda mutters, her voice barely audible. &quot;They&#39;re here, watching us.&quot;
 
-The group forms a tight circle, backs to each other, weapons ready. The forest around you seems to close in, the shadows deeper and more oppressive. You can feel the presence of the Sceadugenga, hidden just out of sight, their eyes fixed on you.
-
-Hroald&#39;s voice is a low growl. &quot;We need to decide our next move. Do we attack, flee, or retreat carefully?&quot;
-
-The options weigh heavily on your mind, each fraught with danger. The presence of the Sceadugenga feels more real than ever, and you know that any misstep could lead to disaster.
-
-The forest grows darker as you venture deeper, the thick canopy above filtering out the light and casting long shadows on the forest floor. The air is heavy with the scent of damp earth and decaying leaves, and every snap of a twig or rustle of leaves sets your nerves on edge.
-
-Suddenly, an eerie call echoes through the trees. It&#39;s unlike any birdcall you&#39;ve ever heard—louder, deeper, and filled with an unsettling resonance. The sound seems to come from everywhere and nowhere at once, and is soon answered by another call from a different direction, creating a haunting symphony that reverberates through the forest.
-
-The adventurers halt, their senses heightened and eyes scanning the surroundings. &quot;Did you hear that?&quot; Ciar whispers, his voice barely audible over the fading echoes.
-
-Edda nods, her hand tightening around the hilt of her sword. &quot;We&#39;re being tracked,&quot; she says quietly, her eyes narrowed as she peers into the shadows.
-
-You strain your eyes, trying to catch any movement among the trees. The forest seems to hold its breath, the silence oppressive and foreboding. Then, out of the corner of your eye, you catch a glimpse of something—dark, shadowy, moving with a fluid grace that seems almost otherworldly.
-
-A shape materializes briefly between the trees, its form obscured by the dappled light and dense underbrush. You see a face, human yet distinctly inhuman, with deep-set eyes that glint with a malevolent intelligence. The creature is covered in dark, matted fur, its movements eerily silent as it disappears back into the shadows.
-
-Hroald steps closer to you, his voice a low growl. &quot;Sceadugenga,&quot; he mutters. &quot;Grendel’s kin. We must be ready.&quot;
-
-
-[[Attack the Sceadugenga]]
-
-[[Flee at full speed]]
-
-[[Retreat carefully in formation-&gt;Stand ground against Scea]]</tw-passagedata><tw-passagedata pid="147" name="Head back to town without disturbing the tree" tags="" position="675,3975" size="100,100">(display:&quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
+[[Continue-&gt;Patrol Doom]]</tw-passagedata><tw-passagedata pid="147" name="Head back to town without disturbing the tree" tags="" position="675,3975" size="100,100">(display:&quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
 (if:$energy &lt; 50 )[
 A wave of panic washes over you, your breath coming in shallow gasps. Your vision blurs, and for a moment, you feel as though the forest is closing in on you.
 
@@ -3307,7 +3268,7 @@ The shaft of the spear is crafted from strong, flexible wood, carefully shaped a
 
 (set: $smithInventory to it + (a: (dm: 
 &quot;name&quot;, &quot;Spear&quot;,
-&quot;price&quot;, 6,
+&quot;price&quot;, 7,
 &quot;description&quot;, _spearDescription,
 &quot;combat&quot;,3,
 &quot;armor&quot;, 1,
@@ -3319,7 +3280,7 @@ The shaft of the spear is crafted from strong, flexible wood, carefully shaped a
 The handle of the axe is made from resilient wood, such as ash or oak, chosen for its strength and shock-absorbing properties. The handle is about three feet long, providing the leverage needed for powerful strikes. It is sanded smooth and treated with oil to enhance its grip and durability. The end of the handle is slightly flared to prevent slipping, and leather strips are wrapped around the grip area for additional security.&quot;)
 (set: $smithInventory to it + (a: (dm: 
 &quot;name&quot;, &quot;Axe&quot;,
-&quot;price&quot;, 3,
+&quot;price&quot;, 6,
 &quot;description&quot;, _axeDescription,
 &quot;combat&quot;,2,
 &quot;armor&quot;, 0,
@@ -3339,7 +3300,8 @@ Despite its substantial protection, the mail moves with surprising fluidity, all
 &quot;type&quot;,&quot;armor&quot;
 )))
 
-(set: _bowDescription to &quot;launches arrows&quot;)
+(set: _bowDescription to &quot;Crafted from a single piece of yew wood, the bow is strong yet flexible. The bowstring is twisted flax, treated with beeswax for durability. The grip is wrapped in leather for a comfortable hold. It comes with a quiver of ash wood arrows, fletched with goose feathers and tipped with sharp iron heads.&quot;)
+
 (set: $smithInventory to it + (a: (dm:
 &quot;name&quot;, &quot;Bow&quot;,
 &quot;price&quot;, 7,
@@ -3711,7 +3673,7 @@ If you don’t mind the noise, you can always sleep here by the hearth. Plenty o
 {(display: &quot;Initialize Food Shops&quot;)
 (for: each _item, ...$foodForSaleInn)[
 ---
-Name: (print: &quot;name&quot; of _item) |  Price: (print: &quot;price&quot; of _item) silver penningar | (link: &quot;description&quot; )[(print: &quot;description&quot; of _item)] | (link:&quot;purchase&quot;)[(set: $purchaseItem to _item)(display: &quot;Purchase confirmation&quot;)(replace: ?sp)[ [Your current silver: (print: $sp)]&lt;sp|]]
+Name: (print: &quot;name&quot; of _item) |  Price: (print: &quot;price&quot; of _item) silver penningar | (link: &quot;description&quot; )[(print: &quot;description&quot; of _item)] | (link-repeat:&quot;purchase&quot;)[(set: $purchaseItem to _item)(display: &quot;Purchase confirmation&quot;)(replace: ?sp)[ [Your current silver: (print: $sp)]&lt;sp|]]
 
 ]
 }</tw-passagedata><tw-passagedata pid="166" name="Inquire About the Other Threats" tags="" position="3950,1350" size="100,100">(display: &quot;header&quot;)
@@ -3899,30 +3861,25 @@ Options:
     [[Ask If There Is Knowledge Here That Could Help Undo the Curse-&gt;inquireCurseBreak]]
     [[Inquire About the Risks of Facing Such Dark Magic-&gt;AskAboutRisks]]</tw-passagedata><tw-passagedata pid="177" name="Instruct Ciar, the stealthiest of you, to scout the fort while the rest of you stay behind" tags="" position="3150,4500" size="100,100">(display: &quot;header&quot;)</tw-passagedata><tw-passagedata pid="178" name="Instruct Lothar to chop down the tree" tags="" position="725,4325" size="100,100">(display: &quot;header&quot;)(set:$energy to it - 10)(set:$effort to 5)(display:&quot;Effort&quot;)
 (set: $grendelComes to true)
-
-The tree obviously has magical properties. Its wood and fruit might be of value. 
-{(set: _rep to &quot;Unferth&quot; of $reputation)}
-(if: _rep is &quot;in confidence&quot;)[Perhaps you could present them to Unferth at court.]
-
-You turn to Lothar, your voice steady and commanding. &quot;Lothar, chop down the tree. We need to take it back with us, along with those strange fruits. This might hold the key to understanding the Sceadugenga&#39;s magic.&quot;
+The tree obviously has magical properties, and its wood and fruit may be of value.
 
 Lothar raises an eyebrow but nods, gripping his axe. &quot;If you think it&#39;s worth the risk, I&#39;ll do it.&quot; The air grows tense as he approaches the tree, his movements careful and deliberate. The silvery bark gleams in the dim light, its texture almost metallic as Lothar&#39;s axe makes contact. The blade bites into the wood with loud crack in the tense silence of the grove. The tree shudders under the impact, its branches swaying violently. The coppery leaves rustle loudly, their metallic sheen catching the light in a dazzling display.
 
-As Lothar chops away, you notice a strange, dark sap oozing from the wounds in the tree. It has a thick, viscous consistency, and its scent is both sweet and pungent, like a mixture of honey and decay. The sight of it sends a shiver down your spine, and you can&#39;t shake the feeling that the tree is reacting to the intrusion.
+As Lothar chops away, you notice a strange, dark sap oozing from the wounds in the tree. It has a thick, viscous consistency, and its scent is both sweet and pungent, with notes of flowers but also of decay. An involuntary shudder moves you.
 
-Ciar steps closer, her eyes wide with concern. &quot;Be careful, Lothar. This tree is alive in more ways than one. The sap could be dangerous.&quot;
+Ciar steps closer, her eyes wide with concern. &quot;Be careful, Lothar,&quot; she says, in a small voice.
 
 Lothar nods, his expression grim as he continues his task. The tree finally begins to fall, its slender trunk cracking under the weight of its branches. You step back as it crashes to the ground, fruits tumbling down around it.
 
-As the fruits fall from the branches, you notice Ciar reach down to pick up one of the strange, dark fruits. She gasps in surprise and horror, her eyes widening as she holds it up for everyone to see. &quot;These... these are face fruits,&quot; she murmurs.
+As the fruits fall from the branches, you notice Ciar reach down to pick up one of the strange, dark fruits. She gasps in surprise, her eyes widening as she holds it up for everyone to see. 
 
-You step closer, examining the fruit in her hand. The fruit is dark and glossy, with a smooth, leathery surface. As you look closer, you realize with a start that it has a faint, almost human-like face. The features are eerily detailed and lifelike, yet closed and unmoving, as if the fruit is in some kind of dormant state, waiting to be awakened.
+You step closer, examining the dark, leathery-skinned fruit in her hand. As you look closer, you realize with a start that the strange bumps and ridges form a strange but clearly recognizable face. The features are eerily detailed and lifelike, a flat nose and lips and tigihtly sealed eye-lids, closed and unmoving.
 
-You reach down to pick up one of the fruits, feeling its smooth surface under your fingers. The dark sap clings to your skin, its scent overpowering. The fruit is surprisingly heavy, and you can&#39;t shake the feeling that it holds a great deal of power within it.
+You reach down to pick up one of the fruits, feeling its smooth surface under your fingers. A bit of resinous sap clings to your skin, its acrid scent strong in your nostrils. The fruit is surprisingly heavy.
 
-Edda and Hroald stand guard, their eyes scanning the forest for any signs of movement. The atmosphere is thick with tension, the forest seeming to hold its breath in anticipation.
+The atmosphere is thick with tension as Edda and Hroald stand guard, their eyes scanning the forest for any signs of movement.
 
-Ciar kneels beside one of the fallen fruits, her face a mixture of awe and apprehension. &quot;I&#39;ve heard tales of these in old legends,&quot; she says, her voice barely above a whisper. &quot;They are said to be linked to powerful magic, capable of great good or great harm.&quot;
+Ciar kneels beside one of the fallen fruits, her face a mixture of awe, apprehension, and perhaps grief. &quot;I&#39;ve heard tales of these trees in old legends, from the east&quot; she says, &quot;They take many, many years to grow, are said to be linked to powerful magic. Who knows what we have done by destroying it&quot;
 
 Lothar, wiping the sweat from his brow, examines the tree&#39;s remains. &quot;What do we do now? Do we take these back with us?&quot;
 
@@ -4152,8 +4109,7 @@ The stories of Grendel have spread throughout the the Scylding lands, a terrifyi
 
 And so, seeking the dark heart of this fearsome legend, you have voyaged by sea from your home to Heorot, the kingdom shadowed by the terror of Grendel. Your wobbly sea legs slowly adjust once more to the steadiness of land as you take in the scenery before you.
 
-[[Explore...-&gt;Village Hub]](display: &quot;initialize&quot;)
-&lt;!--(display:&quot;CheatCode&quot;)--&gt;</tw-passagedata><tw-passagedata pid="189" name="Legend of the Lindworm" tags="" position="3150,2050" size="100,100">(display: &quot;header&quot;)
+[[Explore...-&gt;Village Hub]](display: &quot;initialize&quot;)</tw-passagedata><tw-passagedata pid="189" name="Legend of the Lindworm" tags="" position="3150,2050" size="100,100">(display: &quot;header&quot;)
 &quot;Long ago, in the shadowed depths of Göinge Forest, there dwelled a creature unlike any other—a Lindworm, a sea serpent as large as a ship, with scales that shimmered like moonlight on water and eyes that glowed with otherworldly fire.&quot;
 
 &quot;The Lindworm was no ordinary beast. It was said to possess the wisdom of ages, speaking in riddles and prophecies to those brave or foolish enough to seek it. But beware—its temper was as unpredictable as the shifting winds, and most who ventured into its domain were never seen again.&quot;
@@ -4946,7 +4902,7 @@ Eir&#39;s face brightens as she gestures to her wares. &quot;I have many herbs t
 (for: each _item, ...$potions)[(set:_label to &quot;purchase &quot; + &quot;name&quot; of _item)
 (set: _descriptionLabel to &quot;Description of &quot; + _item&#39;s &quot;name&quot;)
 ---
-(print: &quot;name&quot; of _item) |  Price: (print: &quot;price&quot; of _item) silver penningar | (link: &quot;description&quot; )[(print: &quot;description&quot; of _item)] | (link:&quot;purchase&quot;)[
+(print: &quot;name&quot; of _item) |  Price: (print: &quot;price&quot; of _item) silver penningar | (link: &quot;description&quot; )[(print: &quot;description&quot; of _item)] | (link-repeat:&quot;purchase&quot;)[
 (set: $purchaseItem to _item)
 (set: $purchaseCategory to $food)
 (display: &quot;Purchase confirmation&quot;)
@@ -5284,7 +5240,7 @@ Options
 
    
 [[ Open the Trapdoor and Descend-&gt;Enter the Underground Tunnel]]
-[[Mark the Location on the map for Later Exploration-&gt;Drekaborg Quest Hub]]</tw-passagedata><tw-passagedata pid="251" name="Scream" tags="" position="475,4450" size="100,100">(display: &quot;header&quot;)
+[[Mark the Location on the map for Later Exploration-&gt;Drekaborg Quest Hub]]</tw-passagedata><tw-passagedata pid="251" name="Scream" tags="" position="550,4475" size="100,100">(display: &quot;header&quot;)
 
 There is nothing to do but scream, to try to drown out the sounds of gutteral growls, tearing flesh, the shrieks of your companions, and the regret for your own folly.
 
@@ -6381,39 +6337,77 @@ Then, off in the horizon, the mist clears as the sun breaks through the cloud, a
 [[Back-&gt;Fen Tower]] </tw-passagedata><tw-passagedata pid="327" name="Attempt to persuade Sir Thryth to compensate Marta for her husband&#39;s death" tags="" position="2825,3400" size="100,100">(display:&quot;header&quot;)
 Sir Thryth&#39;s head twitches in annoyance as he processes your words, apparently collecting himself and choosing his own words carefully. &quot;Olag&#39;s contract was very clear, and he signed it freeely and of his own volition. He was to be paid on completion of our seasonal harvest, as a percentage of the profits. The harvest has not yet come in, and so his current share is nothing; in fact, it is uncertain whether the harvest will be profitable at all at this point, due to the lackadaisical and cowardly disposition of my thralls, now compounded by the loss of an entire work group. Am I to be bled dry paying for every harlot and orphan in Christendom to live as gentry? Is there not a church near Heorot and funded by the King, that gives succor to such wayward souls?
 [[Continue-&gt;Thryth Hub]]</tw-passagedata><tw-passagedata pid="328" name="Offer a donation to the church" tags="" position="1725,2950" size="100,100">(display:&quot;header&quot;)
-(set:$reputation&#39;s &quot;Aelfric&quot; to &quot;grateful&quot;)
-
-
 Father Aelfric bows his head and holds his hands together in front of his heart. &quot;Thank you most kindly, child,&quot; he says.
-
+{
 &lt;br&gt;
 [Your current silver: (print: $sp)]&lt;sp|&lt;br&gt;
 ---
-(link:&quot;donate 1 sp&quot;)[
-(set: _donationAmount to 1)(set:$sp to it - _donationAmount)
-(replace: ?sp)[ [Your current silver: (print: $sp)]&lt;sp|]
+(link-repeat:&quot;donate 1 sp&quot;)[
+(set: _donationAmount to 1)
+(if:_donationAmount &gt; $sp)[
+  (set:$sp to it - _donationAmount)
+  (set:$reputation&#39;s &quot;Aelfric&quot; to &quot;grateful&quot;)
+  (replace: ?sp)[ [Your current silver: (print: $sp)]&lt;sp|]
+  //(print:_donationAmount) removed from inventory.//
+  ](else:)[
+  //You have insufficient funds//  
+  ]
 ]
-(link:&quot;donate 10 sp&quot;)[
-(set: _donationAmount to 10)(set:$sp to it - _donationAmount)
-(replace: ?sp)[ [Your current silver: (print: $sp)]&lt;sp|]
+(link-repeat:&quot;donate 10 sp&quot;)[(set: _donationAmount to 10)
+(if:_donationAmount &gt; $sp)[
+  (set:$sp to it - _donationAmount)
+  (set:$reputation&#39;s &quot;Aelfric&quot; to &quot;grateful&quot;)
+  (replace: ?sp)[ [Your current silver: (print: $sp)]&lt;sp|]
+  //(print:_donationAmount) removed from inventory.//
+  ](else:)[
+  //You have insufficient funds//  
+  ]
 ]
-(link:&quot;donate 100 sp&quot;)[
-(set: _donationAmount to 100)(set:$sp to it - _donationAmount)
-(replace: ?sp)[ [Your current silver: (print: $sp)]&lt;sp|]
+(link-repeat:&quot;donate 100 sp&quot;)[(set: _donationAmount to 100)
+(if:_donationAmount &gt; $sp)[
+  (set:$sp to it - _donationAmount)
+  (set:$reputation&#39;s &quot;Aelfric&quot; to &quot;grateful&quot;)
+  (replace: ?sp)[ [Your current silver: (print: $sp)]&lt;sp|]
+  //(print:_donationAmount) removed from inventory.//
+  ](else:)[
+  //You have insufficient funds//  
+  ]
 ]
-(link:&quot;donate 1000 sp&quot;)[
-(set: _donationAmount to 1000)(set:$sp to it - _donationAmount)
-(replace: ?sp)[ [Your current silver: (print: $sp)]&lt;sp|]
+(link-repeat:&quot;donate 1000 sp&quot;)[(set: _donationAmount to 1000)
+(if:_donationAmount &gt; $sp)[
+  (set:$sp to it - _donationAmount)
+  (set:$reputation&#39;s &quot;Aelfric&quot; to &quot;grateful&quot;)
+  (replace: ?sp)[ [Your current silver: (print: $sp)]&lt;sp|]
+  //(print:_donationAmount) removed from inventory.//
+  ](else:)[
+  //You have insufficient funds//  
+  ]
 ]
 ---
 
 
-
+}
 [[Continue-&gt;Church Hub]]</tw-passagedata><tw-passagedata pid="329" name="Ask Aelfric if he can help Marta and her children" tags="" position="1925,2725" size="100,100">(display:&quot;header&quot;)
 &quot;Suuuure dude&quot;, he says, &quot;the more the merrier.&quot;
 [[Continue-&gt;Church Hub]]</tw-passagedata><tw-passagedata pid="330" name="Marta at Church" tags="" position="1925,2600" size="100,100">(display:&quot;header&quot;)
 She and the kids are just loving it here two thumbs up good job.
-[[Continue-&gt;Church Hub]]</tw-passagedata></tw-storydata>
+[[Continue-&gt;Church Hub]]</tw-passagedata><tw-passagedata pid="331" name="Patrol Doom" tags="" position="525,4225" size="100,100">(display:&quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
+Your party forms a tight circle, backs to each other, weapons ready. The forest around you seems to close in, and you can feel the presence of the Sceadugenga, hidden just out of sight, their eyes fixed on you.
+
+Suddenly, an eerie call echoes through the trees. It&#39;s unlike any birdcall you&#39;ve ever heard—louder, deeper, and filled with an unsettling resonance. The sound seems to come from everywhere and nowhere at once, and is soon answered by another call from a different direction, creating a haunting symphony that reverberates through the forest.
+
+You strain your eyes, trying to catch any movement among the trees. The forest seems to hold its breath, the silence oppressive and foreboding. Then, out of the corner of your eye, you catch a glimpse of something—dark, shadowy, moving with strange, fluid grace.
+
+A shape materializes briefly between the trees, its form obscured by the dappled light and dense underbrush. You see a face, human yet distinctly inhuman, with deep-set eyes that glint with a malevolent intelligence. The creature is covered in dark, matted fur, its movements eerily silent as it disappears back into the shadows.
+
+Hroald steps closer to you, his voice a low growl. &quot;Sceadugenga,&quot; he mutters. &quot;Grendel’s kin. This is it. What&#39;s our move?&quot;
+
+[[Attack the Sceadugenga]]
+[[Flee at full speed]]
+[[Retreat carefully in formation-&gt;Stand ground against Scea]]</tw-passagedata><tw-passagedata pid="332" name="Grendel Attack Inn" tags="" position="250,3850" size="100,100">(display:&quot;header&quot;)(set:$energy to 50)(set:$effort to 9)(display:&quot;Effort&quot;)
+You are woken in the middle of the night by commotion... Grendel has attacked Heorot and is ransacking the town, people are killed in the stre
+
+or maybe you&#39;re awoken early the next morning when some one burst in and is telling the innkeeper about the attack on heorot</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
