@@ -1398,9 +1398,9 @@ Unferth strokes his chin reflectively. &quot;Of Sceadugenga magic, we know preci
 
 (if: $knownLore contains $grendelFenLore and $completedQuests does not contain &quot;Locate Sources of Sceadugenga Magic (Sighting in the Fen)&quot;)[
 
-  (link:&quot;Tell Unferth of the Sceadugenga&#39;s sacred grove&quot;)[
+  (link:&quot;Tell Unferth of seeing Sceadugenga in the fen, from the top of the tower&quot;)[
   Quest Complete: &quot;Locate Sources of Sceadugenga Magic (The Sacred Grove)&quot;&lt;br&gt;
-	(set:$completedQuests to it + (a:&quot;Locate Sources of Sceadugenga Magic (The Sacred Grove)&quot;))
+	(set:$completedQuests to it + (a:&quot;Locate Sources of Sceadugenga Magic (Sighting in the Fen)&quot;))
     	  Unferth&#39;s eyes are uncharacteristically wide with candid interest as you relate sighting the two large beings--perhaps Sceadugenga--and carefully mark the tower&#39;s location on a map for him.
  &quot;This is an extrememly valuable discovery,&quot; he says earnestly. &quot;Thank you for bringing it to me.&quot;   &lt;br&gt;
     
@@ -1408,8 +1408,6 @@ Unferth strokes his chin reflectively. &quot;Of Sceadugenga magic, we know preci
 (set:$sp to it + 250)
   ]
 ]
-
-
 
 
 }
@@ -1425,11 +1423,12 @@ Unferth reaches into a concealed compartment beneath his cloak and produces a sl
 
 &quot;These are no ordinary arrows,&quot; he whispers, his eyes meeting yours. &quot;Each tip is coated with Niðdraca&#39;s Bane. It is a poison that reacts very energetically when it contacts the blood of a magical creature.&quot;
 
-His eyes gleam as he hands carefully hands you the quiver. &quot;It has proven effective against trolls, and I suspect it will also be deadly to the Sceadugenga.&quot; If you have the opportunity to test this theory and present me with the evidence of the result, I will be grateful indeed.
+His eyes gleam as he hands carefully hands you the quiver. &quot;There are reliable reports of its effectiveness against trolls in the past, and I suspect it will also be deadly to the Sceadugenga.&quot; If you have the opportunity to test this theory and present me with the evidence of the result, I will be grateful indeed.
 {	(set:$doneQuest to _quest)(display:&quot;questComplete&quot;)
       (set: $weaponsAndArmor to it + $unferthArrows) 
       }
 	]
+
 ](else:)[
     (set: $newQuest to _quest)
 	(display:&quot;getNewQuest&quot;)
@@ -1440,6 +1439,9 @@ He gestures subtly toward the bustling market outside the hall&#39;s windows. &q
 
 He adds, &quot;Under your leadership, they could undertake tasks that require a delicate touch or a strong arm, depending on the need. Success in this endeavor could open doors to more significant and profitable opportunities.&quot;
 
+	(if: $reputation&#39;s &quot;Adventurers&quot; is &quot;allied&quot;)[
+    [[Introduce Hroald, Edda, Ciar and Lothar to Unferth-&gt;Discuss quest: Recruit a party]]
+]
 ]
 [[Back-&gt;Unferth Quest Hub]]</tw-passagedata><tw-passagedata pid="89" name="Discuss quest: Root out paganry among the villagers" tags="" position="4775,1500" size="100,100">(display:&quot;header&quot;)(set:$effort to 1)(display:&quot;Effort&quot;)
 (set: $newQuest to &quot;Root out paganry among the villagers&quot;)
@@ -2011,7 +2013,7 @@ With a great groan, it turns back for the protection of the woods.(set:$pigDefea
 
 Your arrow flies wide of the carefully chosen mark, burying itself in the thick armored flesh of the creatures shoulder instead of its vulnerable haunch.
 
-The beast surges forward with an eager snarl, now looming huge before you, and you instinctively dive out of the line of its charge.
+The beast surges forward with an eager snarl, now looming huge before you, and you instinctively dive out of the line of its charge. You manage to roll slightly out of the way as the beast comes by, but it&#39;s huge slashing head smashes against you hard enough to lift you from your feet and knock you sprawling to the ground.
 
 	(if: $totalArmorBonus &gt; 6)[(set:$pigDefeated to true)
 Fortunately your armor protects you from the worst of the onslaught, and no part of your body seems to be punctured or broken.
@@ -2096,7 +2098,7 @@ The five of you labor for some time to sever the beast&#39;s great head from its
 
 The arrow seems to barely penetrate the scaly armor of the animal&#39;s head, and it jerks with annoyance but continues its charge.
 
-The beast surges forward with an eager snarl, now looming huge before you, and you instinctively dive out of the line of its charge.
+The beast surges forward with an eager snarl, now looming huge before you, and you instinctively dive out of the line of its charge. You manage to roll slightly out of the way as the beast comes by, but it&#39;s huge slashing head smashes against you hard enough to lift you from your feet and knock you sprawling to the ground.
 
 	(if: $totalArmorBonus &gt; 6)[
 Fortunately your armor protects you from the worst of the onslaught, and no part of your body seems to be punctured or broken.
@@ -2832,21 +2834,9 @@ He turns back to you, eyes narrowed. &quot;You come into my hall, accuse my than
 (set:$HrothgarPigRewardLarder to (a:
     (dm:
         &quot;name&quot;, &quot;Hrothgar&#39;s Favor: Golden Arm Ring&quot;,
-        &quot;description&quot;, &quot;An intricately crafted arm ring made of pure gold, adorned with engravings of interwoven knots and symbols representing strength and loyalty. It glimmers warmly in the light, a testament to the king&#39;s appreciation.&quot;,
+        &quot;description&quot;, &quot;An artfully crafted arm ring made of gold, engraved with interwoved knots and symbols representing strength and loyalty. It glimmers warmly in the light, a testament to the king&#39;s appreciation. A priceless treasure, it embues its wearer with the indelible prestige of the favor of King Hrothgar.&quot;,
         &quot;style&quot;,&quot;&quot;,
         &quot;price&quot;, 0
-    ),
-    (dm:
-        &quot;name&quot;, &quot;Hrothgar&#39;s Favor: Jeweled Torc&quot;,
-        &quot;description&quot;, &quot;A heavy neck torc studded with precious gemstones—rubies, sapphires, and emeralds—each reflecting the firelight in a dazzling array. The ends are fashioned into the heads of mythical beasts, signifying honor bestowed upon the bravest warriors.&quot;,
-        &quot;price&quot;,0,
-        &quot;style&quot;,&quot;&quot;
-    ),
-    (dm:
-        &quot;name&quot;, &quot;Hrothgar&#39;s Favor: Silver Arm Band&quot;,
-        &quot;description&quot;, &quot;A broad arm band made of sterling silver, etched with scenes of legendary battles and inset with precious stones.&quot;,
-                &quot;price&quot;,0,
-                        &quot;style&quot;,&quot;&quot;
     )
 ))
 
@@ -3210,7 +3200,8 @@ He turns back to you, eyes narrowed. &quot;You come into my hall, accuse my than
     )
 ))
 
-}</tw-passagedata><tw-passagedata pid="159" name="Initialize Plot" tags="" position="25,525" size="100,100">(set:$ThrythInvestigation to 0)
+}</tw-passagedata><tw-passagedata pid="159" name="Initialize Plot" tags="" position="25,525" size="100,100">(set:$hrothgarsFavor to false)
+(set:$ThrythInvestigation to 0)
 (set:$marthaLocation to &quot;Thryth Farmstead&quot;)
 (set:$fenRuinRopeSecure to false)
 (set:$fenCiarRuinRopeSecure to false)
@@ -4724,16 +4715,17 @@ The crowd parts as you make your way toward the raised dais upon which Hrothgar 
 &quot;Great King Hrothgar,&quot;  you begin, (if:$reputation&#39;s &quot;Heorot Court&quot; is &quot;unknown&quot;)[&quot;I am (print:$name) the skald.&quot;][&quot;My party encountered this monster while patroling the fens beyond the old boundary. It attacked without provocation and fought fiercely, surely a danger to man and livestock alike. I know not whether it be a demon out of hell or a beast of some other time or place conjured here by unnatural magic. I present it here to your majesty as a token of my service to your court,&quot; you conclude with a bow.
 
 The court is full of speculative whispers, some impressed, some scandalized. Hrothgar strokes his thick golden beard and nods pensively for a moment before standing.
-&quot;My good (print:$name), if you are half as skilled with a lute as with a spear, your name will echo through the ages.&quot;
+&quot;My good (print:$name), if you are half as skilled with a lute as with a spear, your name shall echo through the ages.&quot;
 
 He claps his great bejeweled hands, and lets loose a great, hearty bellow of laughter that rings through the hall, and suddenly the court erupts with applause and jubliation. After a long moment, Hrothgar raises his cup, and again the hall falls silent. 
 
 &quot;An impressive feat indeed, and a most awesome trophy! You have shown your skills worthy of Heorot, and you and your followers are welcome here, (print:$name). We shall have this monster&#39;s skull mounted so all can marvel at the terror of those monstrous beings forsaken by God.&quot;
 
 He gestures to his personal steward, who comes forward and opens a small chest of fine lacquered wood.
-&quot;Now come forward and receive a token of my favor. You may choose one.&quot;
+&quot;Now come forward and receive a token of my favor.&quot;
 {
-(set:$achievements to it + (a:&quot;Gave Hrothgar a pig-monster&#39;s head&quot;))(set:$reputation&#39;s &quot;Heorot Court&quot; to &quot;high&quot;)
+(set:$hrothgarsFavor to true)
+(set:$achievements to it + (a:&quot;Wowed Hrothgar and the Heorot court with the severed head of a giant reptilian pig-monster!&quot;))(set:$reputation&#39;s &quot;Heorot Court&quot; to &quot;high&quot;)
 (set:$misc to it - (a:$fenPigHead))
 (for: each _item, ...$HrothgarPigRewardLarder)[(set:_label to &quot;claim &quot; + &quot;name&quot; of _item)
 (set: _descriptionLabel to &quot;Description of &quot; + _item&#39;s &quot;name&quot;)
@@ -4961,7 +4953,7 @@ Sir Thryth is tall and broad-shouldered, clad in fine garments adorned with the 
 
 &quot;I am Sir Thryth,&quot; he announces, his tone measured. &quot;What has brought you to my estate?&quot;
 {
-(if:$hrothgarsFavor)[(set:$reputation&#39;s &quot;Thryth&quot; to &quot;high&quot;)]
+(if:$hrothgarsFavor)[You see his eye travel to the (set:$reputation&#39;s &quot;Thryth&quot; to &quot;high&quot;)]
 (if:$reputation&#39;s &quot;Unferth&quot; is &quot;trusted&quot;)[
 [[Explain that Unferth has tasked you with an official investigation of the facts around the attack.]]&lt;br&gt;
 ]
@@ -5511,7 +5503,7 @@ Exhaustion overtakes your courage, and your martial training abandons you.
 
 Welcome to **Grendelverse**! This is a dynamic text role-playing game (RPG) set in the world of the epic saga **Beowulf**, one of the earliest and gnarliest literary works in (Old) English, and a major influence on Tolkein and basically all modern fantasy.
 
-Now you can explore the surreal and mysterious world of Grendel and the Ring-Danes of Heorot as never before, influencing events and digging beneath the surface of the morally simplistic victor&#39;s narrative we are taught in school. Who or what is the monster Grendel, and what drives his campaign of terror? Can you look into the shadows and find the truth?
+Now you can explore the surreal and mysterious world of Grendel and the Ring-Danes of Heorot as never before, influencing events and digging beneath the surface of the morally simplistic narrative we are taught in school. Who or what is the monster Grendel, and what drives his campaign of terror? Can you look into the shadows and find the truth?
 (set:$saveSlot to &quot;Save Slot 1&quot;)
 [[How to play this game]]
 [[Begin a new game-&gt;Landfall]](set:$reputation to 0)
@@ -5644,7 +5636,7 @@ You straighten, feeling the weight of the moment. The hall is silent now, all at
 
 [[Boldly approach the King and declare yourself a great skald, here to entertain the court and compose an ode to the greatness of Heorot-&gt;Roll: Bard it up in Heorot!]]
 [[Offer your skills as a warrior-&gt;Roll: Combat skills boast]]
-[[Offer your skills as a diplomat in seeking a peaceful solution-&gt;Offer king advice]]</tw-passagedata><tw-passagedata pid="281" name="Thryth Hub" tags="" position="2900,2875" size="200,100">(display: &quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
+[[Offer your skills as a diplomat in seeking a peaceful solution-&gt;Offer king advice]]</tw-passagedata><tw-passagedata pid="281" name="Thryth Hub" tags="" position="2900,2900" size="200,100">(display: &quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
 
 Thryth farmstead consists of a single timber  great house and a bunch of long barracks and smaller outlying sheds, vast fields planted to neat rows of bright green barley, rye, and wheat.
 
