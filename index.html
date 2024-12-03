@@ -542,7 +542,7 @@ He continues, &quot;None of these qualities are enough. The Draugr are relentles
 [[Ask if there is any way to overcome this compulsion]]
 [[Continue-&gt;Dragon Convo Hub]]</tw-passagedata><tw-passagedata pid="37" name="Attack Dragon" tags="" position="4225,5575" size="100,100">(display: &quot;header&quot;)
 Ha bad choice, you get burned up and die.
-&#39;&#39;Game Over&#39;&#39;</tw-passagedata><tw-passagedata pid="38" name="Attack Véfrøðr" tags="" position="4000,5525" size="100,100">(display: &quot;header&quot;)
+&#39;&#39;Game Over&#39;&#39;</tw-passagedata><tw-passagedata pid="38" name="Attack Véfrøðr" tags="" position="3750,5450" size="100,100">(display: &quot;header&quot;)
 Ha bad choice, you get burned up and die.
 &#39;&#39;Game Over&#39;&#39;</tw-passagedata><tw-passagedata pid="39" name="Attack the Sceadugenga" tags="" position="350,4225" size="100,100">(display: &quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
 (display: &quot;updateCombatBonus&quot;)
@@ -649,11 +649,13 @@ You stand alone in the clearing, the weight of the moment pressing down on you. 
 **Chapter Complete!**</tw-passagedata><tw-passagedata pid="43" name="Attempt to jump from stone to stone to reach the ruined tower" tags="" position="1975,3050" size="100,100">(display: &quot;header&quot;)(set:$effort to 2)(display:&quot;Effort&quot;)
 
 ---
-(set: _success to (round: ( (random: 1, 10)+ $energy/10)/2))
-Your success: _success / 10!
-(if: $energy &gt; 20)[(set: $energy to $energy - 20)]
+{(set: $success to  (random: 1, 10) + $energy/10)
+(set: $success to it /2)
+(set:$success to (round:it))
+//Your success: (print:$success)/10//&lt;br&gt;
+(if: $energy &gt; 20)[(set: $energy to $energy - 20)]}
 ---
-(if: _success &gt; 6 )[
+(if: $success &gt; 6 )[
 You take a deep breath to steady yourself, and take two steps to gather speed as you approach the edge before leaping carefully, once, twice, and then a third time, maintaining your momentum, to land tenuously at the edge of the structure.
 
 For one heart-stopping moment, you scrabble at the slick stone, unable to find a secure handhold, before managing to lever your arm against the edge of an overhang. You manage to pull your chest up and onto the stone shelf.
@@ -729,12 +731,15 @@ You strain your eyes, trying to catch any movement among the trees. The forest s
 (if: length of _scenes is 0)[(link-goto: &quot;Continue game&quot;, &quot;Start&quot;)](else:)[(link-goto: &quot;Back to game&quot;, last of _scenes)]</tw-passagedata><tw-passagedata pid="49" name="Beg for Hrothgar&#39;s mercy" tags="" position="4875,675" size="100,100">Suddenly aware of the danger you are in, you stammeringly apologize and offer your sympathy and support for Heorot&#39;s plight, and your faith in Hrothgar&#39;s divinely inspired leadership.
 
 ---
-(set: _success to (round: ( (random: 1, 10)+ $energy/10)/2))
-Your success: _success / 10 !
-(if $energy &gt; 0)[(set: $energy to $energy - 20)]
+{(set: $success to  (random: 1, 10) + $energy/10)
+(set: $success to it /2)
+(display:&quot;silvertongueBonus&quot;)
+(set:$success to (round:it))
+//Your success: (print:$success)/10//&lt;br&gt;
+(if: $energy &gt; 20)[(set: $energy to $energy - 20)]}
 ---
 
-(if: _success &gt; 7 )[
+(if: $success &gt; 7 )[
 Though you barely know what words you&#39;re saying, you manage to avoid the worst of Hrothgar&#39;s disfavor and manage to slink away to the recesses of the hall.
 {
 (set: $reputation&#39;s &quot;Heorot Court&quot; to &quot;low&quot;)
@@ -854,26 +859,22 @@ Ciar and the others attend you and then step aside, eyeing you with concern but 
 (set: $weaponsAndArmor to $smithInventory)
 (set: $food to it + $potions)
 (set: $misc to it + $charms)
-//Cheat Code Mode Enabled!//</tw-passagedata><tw-passagedata pid="57" name="Check on the horses" tags="" position="2825,4850" size="100,100">(display: &quot;header&quot;)
-Your Horse:
+//Cheat Code Mode Enabled!//</tw-passagedata><tw-passagedata pid="57" name="Check on the horses" tags="" position="3650,4725" size="100,100">(display:&#39;header&#39;)(set:$effort to 10)(display:&quot;Effort&quot;)
+(for: each _horse, ... $horses)[
+---
+(print:_horse&#39;s &quot;name&quot;)
+(set: _statuses to _horse&#39;s &quot;statusSnippets&quot;)
+(set: _status to _statuses&#39;s (1))
+(print: _status)
+(if: _status contains &quot;OK&quot;)[
+](else:)[
+(link:&quot;horse healing time&quot;)[]
+]
+]
 
-Svala, your dappled gray mare, snorts softly as she picks her way along the narrow trail. Her ears swivel back and forth, attuned to the whispers of the wind and the subtle creaks of the earth beneath. The reins feel taut in your hands, a silent communication of trust between you and your steed.
 
-Edda&#39;s Horse:
-
-Beside you, Edda guides her black stallion, Gleipnir, a beast as formidable as its rider. Gleipnir&#39;s muscles ripple under a sleek coat, and his breath steams in the cool air. Edda sits tall in the saddle, her blonde hair braided tightly against the wind. Tattoos weave intricate patterns across her skin—symbols of her Gothic lineage. A spiked shield rests on her back, and javelins are secured within easy reach. Her eyes, sharp and calculating, scan the terrain ahead for any sign of danger.
-
-Ciar&#39;s Horse:
-
-Trailing slightly behind is Ciar on her nimble pony, Bran, whose dark coat blends seamlessly with the shadows cast by the overhanging rocks. Ciar&#39;s small frame is wrapped in a cloak of deep green, and strands of her dark hair escape from under her hood. Perched on her shoulder is Morrigan, her raven companion. The bird&#39;s beady eyes reflect the waning light, and it caws softly, a sound that seems to meld with the murmurs of the mountain. Ciar whispers in response, her words a melodic cadence lost to the wind.
-
-Lothar&#39;s Horse:
-
-Lothar the Lombard follows on his sturdy chestnut gelding, Gorm, whose broad back bears the weight of Lothar&#39;s heavy armor with steadfast endurance. Lothar&#39;s blonde hair peeks out from beneath his helmet, his youthful face marred by a perpetual smirk. An imposing axe hangs at his side, and his fingers drum eagerly against the haft. &quot;These hills could use a good clearing,&quot; he mutters, a hint of anticipation in his voice.
-
-Hroald&#39;s Horse:
-
-At the rear rides Hroald, astride Skirnir, a mottled gray horse with a calm demeanor. Hroald adjusts his worn cloak, his keen eyes taking in every detail of the surroundings. Lines of experience etch his face, and a cynical smile plays at the corner of his mouth. &quot;Mind your steps,&quot; he warns. &quot;This path is as treacherous as the promises of a Jarl.&quot;</tw-passagedata><tw-passagedata pid="58" name="Church Hub" tags="" position="1675,2525" size="200,200">(display:&quot;header&quot;)(set:$effort to 1)(display:&quot;Effort&quot;)
+---
+(display: &quot;Back-link&quot;)</tw-passagedata><tw-passagedata pid="58" name="Church Hub" tags="" position="1675,2525" size="200,200">(display:&quot;header&quot;)(set:$effort to 1)(display:&quot;Effort&quot;)
 Inside, the church is sparsely decorated but exudes a sense of earnest devotion. Wooden benches, roughly carved but well-used, line the walls. The wood is dark and polished smooth from years of use, the grain patterns visible under the flickering candlelight. The floor is covered with rushes, replaced regularly to keep the space clean and fresh.
 
 At the front of the church stands a simple altar, made from a large, flat stone supported by wooden legs. A wooden cross, intricately carved with delicate patterns, hangs on the wall behind it. Candles, made from tallow, cast a soft, wavering light. The air inside is cool and carries the faint, smoky scent of burning tallow mixed with the earthy smell of the wooden structure.
@@ -1066,7 +1067,7 @@ Lothar grunts. &quot;Let&#39;s hope Sir Thryth is more welcoming than his fields
 
 As you approach the entrance to the complex, a sturdy wooden gate reinforced with iron bands, two guards step forward. They wear chainmail and carry spears, their expressions hard.
 
-[[Request Audience with Sir Thryth]]</tw-passagedata><tw-passagedata pid="71" name="Could this be Grendel himself? Take your chance and try to assassinate the Sceadugenga leader!" tags="" position="2750,2850" size="100,100">(display: &quot;header&quot;)
+[[Request Audience with Sir Thryth]]</tw-passagedata><tw-passagedata pid="71" name="Could this be Grendel himself? Take your chance and try to assassinate the Sceadugenga leader!" tags="" position="2700,2825" size="100,100">(display: &quot;header&quot;)
 
 A surge of ambition floods your veins as you stand amidst the ancient beings. Ignoring Torsten&#39;s earlier warning, your hand moves slowly toward the hilt of your sword. The thought of becoming a celebrated hero in Hrothgar&#39;s court, the one who vanquished the leader of the dreaded Sceadugenga, consumes your mind.
 
@@ -1075,10 +1076,14 @@ Torsten notices the shift in your demeanor. His eyes widen with alarm as he whis
 But it&#39;s too late. In one swift motion, you unsheathe your sword and lunge at the Sceadugenga leader. Time seems to slow as the blade arcs through the air.
 
 ---
-(set: _success to (round: ( (random: 1, 10)+ $energy/10)/2))
-Your success: _success / 10!
+{(set: $success to  (random: 1, 10) + $energy/10)
+(set: $success to it /2)
+(display:&quot;tyrsEmblemBonus&quot;)
+(set:$success to (round:it))
+//Your success: (print:$success)/10//&lt;br&gt;
+(if: $energy &gt; 20)[(set: $energy to $energy - 20)]}
 ---
-(if: _success &gt; 7 )[
+(if: $success &gt; 7 )[
 (set: $achievements to it + (a:&quot;Slew Sceadugenga chieftan!&quot;))
 
 
@@ -1472,12 +1477,14 @@ The nightmare pig-thing lets out a strange, low, belching roar unlike the sound 
 The ground trembles beneath you as the creature comes. With no weapon in hand, you decide to trust to your own skill and agility to save you.
 
 ---
-(set: _success to (round: ( (random: 1, 10)+ $energy/10)/2))
-(set: _success to it + $totalCombatBonus)
-Your success: _success / 10!
-(if: $energy &gt; 20)[(set: $energy to $energy - 20)]
+{(set: $success to  (random: 1, 10) + $energy/10)
+(set: $success to it /2)
+(display:&quot;tyrsEmblemBonus&quot;)
+(set:$success to (round:it))
+//Your success: (print:$success)/10//&lt;br&gt;
+(if: $energy &gt; 20)[(set: $energy to $energy - 20)]}
 ---
-(if: _success &gt; 8 )[
+(if: $success &gt; 8 )[
 
 You manage to twist sidways, placing your hand on its great head and pushing off at just the right moment to avoid the threshing spikes on the creature&#39;s head as it swipes at you.  It circles back to face you, its beady eyes tracking you carefully as its plots its next charge.
 
@@ -1550,21 +1557,17 @@ It shifts its coils slightly, the movement revealing more of its immense, serpen
 
 Unferth leads you over to a wooden table and retrieves a small, ancient map from a hidden compartment in his belt. &quot;This was discovered among my family&#39;s relics,&quot; Unferth says softly. The parchment is brittle and the edges tattered, and the ink faded with age, although the map is remarkably detailed. Intricate runes and symbols decorate the margins, and a winding path leads to a mountain depicted with flames.
 
-&quot;Start your search in this area,&quot; he says, indicating a point on the map referenced as Drekaborg and indicated to be a ruined fort. 
+&quot;Start your search in this area,&quot; he says, indicating a point on the map referenced as Drekaborg and indicated to be a ruined fort.
+
 He fixes you with a piercing gaze. &quot;If you can locate the entrance to the dragon&#39;s cave, it would be a significant boon to Heorot. Be warned, dragons are not to be taken lightly, even in slumber.&quot;
 
-He hands you the map carefully. &quot;Dragons leave signs of their presence—scorched earth, melted stone, and tales whispered by the wind. Be vigilant. The journey is fraught with peril, but the rewards—ancient treasures, knowledge, perhaps even dragon scales—could be beyond measure.&quot;
+He hands you the map carefully. &quot;Dragons leave signs of their presence—scorched earth, melted stone. Be vigilant, and cautious. The potentional rewards from this undertaking are great, but so are the risks.
 
-Unferth&#39;s gaze hardens as he gives you some final advice.
-
-&quot;Remember, the dragon is a legend, but it is still a creature of flesh and blood. To the point at hand, it is an adversary with strengths and weaknesses. The goal of this mission is to gather intelligence on the whereabouts and status of the beast. Do not be a fool and get yourself killed, or neither of us shall have what we desire.
-
-&quot;The area to search is several days ride from here.&quot; Unferth explains.
-
-&quot;If you and your retinue are prepared to depart on the morrow, I&#39;ll have the stablemen prepare your mounts and equippage.&quot;
+&quot;Remember,&quot; he continues, &quot;a dragon is a creature of legend, but it is also still a creature of flesh and blood. To the point at hand, it is an adversary with strengths and weaknesses. The goal of this mission is to gather intelligence on the whereabouts and status of the beast. I will reward you well for that. Do not be a fool and get yourself killed, or neither of us shall have what we desire.
+&quot;The area to search is several days ride from here. If you and your retinue are prepared to depart on the morrow, I&#39;ll have the stablemen prepare your mounts and equippage.&quot;
 
 (if:length of $horses &gt;= 5)[
-[[Set out for Drekaborg]]
+[[[Set out for Drekaborg on the morrow-&gt;Set out for Drekaborg]]
 ](else:)[
 //You must acquire enough horses for your party.//
 ]
@@ -1576,8 +1579,6 @@ The air is crisp and thin, tinged with the scent of pine and the distant promise
 
 The terrain here is unforgiving—a maze of steep inclines and jagged rocks that challenge both horse and rider. Your mounts must tread cautiously, their hooves dislodging loose stones that clatter down the slopes, echoing ominously in the stillness. Every sound seems amplified, a reminder of the need for stealth in this desolate place.
 
-
-
 [[Check on the horses]]
 [[Observe the fort]]
 [[Establish a hidden base camp-&gt;Set Up Drekaborg Camp]]
@@ -1586,6 +1587,7 @@ The terrain here is unforgiving—a maze of steep inclines and jagged rocks that
 Round 1
 
 (set: _success1 to (round: ( (random: 1, 10)+ $energy/10)/2))
+(display:&quot;tyrsEmblemBonus&quot;)
 (if: $energy &gt; 20)[(set: $energy to $energy - 20)]
 (set: _success1 to it + $totalCombatBonus)
 Your success: _success1 / 10!
@@ -1795,9 +1797,14 @@ As you walk away, the weight of your actions settles heavily on your shoulders. 
 [[Sleep at the Church-&gt;Church Post Execution]]</tw-passagedata><tw-passagedata pid="109" name="Elders dragon hub" tags="" position="2300,2100" size="100,100">[[Ask Eir about making a sleeping potion for a dragon]]</tw-passagedata><tw-passagedata pid="110" name="EnergyReset" tags="" position="150,1050" size="100,100">{(set: $energy to 100)(display:&quot;Initialize Larders&quot;)}
 ---
 //Energy restored to (print:$energy)/100//
----</tw-passagedata><tw-passagedata pid="111" name="Enter the Underground Tunnel" tags="" position="3225,4875" size="100,100">(display: &quot;header&quot;)
+---</tw-passagedata><tw-passagedata pid="111" name="Enter the Underground Tunnel" tags="" position="3100,4925" size="100,100">(display: &quot;header&quot;)
 
-spoooky!!!</tw-passagedata><tw-passagedata pid="112" name="Examine Thryth Scene" tags="" position="3025,3075" size="100,100">(display: &quot;header&quot;)(set:$ThrythInvestigation to it+20)
+spoooky!!!
+
+so yeah this is a trap, should be kind of classic dnd esque i guess, basically if you go in you get funneled into an ambush spot
+
+[[Continue-&gt;Drekaborg side entrance]]
+[[Back-&gt;</tw-passagedata><tw-passagedata pid="112" name="Examine Thryth Scene" tags="" position="3025,3075" size="100,100">(display: &quot;header&quot;)(set:$ThrythInvestigation to it+20)
 
 Thryth assigns one of the guards to lead you around. he shows you the wreckage fo the small, bare shack where the thralls lived, who were killed in the attack. It&#39;s one such shack in a row of several others, which are still intact.
 
@@ -1805,7 +1812,7 @@ the small shack was literally torn apart rather than broken into, with the door 
 
 &quot;But why did they target //this// group and no other?&quot; muses Ciar.
 
-[[Continue-&gt;Thryth Hub]]</tw-passagedata><tw-passagedata pid="113" name="Examine the horses" tags="" position="4125,4675" size="100,100">(display:&#39;header&#39;)(set:$effort to 10)(display:&quot;Effort&quot;)
+[[Continue-&gt;Thryth Hub]]</tw-passagedata><tw-passagedata pid="113" name="Examine the horses" tags="" position="4475,4850" size="100,100">(display:&#39;header&#39;)(set:$effort to 10)(display:&quot;Effort&quot;)
 (for: each _horse, ... $horses)[
 ---
 (print:_horse&#39;s &quot;name&quot;)
@@ -2041,12 +2048,14 @@ The nightmare pig-thing lets out a strange, low, belching roar unlike the sound 
 The ground trembles beneath you as the creature comes. You draw your sword, aware that this is probably not the most conventional tool for the job, but prepared to trust to your skill.
 
 ---
-(set: _success to (round: ( (random: 1, 10)+ $energy/10)/2))
-(set: _success to it + $totalCombatBonus)
-Your success: _success / 10!
-(if: $energy &gt; 20)[(set: $energy to $energy - 20)]
+{(set: $success to  (random: 1, 10) + $energy/10)
+(set: $success to it /2)
+(display:&quot;tyrsEmblemBonus&quot;)
+(set:$success to (round:it))
+//Your success: (print:$success)/10//&lt;br&gt;
+(if: $energy &gt; 20)[(set: $energy to $energy - 20)]}
 ---
-(if: _success &gt; 7 )[
+(if: $success &gt; 7 )[
 
 You manage to twist sidways, avoiding the threshing spikes on the creature&#39;s head as it swipes at you, and the point of your sword just finds the beast&#39;s eye, prompting a great angry bellow of pain. It circles back to face you, spraying blood as it shakes its head wildly.
 
@@ -2124,11 +2133,14 @@ The nightmare pig-thing lets out a strange, low, belching roar unlike the sound 
 The ground trembles beneath you as the creature comes. You set your spear against the earth and prepare to meet the beast&#39;s charge, trusting to your skill and the strength of your steel.
 
 ---
-(set: _success to (round: ( (random: 1, 10)+ $energy/10)/2))
-Your success: _success / 10!
-(if: $energy &gt; 20)[(set: $energy to $energy - 20)]
+{(set: $success to  (random: 1, 10) + $energy/10)
+(set: $success to it /2)
+(display:&quot;tyrsEmblemBonus&quot;)
+(set:$success to (round:it))
+//Your success: (print:$success)/10//&lt;br&gt;
+(if: $energy &gt; 20)[(set: $energy to $energy - 20)]}
 ---
-(if: _success &gt; 6 )[
+(if: $success &gt; 6 )[
 
 You raise your spear at just the right moment to catch the bulk of the charging creature&#39;s momentum on the point, just above its breast bone. The long, leaf-shaped blade buries itself deep in the monstrous flesh, and the animal lets out a great groan of surprise and dying rage, its breath hot in your face and wet with blood and spittle, as the momentum of the beast&#39;s charge snaps the spear and buries you under its great, bloody, dying mass.
 
@@ -2172,12 +2184,14 @@ The nightmare pig-thing lets out a strange, low, belching roar unlike the sound 
 The ground trembles beneath you as the creature comes. You draw your sword, aware that this is probably not the most conventional tool for the job, but prepared to trust to your skill.
 
 ---
-(set: _success to (round: ( (random: 1, 10)+ $energy/10)/2))
-(set: _success to it + $totalCombatBonus)
-Your success: _success / 10!
-(if: $energy &gt; 20)[(set: $energy to $energy - 20)]
+{(set: $success to  (random: 1, 10) + $energy/10)
+(set: $success to it /2)
+(display:&quot;tyrsEmblemBonus&quot;)
+(set:$success to (round:it))
+//Your success: (print:$success)/10//&lt;br&gt;
+(if: $energy &gt; 20)[(set: $energy to $energy - 20)]}
 ---
-(if: _success &gt; 7 )[
+(if: $success &gt; 7 )[
 
 You manage to twist sidways, avoiding the threshing spikes on the creature&#39;s head as it swipes at you, and the point of your sword just finds the beast&#39;s eye, prompting a great angry bellow of pain. It circles back to face you, spraying blood as it shakes its head wildly.
 
@@ -2793,16 +2807,18 @@ He turns back to you, eyes narrowed. &quot;You come into my hall, accuse my than
   ),
   $seersMead
 ))
-
-(set: $charms to (a:
-  $silvertongueCharm,
-  $archeryCharm,
-  (dm:
+(set:$tyrsEmblem to  (dm:
       &quot;name&quot;, &quot;Tyr&#39;s Battle Emblem&quot;,
       &quot;price&quot;, 45,
       &quot;description&quot;, &quot;A sturdy emblem engraved with the symbol of Tyr, the Norse god of war.&quot;,
           &quot;bonus&quot;,&quot;Melee weapon attacks +3&quot;
-  ),
+  ))
+
+
+(set: $charms to (a:
+  $silvertongueCharm,
+  $archeryCharm,
+ $tyrsEmblem,
   $seaCharm,
   $protectionCharm
 ))
@@ -3893,7 +3909,7 @@ Name: (print: &quot;name&quot; of _item) | [_label]&lt;br&gt;
 ]
 }
 
-[[Head back to town-&gt;Head back to town from the tree]]</tw-passagedata><tw-passagedata pid="179" name="Instruct the party to follow you up to the fort" tags="" position="3025,4500" size="100,100">(display: &quot;header&quot;)
+[[Head back to town-&gt;Head back to town from the tree]]</tw-passagedata><tw-passagedata pid="179" name="Drekaborg main entrance" tags="" position="2925,4425" size="100,100">(display: &quot;header&quot;)
 as you approach its very suspiciously queit, no wildlife or anything on the hill, there are signs of passage, the trails are well worn and neat, but no clear signs of inhabitants
 
 as you near the entrance up top, Ciar says she spots movement, a figure, so you think there are watchers.
@@ -4324,7 +4340,7 @@ The hill is covered with dense vegetation—gnarled trees and thick bushes that 
 
 The air carries the scent of damp earth and faint, acrid whiff of sulfur.
 
-[[Instruct the party to follow you up to the fort]]
+[[Drekaborg main entrance]]
 [[Instruct Ciar, the stealthiest of you, to scout the fort while the rest of you stay behind]]
 [[Remain at a cautious distance-&gt;Drekaborg Quest Hub]]</tw-passagedata><tw-passagedata pid="206" name="Observe the guards" tags="" position="3175,550" size="100,100">(display:&quot;header&quot;)(set:$effort to 0)(display:&quot;Effort&quot;)
 The guards of Heorot Hall are a formidable presence, their primary role to protect the king and maintain order. They are stationed at strategic points around the hall, ever vigilant and ready to act at a moment&#39;s notice.
@@ -4510,14 +4526,16 @@ Aelfric leans closer, his eyes boring into yours. &quot;You must go to King Hrot
 The priest&#39;s voice grows more impassioned, almost fervent. &quot;But beware, for there are those who still cling to the old ways, who fear the light and embrace the darkness. And there are those who live among us, but serve the enemy. They may look like men and women, but if they serve the devil Grendle, then they are accursed. Their whispers can undermine the courage of even the strongest hearts. But stay true to your faith, and the light of Christ will be your strength.&quot;
 
 [[Inquire about Grendel&#39;s weaknesses]]
-[[Continue-&gt;Church Hub]]</tw-passagedata><tw-passagedata pid="220" name="Onward for Drekaborg" tags="" position="3900,4950" size="100,100">(display:&quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
-The rhythmic clopping of hooves on packed earth sets a steady pace. The landscape unfolds around you:
+[[Continue-&gt;Church Hub]]</tw-passagedata><tw-passagedata pid="220" name="Onward for Drekaborg" tags="" position="3975,4625" size="100,100">(display:&quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
+Two days pass in relative peace as you and your companions make your way south and west into the interior of 
+The rhythmic clopping of hooves on packed earth sets a steady pace.
 
-    Forests: Towering beech and oak trees line sections of the road, their leaves whispering secrets as the wind rustles through them.
-    Farmlands: Fields of barley and rye stretch out, tended by farmers who pause to watch your passage.
-    Villages: Small clusters of thatched-roof houses, where children play and elders share stories by the hearth.
+Fields of barley and rye stretch out, tended by farmers who pause to watch your passage. Small clusters of thatched-roof houses, where children play and elders share stories by the hearth.
 
-The journey is not without its challenges. The road is long, and the weight of your mission hangs over the group. Yet, there is also camaraderie:
+Towering beech and oak trees line sections of the road,
+
+The journey is not without its challenges. The road is long, and the weight of your mission 
+hangs over the group. Yet, there is also camaraderie:
 
     Conversations: Ciar shares tales of her homeland, and Hroald points out landmarks steeped in local lore.
     Moments of Levity: Lothar hums a warrior&#39;s song, his deep voice resonating over the plains.
@@ -5094,13 +5112,13 @@ Now prepared, you swing the sword in a few cuts to test its balance, and move to
 //Your success: (print:$success)/10//&lt;br&gt;
 (if: $energy &gt; 20)[(set: $energy to $energy - 20)]}
 ---
-(if: _success &gt; 7 )[
+(if: $success &gt; 7 )[
 {(set: $achievements to it + (a:&quot;defeated Hrothulf!&quot;))
 (set: $reputation&#39;s &quot;Heorot Court&quot;  to &quot;high&quot;)
 (set:$doneQuest to &quot;Make a name for yourself at Heorot Hall&quot;)(display:&quot;questComplete&quot;)
-}
 (set: $reputation&#39;s &quot;Unferth&quot;  to &quot;friendly&quot;)
-(set: $reputation&#39;s &quot;Hrothulf&quot;  to &quot;rival&quot;)}
+(set: $reputation&#39;s &quot;Hrothulf&quot;  to &quot;rival&quot;)
+}
 Hrothulf takes a ready stance, and you mirror his posture, your mind sharp and focused. The hall falls silent as Hrothgar gives the command, &quot;begin!&quot;.
 
 Hrothulf moves quickly, his strikes swift and precise, yet you parry each blow with practiced ease, your movements feeling smooth and effortless, the rhythm of his attacks predictable.
@@ -5117,7 +5135,7 @@ Hrothulf&#39;s face is red with an uncertain mixture of exertion and humiliation
 
 (set:$doneQuest to &quot;Make a name for yourself at Heorot Hall&quot;)(display:&quot;questComplete&quot;)
 [[Continue-&gt;Unferth sword introduction]]
-](else-if: _success &gt; 4 )[
+](else-if: $success &gt; 4 )[
 (set: $reputation&#39;s &quot;Heorot Court&quot;  to &quot;mid&quot;)
 (set: $reputation&#39;s &quot;Unferth&quot;  to &quot;friendly&quot;)
 (set: $reputation&#39;s &quot;Hrothulf&quot;  to &quot;friendly&quot;)
@@ -5154,11 +5172,14 @@ You make a hasty retreat, the echoes of laughter and the weight of your failure 
 [[Flee Heorot Hall in disgrace-&gt;Village Hub]]
 ]</tw-passagedata><tw-passagedata pid="249" name="Run from frog" tags="" position="2475,4050" size="100,100">(display: &quot;header&quot;)
 ---
-(set: _success to (round: ( (random: 1, 10)+ $energy/10)/2))
-Your success: _success / 10!
-(if: $energy &gt; 20)[(set: $energy to $energy - 20)]
+{(set: $success to  (random: 1, 10) + $energy/10)
+(set: $success to it /2)
+(display:&quot;tyrsEmblemBonus&quot;)
+(set:$success to (round:it))
+//Your success: (print:$success)/10//&lt;br&gt;
+(if: $energy &gt; 20)[(set: $energy to $energy - 20)]}
 ---
-(if: _success &gt; 4 )[
+(if: $success &gt; 4 )[
 
 Success: (print:_success)/10 !
 You scamper backwards, narrowly avoiding the terrible, siezing jaws and grasping tongue of the fen creature as it hurtles its bulk onto the shore. You feel Hroald and Edda grab your arms from behind and pull you back, up the bank and away from hungry death.
@@ -5180,9 +5201,8 @@ You are engulfed in cold blackness, which floods into your nose and mouth, even 
 &#39;&#39;Game Over!&#39;&#39;
 
 ]</tw-passagedata><tw-passagedata pid="250" name="Scout Drekaborg Surroundings" tags="" position="3225,4750" size="100,100">(display:&quot;header&quot;)
-Determined to gather evidence of the dragon&#39;s presence, you and your companions set out to scout the surrounding area. The morning mist clings to the landscape, shrouding the world in a veil of gray.
 
-The terrain is uneven, with patches of loose rocks and dense underbrush. The remnants of an ancient, overgrown path occasionally emerge beneath your feet—smooth stones worn by time and partially swallowed by nature.
+The terrain around Drekaborg is uneven, with patches of loose rocks, thickets of dense scrub, and sheer craggy cliffs. The remnants of an ancient, overgrown path occasionally emerge beneath your feet—smooth stones worn by time and partially swallowed by nature.
 
 An eerie stillness pervades the air. The usual sounds of wildlife are absent. No birds sing, no insects buzz. It&#39;s as if the land itself is holding its breath.
 
@@ -5311,15 +5331,13 @@ You unroll the ancient map, careful not to let it rustle loudly. In the faint st
 
 
 
-[[Settle in for the night&#39;s rest-&gt;Sleep Drekaborg]]</tw-passagedata><tw-passagedata pid="255" name="Set out for Drekaborg" tags="" position="4300,4650" size="100,100">(display:&quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
+[[Settle in for the night&#39;s rest-&gt;Sleep Drekaborg]]</tw-passagedata><tw-passagedata pid="255" name="Set out for Drekaborg" tags="" position="4200,4450" size="100,100">(display:&quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
 Unferth sends word, and preparations are made for your departure.
-You, Ciar, Hroald, Edda, and Lothar, spend the rest of the evening as guests of the hall, dining well and sleeping on comfortable mats.
+You, Ciar, Hroald, Edda, and Lothar, spend the rest of the evening as guests of the hall, dining well, and you sleep soundly on comfortable mats in a well-chosen spot near a large hearth.
 
-In the morning, sun casts a golden hue over the mustering yard outside Heorot Hall, as you and your companions prepare to embark on the quest to Drekaborg. The air is crisp, filled with the scent of dew-kissed grass and the distant brine of the sea. Stable hands lead out five horses, each a fine specimen bred for endurance and temperament, suited for the journey ahead.
+In the morning, you break your fast, and, fully refreshed, you stand in the mustering yard outside Heorot Hall. The sun casts a golden hue over the, as you and your companions prepare to embark on the quest to Drekaborg. The air is crisp and scented with the brine of the sea. Stable hands lead out your horses.
 
-Villagers from Kattinge gather to see you off, their faces a mix of curiosity, and apprehension.
-
-Hroald takes the lead, his knowledge of the land invaluable. &quot;We&#39;ll follow the Old King&#39;s Road westward,&quot; he explains, pointing toward the distant horizon where the path disappears into a stand of ancient oaks. &quot;It will lead us past Roskilde Fjord, and from there we&#39;ll turn south toward the hills where Drekaborg lies.&quot;
+Hroald, skilled in maps, has plotted a route for the journey. &quot;We&#39;ll follow the Old King&#39;s Road westward,&quot; he explains,&quot;It will lead us past Roskilde Fjord, and from there we&#39;ll turn south toward the hills where Drekaborg lies.&quot;
 
 [[Examine the horses]]
 [[Onward for Drekaborg]]</tw-passagedata><tw-passagedata pid="256" name="Set out for Thryth farmstead" tags="" position="3500,2175" size="100,100">(display:&#39;header&#39;)(set:$effort to 10)(display:&quot;Effort&quot;)
@@ -6399,7 +6417,7 @@ Hroald steps closer to you, his voice a low growl. &quot;Sceadugenga,&quot; he m
 [[Retreat carefully in formation-&gt;Stand ground against Scea]]</tw-passagedata><tw-passagedata pid="332" name="Grendel Attack Inn" tags="" position="250,3850" size="100,100">(display:&quot;header&quot;)(set:$energy to 50)(set:$effort to 9)(display:&quot;Effort&quot;)
 You are woken in the middle of the night by commotion... Grendel has attacked Heorot and is ransacking the town, people are killed in the stre
 
-or maybe you&#39;re awoken early the next morning when some one burst in and is telling the innkeeper about the attack on heorot</tw-passagedata></tw-storydata>
+or maybe you&#39;re awoken early the next morning when some one burst in and is telling the innkeeper about the attack on heorot</tw-passagedata><tw-passagedata pid="333" name="Drekaborg side entrance" tags="" position="2975,5075" size="100,100">detect trap, set off trap </tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
