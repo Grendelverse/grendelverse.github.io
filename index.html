@@ -1646,7 +1646,7 @@ Her gaze does not leave yours as she repeats the word, louder, not shouting but 
 ](else-if: $reputation&#39;s &quot;Eir&quot; is &quot;unknown&quot;)[
 (set: $reputation&#39;s &quot;Eir&quot; to &quot;friendly&quot;)
 
-Behind the stall stands a striking woman. Her long, flowing silver hair cascades over her shoulders, catching the dappled sunlight. Sharp, keen eyes meet yours, seeming to see not just you but through you, as if reading the pages of your life&#39;s story. Despite the color of her hair her face is strangely ageless, and she carries herself with a quiet, dignified grace.
+Behind the stall stands a tall, striking woman with long, silver hair flowing over her shoulders. Sharp, keen eyes meet yours, seeming to see not just you but through you, as if reading the pages of your life&#39;s story. Despite the color of her hair her face is strangely ageless, and she carries herself with a quiet, dignified grace.
 
 Noticing your approach, she offers a warm, welcoming smile. &quot;Greetings, traveler,&quot; she says, &quot;I am Eir, keeper of herbs and seeker of truths.&quot;
 ](else-if: $reputation&#39;s &quot;Eir&quot; is &quot;friendly&quot;)[
@@ -3998,8 +3998,44 @@ You are $name, a Skald (bard) of the Scylding people, wandering musician, advent
 The stories of Grendel have spread throughout the the Scylding lands, a terrifying monster that defies all authority, attacking farmsteads and keeps, tearing grown men from their beds in the dark of night. Even in a domain where dark magic, witches, and ghosts are felt as ever-present threats to civilized folk, the brazen ferocity of the fiend Grendel has gripped the popular imagination. It&#39;s a //fantastic// idea for an epic saga, if you can just find the right angle...
 
 And so, seeking the dark heart of this fearsome legend, you have voyaged by sea from your home to Heorot, the kingdom shadowed by the terror of Grendel. Your wobbly sea legs slowly adjust once more to the steadiness of land as you take in the scenery before you.
+{
+(link:&quot;View/Edit Attribute Bonuses&quot;)[
 
-[[Explore...-&gt;Village Hub]](display: &quot;initialize&quot;)</tw-passagedata><tw-passagedata pid="188" name="Legend of the Lindworm" tags="" position="3150,2050" size="100,100">(display: &quot;header&quot;)
+(set:_x to $attrs&#39;s &quot;charisma&quot;)
+[Charisma:(print:_x) (if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes]]&lt;cha| |  (link-repeat:&quot;+1&quot;)[
+(set:$attrs&#39;s &quot;charisma&quot; to it + 1)
+] | (link-repeat:&quot;-1&quot;)[
+(set:$attrs&#39;s &quot;charisma&quot; to it + 1)
+]&lt;br&gt;
+(set:_x to $attrs&#39;s &quot;intelligence&quot;)
+[Intelligence:(print:_x) (if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes]
+]&lt;int| |  (link-repeat:&quot;+1&quot;)[
+(set:$attrs&#39;s &quot;intelligence&quot; to it + 1)(set:_x to $attrs&#39;s &quot;intelligence&quot;)
+(replace:?int)[Intelligence:(print:_x) (if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes]]
+] | (link-repeat:&quot;-1&quot;)[
+(set:$attrs&#39;s &quot;intelligence&quot; to it + 1)
+]&lt;br&gt;
+
+(set:_x to $attrs&#39;s &quot;wisdom&quot;)
+
+[wisdom:(print:_x) (if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes]]&lt;wis| |  (link-repeat:&quot;+1&quot;)[
+(set:$attrs&#39;s &quot;wisdom&quot; to it + 1)
+] | (link-repeat:&quot;-1&quot;)[
+(set:$attrs&#39;s &quot;wisdom&quot; to it + 1)
+]&lt;br&gt;
+
+(set:_x to $attrs&#39;s &quot;dexterity&quot;)
+[dexterity:(print:_x) ((if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes])]&lt;cha| |  (link-repeat:&quot;+1&quot;)[
+(set:$attrs&#39;s &quot;dexterity&quot; to it + 1)
+] | (link-repeat:&quot;-1&quot;)[
+(set:$attrs&#39;s &quot;dexterity&quot; to it + 1)
+]&lt;br&gt;
+
+]}
+[[Explore...-&gt;Village Hub]](display: &quot;initialize&quot;)
+
+
+[//Your current silver:// (print: $sp)]&lt;sp|&lt;br&gt;</tw-passagedata><tw-passagedata pid="188" name="Legend of the Lindworm" tags="" position="3150,2050" size="100,100">(display: &quot;header&quot;)
 &quot;Long ago, in the shadowed depths of Göinge Forest, there dwelled a creature unlike any other—a Lindwyrm, a sea serpent as large as a ship, with scales that shimmered like moonlight on water and eyes that glowed with otherworldly fire.&quot;
 
 &quot;The Lindwyrm was no ordinary beast. It was said to possess the wisdom of ages, speaking in riddles and prophecies to those brave or foolish enough to seek it. But beware—its temper was as unpredictable as the shifting winds, and most who ventured into its domain were never seen again.&quot;
