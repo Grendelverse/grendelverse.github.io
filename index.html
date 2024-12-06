@@ -1239,10 +1239,10 @@ He glances around to ensure no one is within earshot. &quot;The journey will be 
 
 He meets your eyes earnestly. &quot;Your discretion and skill make you an ideal candidate for this task. Will you assist me?&quot;
 
-[[Inquire about the Relic Quest]]</tw-passagedata><tw-passagedata pid="83" name="Discuss quest: Find the Dragon&#39;s Lair" tags="" position="3675,2150" size="100,100">(display: &quot;header&quot;)
+[[Inquire about the Relic Quest]]</tw-passagedata><tw-passagedata pid="83" name="Discuss quest: Find the Dragon&#39;s Lair" tags="" position="3625,2075" size="100,100">(display: &quot;header&quot;)
 &quot;Speaking of dragons,&quot; Unferth&#39;s voice drops to a whisper, his eyes scanning the room before continuing, &quot;there is also a more... unusual task. We know there is a dragon in the area, though it has not been seen in two generations. Its lair is hidden, but finding it could provide us with invaluable resources—or unleash a terrible threat.&quot;
 
-(if:$reputation&#39;s &quot;Véfrøðr&quot; is &quot;unknown&quot;)[
+(if: $reputation&#39;s &quot;Véfrøðr&quot; is &quot;unknown&quot;)[
 [[Inquire about the details of the dragon quest-&gt;Dragon Quest Inquiry]]
 ](else:)[
 [[Debrief Unferth about your findings at Drekaborg]]
@@ -1560,7 +1560,7 @@ He hands you the map carefully. &quot;Dragons leave signs of their presence—sc
 &quot;The area to search is several days ride from here. If you and your retinue are prepared to depart on the morrow, I&#39;ll have the stablemen prepare your mounts and equippage.&quot;
 
 (if:length of $horses &gt;= 5)[
-[[[Set out for Drekaborg on the morrow-&gt;Set out for Drekaborg]]
+[[Set out for Drekaborg on the morrow-&gt;Set out for Drekaborg]]
 ](else:)[
 //You must acquire enough horses for your party.//
 ]
@@ -2347,7 +2347,15 @@ You are in a small clearing in the deep forest. The moon hangs high in the sky, 
     Sorry, I couldn&#39;t save your game.
   ]&lt;br&gt;
 ]
----
+(if:$saveSlot is in (data-names:(saved-games:)))[
+&lt;br&gt;
+(link: &quot;Reload from last save of current game&quot;)[
+//Reload from last save? Your unsaved progress will be lost.//
+(link:&quot;Confirm&quot;)[
+(load-game:$saveSlot)]
+]&lt;br&gt;
+
+
 (link: &quot;Save game in new slot&quot;)[
 (input-box:2bind _saveSlot,&quot;&lt;==&quot;,&quot;Save Slot 2&quot;) (link:&quot;Save&quot;)[
   (set:$saveSlot to _saveSlot)
@@ -2359,15 +2367,11 @@ You are in a small clearing in the deep forest. The moon hangs high in the sky, 
       Sorry, I couldn&#39;t save your game.
     ]&lt;br&gt;
   ]
+]&lt;br&gt;
 ]
-(if:$saveSlot is in (data-names:(saved-games:)))[
-&lt;br&gt;
-(link: &quot;Reload from last save of current game&quot;)[(load-game:$saveSlot)]
 ]&lt;br&gt;
-]&lt;br&gt;
-
-#### Load a previously saved game:
-
+(link:&quot;Load a previously saved game&quot;)[
+//Load a previously saved game://
 &lt;ul&gt;
 (for: each _slot, ...(data-names:(saved-games:)))[
 &lt;li&gt; (link: _slot)[
@@ -2376,21 +2380,25 @@ You are in a small clearing in the deep forest. The moon hangs high in the sky, 
   ]&lt;/li&gt;
 ]
 &lt;/ul&gt;
-
+]&lt;br&gt;
 }
-#### Start a new game 
+(link:&quot;Start a new game&quot;)[
+//Start a new game://
 Over-write current saved-game slot
+//Your unsaved progress will be lost.//
 [[Restart-&gt;Landfall]]&lt;br&gt;
 Or enter name of new game slot
-//Note: this will overwrite a pre-existing saved game with same name if one exists.//
+//This will overwrite a pre-existing saved game with same name if one exists.//
 {
 (link:&quot;Create new slot&quot;)[
+//Create new slot//
   (input-box:2bind _saveSlot,&quot;&lt;==&quot;,&quot;Save Slot 2&quot;) | (link:&quot;Create game&quot;)[
   (set:$saveSlot to _saveSlot)
   (go-to:&quot;Landfall&quot;)
   ]
 ]
-}</tw-passagedata><tw-passagedata pid="144" name="Grendel Attack" tags="" position="6150,575" size="100,100">(display:&quot;header&quot;)
+}
+]</tw-passagedata><tw-passagedata pid="144" name="Grendel Attack" tags="" position="6150,575" size="100,100">(display:&quot;header&quot;)
 Grendel kills everyone GRAAAAAH!!!
 ---
 THE END</tw-passagedata><tw-passagedata pid="145" name="Head back to town from the tree" tags="" position="550,4050" size="100,100">(display:&quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
