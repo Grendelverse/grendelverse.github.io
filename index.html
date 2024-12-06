@@ -3989,7 +3989,7 @@ Torsten stops and turns to you. &quot;From here on, we are in their domain. Reme
 [[Continue-&gt;Forest Scea Hub]]
 [[Make some excuses and ask to return to the village-&gt;Village Hub]]</tw-passagedata><tw-passagedata pid="186" name="KnownLore" tags="" position="50,1175" size="100,100">**Known Lore:**
 &lt;ul&gt;(if:$knownLore is (a:))[ no known lore.](for: each _known, ...$knownLore)[ &lt;li&gt;(print: _known)&lt;/li&gt;]
-&lt;/ul&gt;</tw-passagedata><tw-passagedata pid="187" name="Landfall" tags="" position="750,100" size="100,100">&lt;center&gt;&lt;h3&gt;Grendelverse Chapter 1: Shadows of Grendel &lt;/h3&gt;&lt;/center&gt;
+&lt;/ul&gt;</tw-passagedata><tw-passagedata pid="187" name="Landfall" tags="" position="750,100" size="100,100">&lt;center&gt;&lt;h3&gt;Grendelverse Book 1: Shadows of Grendel &lt;/h3&gt;&lt;/center&gt;
 
 //Thus begins your legend!//
 {(set: $name to (prompt: &quot;Enter your character&#39;s name:&quot;, &quot;Rando&quot;))}
@@ -3998,40 +3998,7 @@ You are $name, a Skald (bard) of the Scylding people, wandering musician, advent
 The stories of Grendel have spread throughout the the Scylding lands, a terrifying monster that defies all authority, attacking farmsteads and keeps, tearing grown men from their beds in the dark of night. Even in a domain where dark magic, witches, and ghosts are felt as ever-present threats to civilized folk, the brazen ferocity of the fiend Grendel has gripped the popular imagination. It&#39;s a //fantastic// idea for an epic saga, if you can just find the right angle...
 
 And so, seeking the dark heart of this fearsome legend, you have voyaged by sea from your home to Heorot, the kingdom shadowed by the terror of Grendel. Your wobbly sea legs slowly adjust once more to the steadiness of land as you take in the scenery before you.
-{
-(link:&quot;View/Edit Attribute Bonuses&quot;)[
-
-(set:_x to $attrs&#39;s &quot;charisma&quot;)
-[Charisma:(print:_x) (if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes]]&lt;cha| |  (link-repeat:&quot;+1&quot;)[
-(set:$attrs&#39;s &quot;charisma&quot; to it + 1)
-] | (link-repeat:&quot;-1&quot;)[
-(set:$attrs&#39;s &quot;charisma&quot; to it + 1)
-]&lt;br&gt;
-(set:_x to $attrs&#39;s &quot;intelligence&quot;)
-[Intelligence:(print:_x) (if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes]
-]&lt;int| |  (link-repeat:&quot;+1&quot;)[
-(set:$attrs&#39;s &quot;intelligence&quot; to it + 1)(set:_x to $attrs&#39;s &quot;intelligence&quot;)
-(replace:?int)[Intelligence:(print:_x) (if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes]]
-] | (link-repeat:&quot;-1&quot;)[
-(set:$attrs&#39;s &quot;intelligence&quot; to it + 1)
-]&lt;br&gt;
-
-(set:_x to $attrs&#39;s &quot;wisdom&quot;)
-
-[wisdom:(print:_x) (if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes]]&lt;wis| |  (link-repeat:&quot;+1&quot;)[
-(set:$attrs&#39;s &quot;wisdom&quot; to it + 1)
-] | (link-repeat:&quot;-1&quot;)[
-(set:$attrs&#39;s &quot;wisdom&quot; to it + 1)
-]&lt;br&gt;
-
-(set:_x to $attrs&#39;s &quot;dexterity&quot;)
-[dexterity:(print:_x) ((if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes])]&lt;cha| |  (link-repeat:&quot;+1&quot;)[
-(set:$attrs&#39;s &quot;dexterity&quot; to it + 1)
-] | (link-repeat:&quot;-1&quot;)[
-(set:$attrs&#39;s &quot;dexterity&quot; to it + 1)
-]&lt;br&gt;
-
-]}
+{}
 [[Explore...-&gt;Village Hub]](display: &quot;initialize&quot;)
 
 
@@ -4130,11 +4097,11 @@ The forest is silent, the only sound the gentle rustling of leaves in the wind.
 {
 (if:$reputation&#39;s &quot;Unferth&quot; is &quot;trusted&quot;)[(set: $notFirstTimeMeetingUnferth to true)]
 }
-The walk up to Heorot from the village offers breathtaking views of the sea and land.
+The walk up to Heorot Hallfrom the village offers breathtaking views of the sea and land. The hall itself seems to jut proudly upward from the earth like a mountain, almost impossibly grandiose, something built by the gods rather than by man. 
 
-As you approach the grand doors of Heorot Hall, you&#39;re met by the watchful eyes of the king&#39;s guards. Clad in chainmail and bearing the king&#39;s crest, they stand as silent sentinels, their gazes assessing every entrant for potential threats. The seriousness on their faces speaks of the gravity of their duty, especially in these troubled times.
+As you approach the grand doors, you&#39;re met by the watchful eyes of the king&#39;s guards. Clad in chainmail and bearing the king&#39;s crest, they stand as silent sentinels, their gazes assessing every entrant for potential threats. 
 
-The vibrant sounds of life within echo faintly through the massive doors, which are carved with warding runes and intricate figures of warriors figures battling against sea serpents.
+The sounds of life within echo faintly through the massive doors, which are carved with warding runes and figures of warrior battling giant serpents.
 
 (if:$misc contains $fenPigHead )[
 The guards goggle in surprise as your party approaches, Edda and Lothar holding the great beast&#39;s bloody head on a sling between them,  and quickly open the doors for you.
@@ -4150,7 +4117,8 @@ The guards snicker as if amused by the memory of your last visit to court. But t
 The guards nod in recognition and allow you entry.
 ](else-if: $reputation&#39;s &quot;Heorot Court&quot; is &quot;high&quot;)[
 ]
-[[Enter the hall-&gt;Heorot Hub]]
+{(if:false)[[[Observe the exterior of Heorot Hall-&gt;Heorot view]]]}
+[[Enter-&gt;Heorot Hub]]
 [[Return to the village-&gt;Village Hub]]</tw-passagedata><tw-passagedata pid="197" name="Make for the standing stones" tags="" position="2200,3600" size="100,100">(display: &quot;header&quot;)(set:$effort to 10)(display:&quot;Effort&quot;)
 You make your way over toward the standing stones, carefully following a ridge of dry land that juts through the otherwise impassable bubbling murk.
 
@@ -5427,7 +5395,7 @@ Current combat bonus: $totalCombatBonus
 Exhaustion overtakes your courage, and your martial training abandons you.
 [[Curl into a ball and play dead-&gt;Scream]]
 [[Scream-&gt;Scream]]
-]</tw-passagedata><tw-passagedata pid="271" name="Start" tags="" position="500,25" size="100,100">### Grendelverse Chapter 1: Shadows of Grendel
+]</tw-passagedata><tw-passagedata pid="271" name="Start" tags="" position="500,25" size="100,100">### Grendelverse Book 1: Shadows of Grendel
 
 Welcome to **Grendelverse**! This is a dynamic text role-playing game (RPG) set in the world of the epic saga **Beowulf**, one of the earliest and gnarliest literary works in (Old) English, and a major influence on Tolkein and basically all modern fantasy.
 
@@ -5444,13 +5412,7 @@ Now you can explore the surreal and mysterious world of Grendel and the Ring-Dan
 ]
 (click: &quot;Beowulf&quot;)[(goto-url: &#39;https://oldenglishpoetry.camden.rutgers.edu/beowulf/&#39;)]
 }</tw-passagedata><tw-passagedata pid="272" name="Status" tags="" position="50,1025" size="100,100">**Vitals**: //Health// (if: $energy &gt; 125)[(set: $energy to 125)](print: $health)/100 | [//Energy//: (print: $energy)/100]&lt;energy|(display:&quot;updateCombatBonus&quot;)
-Current armor bonus: $totalArmorBonus
-(link:&quot;Show Attributes&quot;)[
-{
-(for:each _a, ...(data-names:$attrs))[(set:_x to $attrs&#39;s _a)
-//(print:_a):(print:_x) ((if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes])//&lt;br&gt;
-]}
-]</tw-passagedata><tw-passagedata pid="273" name="Stay in the Tree to Rest" tags="" position="5100,4250" size="100,100">(display: &quot;header&quot;)</tw-passagedata><tw-passagedata pid="274" name="Step forward and tell Unferth you’ve succeeded in drawing out the traitors as he assigned you!" tags="" position="5575,3000" size="100,100">(display: &quot;header&quot;)
+Current armor bonus: $totalArmorBonus</tw-passagedata><tw-passagedata pid="273" name="Stay in the Tree to Rest" tags="" position="5100,4250" size="100,100">(display: &quot;header&quot;)</tw-passagedata><tw-passagedata pid="274" name="Step forward and tell Unferth you’ve succeeded in drawing out the traitors as he assigned you!" tags="" position="5575,3000" size="100,100">(display: &quot;header&quot;)
 Step forward and tell Unferth you’ve succeeded in drawing out the traitors as he assigned you!
 
 You step forward confidently, raising your voice to address Unferth and Hrothgar. &quot;My lords,&quot; you begin, trying to project a sense of assurance. &quot;As Unferth assigned me, I have succeeded in drawing out the traitors. We have identified those who still practice the old ways and harbor sympathies for the Sceadugenga.&quot;
@@ -6549,7 +6511,47 @@ Sir Thryth&#39;s eyes flicker with a hint of annoyance. &quot;Nothing of consequ
 &quot;strength&quot;, -2,
 &quot;dexterity&quot;, 2,
 &quot;constitution&quot;, 0
-))</tw-passagedata></tw-storydata>
+))</tw-passagedata><tw-passagedata pid="342" name="Heorot view" tags="" position="3250,350" size="100,100"></tw-passagedata><tw-passagedata pid="343" name="Edit Attributes" tags="" position="875,250" size="100,100">(link:&quot;View/Edit Attribute Bonuses&quot;)[
+
+(set:_x to $attrs&#39;s &quot;charisma&quot;)
+[Charisma:(print:_x) (if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes]]&lt;cha| |  (link-repeat:&quot;+1&quot;)[
+(set:$attrs&#39;s &quot;charisma&quot; to it + 1)
+] | (link-repeat:&quot;-1&quot;)[
+(set:$attrs&#39;s &quot;charisma&quot; to it + 1)
+]&lt;br&gt;
+(set:_x to $attrs&#39;s &quot;intelligence&quot;)
+[Intelligence:(print:_x) (if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes]
+]&lt;int| |  (link-repeat:&quot;+1&quot;)[
+(set:$attrs&#39;s &quot;intelligence&quot; to it + 1)(set:_x to $attrs&#39;s &quot;intelligence&quot;)
+(replace:?int)[Intelligence:(print:_x) (if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes]]
+] | (link-repeat:&quot;-1&quot;)[
+(set:$attrs&#39;s &quot;intelligence&quot; to it + 1)
+]&lt;br&gt;
+
+(set:_x to $attrs&#39;s &quot;wisdom&quot;)
+
+[wisdom:(print:_x) (if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes]]&lt;wis| |  (link-repeat:&quot;+1&quot;)[
+(set:$attrs&#39;s &quot;wisdom&quot; to it + 1)
+] | (link-repeat:&quot;-1&quot;)[
+(set:$attrs&#39;s &quot;wisdom&quot; to it + 1)
+]&lt;br&gt;
+
+(set:_x to $attrs&#39;s &quot;dexterity&quot;)
+[dexterity:(print:_x) ((if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes])]&lt;cha| |  (link-repeat:&quot;+1&quot;)[
+(set:$attrs&#39;s &quot;dexterity&quot; to it + 1)
+] | (link-repeat:&quot;-1&quot;)[
+(set:$attrs&#39;s &quot;dexterity&quot; to it + 1)
+]&lt;br&gt;
+
+]
+
+
+(link:&quot;Show Attributes&quot;)[
+{
+(for:each _a, ...(data-names:$attrs))[(set:_x to $attrs&#39;s _a)
+//(print:_a):(print:_x) ((if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes])//&lt;br&gt;
+]}
+]</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
