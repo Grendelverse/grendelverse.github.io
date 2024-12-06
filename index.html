@@ -15,7 +15,7 @@ tw-story {
   background-color: #F7F5EC; /* Slightly warm, off-white background */
   color: #333333;            /* Dark grey text for comfortable contrast */
   font-family: "Georgia", "Garamond", serif;
-  font-size: 1.0em;
+  font-size: 1.3em;
   line-height: 1.6;
   padding: 2em 1em;
   -webkit-font-smoothing: antialiased; /* Smoother text rendering */
@@ -2524,9 +2524,7 @@ Ciar runs her fingers over the carved symbols. &quot;These symbols are ancient a
 
 She gazes around the clearing. &quot;We need to observe and learn. The Sceadugenga aren&#39;t mindless beasts; they&#39;re connected to something greater. If we understand their motivations and their connection to this place, we might find a way to resolve this conflict without unnecessary bloodshed.&quot;
 [[Search Perimeter]] 
-[[continue-&gt;Investigate Tree]]</tw-passagedata><tw-passagedata pid="153" name="How to play this game" tags="" position="475,175" size="100,100">### Shadows of Grendel
----
-#### How to play
+[[continue-&gt;Investigate Tree]]</tw-passagedata><tw-passagedata pid="153" name="How to play this game" tags="" position="475,175" size="100,100">#### Shadows of Grendel: How to play
 ---
 Read the text and click the links. As you proceed through the story, check your character sheet and plot log. Your energy level will decrease as you walk around and do things, which will effect your odds of success whenever you try something difficult, so look for opportunities to rest and eat. It&#39;s a dangerous world, so save frequently.
 
@@ -4568,7 +4566,7 @@ Torsten smiles faintly. &quot;They believe there may yet be a path to reconcilia
 
 As the Sceadugenga fade back into the depths of the woods, the forest seems to breathe around you, a world full secrets and possibilities you had never imagined.
 (set:$a to &quot;Close encounter: parlayed with the Sceadugenga and Torsten&quot;)(display:&quot;addAchievement&quot;)
-[[Return to the village-&gt;Village Hub]]</tw-passagedata><tw-passagedata pid="231" name="Plot log" tags="" position="325,550" size="100,100">#### Shadows of Grendel: Log
+[[Return to the village-&gt;Village Hub]]</tw-passagedata><tw-passagedata pid="231" name="Plot log" tags="" position="325,550" size="100,100">#### Shadows of Grendel: Plot Log
 ---
 (display: &quot;Back-link&quot;) [[Character Sheet]] [[Games Dashboard]] [[How to play-&gt;How to play this game]] 
 ---
@@ -5410,7 +5408,13 @@ Now you can explore the surreal and mysterious world of Grendel and the Ring-Dan
 ]
 (click: &quot;Beowulf&quot;)[(goto-url: &#39;https://oldenglishpoetry.camden.rutgers.edu/beowulf/&#39;)]
 }</tw-passagedata><tw-passagedata pid="272" name="Status" tags="" position="50,1025" size="100,100">**Vitals**: //Health// (if: $energy &gt; 125)[(set: $energy to 125)](print: $health)/100 | [//Energy//: (print: $energy)/100]&lt;energy|(display:&quot;updateCombatBonus&quot;)
-Current armor bonus: $totalArmorBonus</tw-passagedata><tw-passagedata pid="273" name="Stay in the Tree to Rest" tags="" position="5100,4250" size="100,100">(display: &quot;header&quot;)</tw-passagedata><tw-passagedata pid="274" name="Step forward and tell Unferth you’ve succeeded in drawing out the traitors as he assigned you!" tags="" position="5575,3000" size="100,100">(display: &quot;header&quot;)
+Current armor bonus: $totalArmorBonus
+(link:&quot;Show Attributes&quot;)[
+{
+(for:each _a, ...(data-names:$attrs))[(set:_x to $attrs&#39;s _a)
+//(print:_a):(print:_x) ((if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes])//&lt;br&gt;
+]}
+]</tw-passagedata><tw-passagedata pid="273" name="Stay in the Tree to Rest" tags="" position="5100,4250" size="100,100">(display: &quot;header&quot;)</tw-passagedata><tw-passagedata pid="274" name="Step forward and tell Unferth you’ve succeeded in drawing out the traitors as he assigned you!" tags="" position="5575,3000" size="100,100">(display: &quot;header&quot;)
 Step forward and tell Unferth you’ve succeeded in drawing out the traitors as he assigned you!
 
 You step forward confidently, raising your voice to address Unferth and Hrothgar. &quot;My lords,&quot; you begin, trying to project a sense of assurance. &quot;As Unferth assigned me, I have succeeded in drawing out the traitors. We have identified those who still practice the old ways and harbor sympathies for the Sceadugenga.&quot;
@@ -6079,10 +6083,8 @@ Options:
 (display:&quot;Initialize Charms and Potions&quot;)
 (set: $lastScene to &quot;Start&quot;)
 (set:$recruitedParty to false)
-(set: $health to 100)
-(set: $energy to 65)
 (set: $sp to 25)
-
+(display:&quot;Initialize Attributes&quot;)
 
 (set:$horses to (a:))
 (set: $food to (a: 
@@ -6502,7 +6504,16 @@ Sir Thryth&#39;s eyes flicker with a hint of annoyance. &quot;Nothing of consequ
     Sorry, I couldn&#39;t save your game.
   ]
 ][[Dashboard-&gt;Games Dashboard]]
-]</tw-passagedata></tw-storydata>
+]</tw-passagedata><tw-passagedata pid="341" name="Initialize Attributes" tags="" position="175,200" size="100,100">(set: $health to 100)
+(set: $energy to 65)
+(set:$attrs to (dm:
+&quot;wisdom&quot;,1,
+&quot;intelligence&quot;,2,
+&quot;charisma&quot;, 3,
+&quot;strength&quot;, -2,
+&quot;dexterity&quot;, 2,
+&quot;constitution&quot;, 0
+))</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
