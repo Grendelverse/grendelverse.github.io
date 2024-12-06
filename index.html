@@ -9,122 +9,131 @@
 </head>
 <body>
 <tw-story><noscript><tw-noscript>JavaScript needs to be enabled to play GrendelverseRPG.</tw-noscript></noscript></tw-story>
-<tw-storydata name="GrendelverseRPG" startnode="271" creator="Twine" creator-version="2.10.0" format="Harlowe" format-version="3.3.9" ifid="3F4A54C8-1B43-46DF-915A-4376BC9D3464" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">
-/* Story Background */
+<tw-storydata name="GrendelverseRPG" startnode="271" creator="Twine" creator-version="2.10.0" format="Harlowe" format-version="3.3.9" ifid="3F4A54C8-1B43-46DF-915A-4376BC9D3464" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* Story Background 
+   - A soft, warm off-white reminiscent of e-ink backgrounds. */
 tw-story {
-  background-color: #0A0A0A; /* Very dark grey, almost black */
-  /* Optional: Add a subtle dark texture background image */
-  /* background-image: url('YOUR-DARK-BACKGROUND-IMAGE-URL'); */
-  background-size: cover;
-  background-attachment: fixed;
-  color: #E0E0E0; /* Light grey text for readability */
-  font-family: 'Garamond', 'Georgia', serif;
-}
-
-/* Passage Styling */
-tw-passage {
-  margin: 1em auto;
-  padding: 0.8em 1em;
-  background-color: rgba(20, 20, 20, 0.9); Slightly lighter background for text passages */
-  border-radius: 10px;
+  background-color: #F7F5EC; /* Slightly warm, off-white background */
+  color: #333333;            /* Dark grey text for comfortable contrast */
+  font-family: "Georgia", "Garamond", serif;
+  font-size: 1.0em;
   line-height: 1.6;
-  font-size: 90%;
+  padding: 2em 1em;
+  -webkit-font-smoothing: antialiased; /* Smoother text rendering */
+  background-attachment: fixed;
 }
 
-/* Links */
+/* Passage Styling
+   - A subtle focus on the text itself without heavy borders or backgrounds.
+   - Keep it minimal, like a page of a book. */
+tw-passage {
+  max-width: 40em; /* Narrower measure for readability */
+  margin: 2em auto;
+  padding: 0;
+  background: none; 
+  border: none;
+}
+
+/* Links as Tactile "Buttons"
+   - Give them a subtle border and box-shadow to evoke a tactile feel, 
+     while maintaining a neutral, understated style. */
 tw-link {
-  color: #B0B0B0; /* Light grey for links */
+  color: #333333;
   text-decoration: none;
-  border: 1px solid gray; 
-  padding: 4px;
-  box-shadow: 2px 1px 1px black;
-  display: inline-block; /* Ensure proper rendering on mobile */
-  margin: 1px;
+  border: 1px solid #CCC;
+  padding: 0.2em 0.4em;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  display: inline-block;
+  margin: 0 0.1em;
+  border-radius: 3px;
+  background-color: #F7F5EC; /* Same as background for subtle continuity */
 }
 
-tw-link:hover {
-  background-color: #333333; /* Slightly lighter background on hover */
+tw-link:hover, tw-link:focus {
+  background-color: #EEEDE7;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  cursor: pointer;
 }
 
-/* Sidebar (Undo/Redo Icons) */
+/* Sidebar (Undo/Redo Icons)
+   - Slightly faded to avoid distracting. */
 tw-sidebar {
   background-color: transparent;
+  opacity: 0.8;
 }
 
-
-/* Headers */
-h1, h2, h3 {
-  font-family: 'Garamond', 'Georgia', serif;
-  color: #E0E0E0; /* Same as text color for consistency */
+/* Headers
+   - Keep headers in the same color but slightly larger and bolder.
+   - No harsh contrasts, just a natural hierarchy. */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Georgia", "Garamond", serif;
+  font-weight: normal;
+  color: #333333;
+  margin: 1em 0 0.5em 0;
+  line-height: 1.4;
 }
 
+h1 { font-size: 1.6em; }
+h2 { font-size: 1.4em; }
+h3 { font-size: 1.2em; }
+h4 { font-size: 1.1em; }
 
 /* Special Text Classes */
 .magic {
-  color: #C0C0C0; /* Light grey for magical elements */
+  color: #444444; 
   font-style: italic;
 }
 
 .tech {
-  color: #A0A0A0; /* Slightly darker grey for technological elements */
+  color: #444444; 
   font-weight: bold;
 }
 
-/* Scrollbar Styling */
+/* Scrollbar Styling
+   - Keep it minimal and in line with the light, neutral theme. */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0A0A0A;
+  background: #F0EEE7;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #555555;
-  border-radius: 5px;
+  background: #CCC7B7;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #777777;
+  background: #B5B09F;
 }
 
-/* Mobile Responsiveness */
+/* Mobile Responsiveness
+   - Adjust sizes for smaller screens without losing the reading feel. */
 @media screen and (max-width: 600px) {
   tw-passage {
     max-width: 100%;
     margin: 1em;
-    padding: 1em;
   }
 
-  tw-link {
-    padding: 2px;
-    font-size: 1em;
-    box-shadow: none;
-  }
+  h1 { font-size: 1.4em; }
+  h2 { font-size: 1.3em; }
+  h3 { font-size: 1.1em; }
+  h4 { font-size: 1em; }
 
-  h1 {
-    font-size: 1.1em;
-  }
-
-  h2 {
-    font-size: 1.3em;
-  }
-
-  h3 {
-    font-size: 1.1em;
-  }
-
-    h4 {
-    font-size: 1em;
-  }
-
-  /* Adjust background attachment for mobile performance */
+  /* Allow background to scroll on mobile for performance */
   tw-story {
     background-attachment: scroll;
   }
+
+  /* Slightly larger link text for mobile if desired */
+  tw-link {
+    padding: 0.3em 0.5em;
+  }
 }
+
+/* Hide Twine icons to maintain a clean reading environment */
 tw-icon {
-	display: none;
+  display: none;
 }
 </style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name=" Quest: The Herb of Insight" tags="" position="5000,1225" size="100,100">(display:&quot;header&quot;)(set:$effort to 1)(display:&quot;Effort&quot;)
 
