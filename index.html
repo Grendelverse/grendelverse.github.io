@@ -9,12 +9,12 @@
 </head>
 <body>
 <tw-story><noscript><tw-noscript>JavaScript needs to be enabled to play GrendelverseRPG.</tw-noscript></noscript></tw-story>
-<tw-storydata name="GrendelverseRPG" startnode="271" creator="Twine" creator-version="2.10.0" format="Harlowe" format-version="3.3.9" ifid="3F4A54C8-1B43-46DF-915A-4376BC9D3464" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* Story Background 
+<tw-storydata name="GrendelverseRPG" startnode="270" creator="Twine" creator-version="2.10.0" format="Harlowe" format-version="3.3.9" ifid="3F4A54C8-1B43-46DF-915A-4376BC9D3464" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* Story Background 
    - A soft, warm off-white reminiscent of e-ink backgrounds. */
 tw-story {
   background-color: #F7F5EC; /* Slightly warm, off-white background */
   color: #333333;            /* Dark grey text for comfortable contrast */
-  font-family: "Georgia", "Garamond", serif;
+  font-family: "Georgia", "Big Caslon", "Garamond", serif;
   font-size: 1.3em;
   line-height: 1.6;
   padding: 2em 1em;
@@ -174,8 +174,8 @@ He looks at each of you one last time. &quot;May fortune favor you. Upon your re
 &lt;ul&gt;(for: each _ach, ...$achievements)[&lt;li&gt;(print: _ach)&lt;/li&gt;]
 &lt;/ul&gt;</tw-passagedata><tw-passagedata pid="5" name="Adventurers Hub" tags="" position="600,1825" size="200,100">(display: &quot;header&quot;)(set:$effort to 0)(display:&quot;Effort&quot;)
 Hroald, Edda, Ciar and Lothar sit around a table. Their casual conversation and easy comraderie offer a welcome escape from the tension that pervades the village.
-
-[[Ask about their past battles-&gt;Past Battles]]
+&lt;!-- the below all need to be conditionalized to encounters and information about the sceadugenga. after confiding info from torsten, after meeting them on patrol especially --&gt;
+[[Ask about the group&#39;s past-&gt;Past Battles]]
 [[Ask what brought them to Kattinge-&gt;Current Quest]] {
 (if: $achievements contains &quot;Close encounter: parlayed with the Sceadugenga and Torsten&quot; and $achievements does not contain &quot;Confided the secret of the Sceadugenga to the Adventurers&quot;)[
 [[Tell the group about your encounter with the sceadugenga and try to persuade them to rethink their allegiance to Hrothgar&#39;s plan.-&gt;Confide in the Adventurers]]&lt;br&gt;
@@ -185,32 +185,25 @@ Hroald, Edda, Ciar and Lothar sit around a table. Their casual conversation and 
 [[Ask them for more details about what they know of Grendel and the dangers of the forest.-&gt;Ask adventurers about Grendel]]
 [[Discuss the party&#39;s plans.-&gt;Patrol plans]]
 [[Leave the table-&gt;Inn Hub]]</tw-passagedata><tw-passagedata pid="6" name="Adventurers Introduction" tags="" position="825,1600" size="100,100">(display: &quot;header&quot;)(set:$effort to 1)(display:&quot;Effort&quot;)
-
+(set:$reputation&#39;s &quot;Adventurers&quot; to &quot;friendly&quot;)
 You introduce yourself, sharing that you, (print: $name) the bard have been drawn to the village by the tales of Grendel and are hoping to learn more about the land and its people.
 
 Hroald nods, his gaze steady and appraising. &quot;Well met, bard. I am Hroald, a warrior of Haithabu. Join us for a drink if you will.&quot;
 
 Going around the table, he introduces Edda the Goth, Ciar, a Celtic druid, and Lothar, a Lombard. Apparently the group met while working for a Byzantine mercenary company in the Kingdom of Lazica, and has been travelling together for several years.
+
 {
-
 (for: each _item, ...$adventurersLarder)[
-
-(set: _descriptionLabel to &quot;Description of &quot; + _item&#39;s &quot;name&quot;)
-	(set:_label to &quot;take &quot; + &quot;name&quot; of _item)
-	(set: _descriptionLabel to &quot;description of &quot; + _item&#39;s &quot;name&quot;)
 ---
-Name: (print: &quot;name&quot; of _item) | [_label]&lt;br&gt;
-(click:_label)[
-	(set: $food to it + (a: _item))
-    	(set: $adventurersLarder to it - (a: _item))
-   (replace: _label)[ (print: &quot;name&quot; of _item) &quot;added to inventory&quot; ]
+(print: &quot;name&quot; of _item) | (link: &quot;description&quot; )[(print: &quot;description&quot; of _item)] | (link:&quot;take&quot;)[
+	(set: $purchaseItem to _item)
+    (set: $purchaseCategory to $food)
+    (set: $churchLarder to it - (a:_item))
+    (display: &quot;Purchase confirmation&quot;)
+    ]
 ]
-[_descriptionLabel]&lt;br&gt;
-(click: _descriptionLabel )[(print: &quot;description&quot; of _item)]
-]
-
-(set:$reputation&#39;s &quot;Adventurers&quot; to &quot;friendly&quot;)
 }
+---
 
 [[Continue-&gt;Adventurers Hub]]</tw-passagedata><tw-passagedata pid="7" name="Adventurers observe" tags="" position="700,1575" size="100,100">(display: &quot;header&quot;)(set:$effort to 1)(display:&quot;Effort&quot;)
 
@@ -365,14 +358,13 @@ He shrugs dismissively. &quot;Coincidence. The old gods hold no power here.&quot
 &quot;Were there any unusual events or activities leading up to the attack?&quot; you ask. &quot;Anything that might have provoked such aggression?&quot;
 
 Sir Thryth&#39;s eyes flicker with a hint of annoyance. &quot;Nothing of consequence. We are clearing this land as per King Hrothgar&#39;s directives. Expanding civilization into the wilderness.&quot;
-[[Continue-&gt;Thryth Hub]]</tw-passagedata><tw-passagedata pid="23" name="Ask about old rituals or customs" tags="" position="1550,1675" size="100,100">(display:&quot;header&quot;)
+[[Continue-&gt;Thryth Hub]]</tw-passagedata><tw-passagedata pid="23" name="Ask about old rituals" tags="" position="1550,1675" size="100,100">(display:&quot;header&quot;)
 
 A wistful smile tugs at the corners of Eir&#39;s mouth. &quot;Ah, the old rituals,&quot; she murmurs. &quot;There was a time when we would gather under the full moon, singing songs and offering gifts to the spirits of the land. We believed that these rituals kept the balance, that they honored the old gods and kept the darkness at bay.&quot;
 
 She sighs softly. &quot;But those days are gone. Hrothgar&#39;s new faith has no place for such customs, and many of the old ways have been forgotten. Yet, in times of great need, some still whisper the old prayers, hoping that the ancient powers will hear and protect us.&quot;
 
-She looks you in the eyes a long moment as if deciding whether or not to trust you, and then tells you that if you want to learn more about the Old Ways, sometimes she and the other elders from the village hang out and drink tea by the well on top of the hill at the far end of town. But don&#39;t go asking too many quesitons about this stuff until then... not everyone is sympathetic..
-
+She looks you in the eyes a long moment as if deciding whether or not to trust you, and after a long moment, confides that if you want to learn more about the Old Ways, sometimes she and the other elders from the village hang out and drink tea by the well on top of the hill at the far end of town. You should meet her there, but don&#39;t go asking too many questions around town about this stuff until then.
 {
 (set: $lore to &quot;The elders of Kattinge Village gather near the well.&quot;)
 (display:&quot;addLore&quot;)
@@ -381,14 +373,15 @@ She looks you in the eyes a long moment as if deciding whether or not to trust y
 }
 
 [[Continue talking to Eir-&gt;Eir Hub]]
-[[Excuse yourself and continue exploring the market-&gt;Market Hub]]</tw-passagedata><tw-passagedata pid="24" name="Ask about the attacks on Thryth farmstead" tags="" position="3400,2575" size="100,100">(display:&quot;header&quot;)
+[[Excuse yourself and continue exploring the market-&gt;Market Hub]]</tw-passagedata><tw-passagedata pid="24" name="Ask about the attacks on Thryth farmstead" tags="" position="3325,2475" size="100,100">(display:&quot;header&quot;)
 She eyes you with scrutiny. 
 &quot;Are you a christian, bard?&quot;
 
 [[Yes, I&#39;m on a mission to drive the pagan darkness from this land! -&gt;Shephard Christian Yes mean]]
 [[Yes, but I respect everyone&#39;s rights to their own spiritual beliefs.-&gt;Shephard Christian Yes nice]]
-[[I&#39;m a seeker of truth, my beliefs can&#39;t be so easily summarized.-&gt;Shephard Christian no]]</tw-passagedata><tw-passagedata pid="25" name="Ask adventurers about Grendel" tags="" position="775,2050" size="100,100">(display: &quot;header&quot;)
-Hroald&#39;s expression grows serious, and he leans back in his chair, the firelight casting shadows on his rugged face. &quot;We&#39;re here to aid King Hrothgar in his struggle against what he calls Grendel. Someone or something has been raiding outlying farms and outposts. There are wild reports, and little solid information.&quot;
+[[I&#39;m a seeker of truth, my beliefs can&#39;t be so easily summarized.-&gt;Shephard Christian no]]</tw-passagedata><tw-passagedata pid="25" name="Ask adventurers about Grendel" tags="" position="825,2050" size="100,100">(display: &quot;header&quot;)
+(if:)
+Hroald&#39;s expression grows serious, and he leans back in his chair, the firelight casting shadows on his rugged face. &quot;Someone or something has been raiding outlying farms and outposts. There are wild reports, and little solid information.&quot;
 
 Edda nods, her green eyes sharp with determination. &quot;There&#39;s good silver in it if we can get to the bottom of who is behind the attacks. Everyone around here talks like there&#39;s some great devil, this //Grrrendel//,&quot; she draws out the word for mock dramatic effect, using a recognizably local accent that brings a chuckle from the others, &quot;but it&#39;s hard to credit that when attacks and sighting have been so wide. We&#39;ve seen kingdoms come under pressure from bandits and unruly tribes, so we assume this is just another such group resisting the expansion of Hrothgar&#39;s territory and influence. It&#39;s not the first time we&#39;ve been called in to handle such matters.&quot;
 
@@ -440,12 +433,8 @@ He gestures to a servant and says, &quot;show them to Marta&#39;s dwelling,&quot
 
 As you make your way across the compound, the atmosphere grows heavier. Laborers avert their eyes, hastening their tasks. The overseer&#39;s house stands apart, its door hanging askew, the faint scent of smoke lingering.
 
-[[Ask to speak with the overseer&#39;s family-&gt;Marta Hub]]</tw-passagedata><tw-passagedata pid="30" name="Ask to join the patrol" tags="" position="1125,2375" size="100,100">(display: &quot;header&quot;)
-{
-(display: &quot;updateCombatBonus&quot;)
-
-}
-(if:$totalArmorBonus &gt; 6 and  $totalCombatBonus &gt; 10)[
+[[Ask to speak with the overseer&#39;s family-&gt;Marta Hub]]</tw-passagedata><tw-passagedata pid="30" name="Ask to join the patrol" tags="" position="1125,2375" size="100,100">(display: &quot;header&quot;)(display: &quot;updateCombatBonus&quot;)
+(if:$totalArmorBonus &gt; 5  and  $totalCombatBonus &gt; 5)[
 
 Hroald&#39;s eyes gleam with approval as he eyes you up and down, taking in your sturdy gear. &quot;Aye, you look like you can handle yourself. Fine with me if you tag along.&quot;
 
@@ -795,7 +784,7 @@ You make your way through clothing shops, eyeing the fabrics and designs of vary
 ]
 
 ]
-}</tw-passagedata><tw-passagedata pid="52" name="Browse the general goods" tags="" position="1675,1075" size="100,100">(display: &quot;header&quot;)
+}</tw-passagedata><tw-passagedata pid="52" name="Browse the general goods" tags="" position="1725,1150" size="100,100">(display: &quot;header&quot;)
 
 Colorful awnings flutter gently along the merchant booths in the marketplace. The scent of fresh bread mingles with the salty tang of the nearby sea and the rich aroma of spices displayed in open sacks.
 
@@ -986,8 +975,7 @@ Unferth inclines his head graciously at the compliment. &quot;A useful technique
 &quot;Really, it&#39;s all about gold. That fool&#39;s father sent him down here to die on my blade in the hopes of getting some slight advantage in his trade dealings.&quot; He sighs again, looking suddenly weary.
 
 [[Continue-&gt;Unferth Convo Hub]]</tw-passagedata><tw-passagedata pid="64" name="Confide in the Adventurers" tags="" position="800,2450" size="100,100">(display: &quot;header&quot;)
-
-(set:$a to &quot;Confided the secret of the Sceadugenga to the Adventurers&quot;)(display:&quot;addAchievement&quot;)
+(set:$a to $confidedAdventurers)(display:&quot;addAchievement&quot;)
 
 [[Continue-&gt;Adventurers Hub]]</tw-passagedata><tw-passagedata pid="65" name="Confront Sir Thryth about his cruelty" tags="" position="3225,3350" size="100,100">(display: &quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
 Sir Thryth&#39;s expression hardens. &quot;Mind your tongue. I am lord paramount of this estate under the authority of King Hrothgar.&quot;
@@ -1063,7 +1051,7 @@ Lothar grips his axe with a fierce grin, and says &quot;I&#39;ve been itching fo
 
 Hroald shakes his head at Lothar. &quot;Bravado will get us killed. We need a plan.&quot;
 
-[[Drekaborg Quest Hub]]</tw-passagedata><tw-passagedata pid="70" name="Continue toward Thryth" tags="" position="3550,2475" size="100,100">(display:&quot;header&quot;)
+[[Drekaborg Quest Hub]]</tw-passagedata><tw-passagedata pid="70" name="Continue toward Thryth" tags="" position="3575,2525" size="100,100">(display:&quot;header&quot;)
 As the afternoon begins to wane into evening, you crest the top of a ridge and the scene changes dramatically. A sprawling farmstead dominates the next valley. In the center, a complex of newly constructed wooden buildings is ringed by a high stakewall. Vast swathes of trees have been felled, leaving the land raw and scarred. Groups of men toil in the fields, sowing and reaping under the watchful eyes of overseers on horseback. As you watch, you notice that the laborers appear to be roped together in lines.
 
 &quot;This must be Thryth Farmstead,&quot; Hroald observes, his voice tinged with unease.
@@ -1487,9 +1475,11 @@ Then, with two satisfying //thwack// sounds, you one arrow and then another bury
 
 You twist sideways, placing your hand on the creature&#39;s great head and attempting to push off at just the right moment to avoid the threshing spikes as it swipes at you. You manage to avoid the main force of the beast&#39;s charge, but it&#39;s huge slashing head smashes against you hard enough to lift you from your feet and knock you sprawling to the ground.
 
-	(if: $totalArmorBonus &gt; 6)[
+	(if: $totalArmorBonus &gt; 6 and $health &gt; 30)[
 Fortunately your armor protects you from the worst of the onslaught, and no part of your body seems to be punctured or broken.
-
+{    (set:_x to (random:20,40))(set:$health to it - _x)}
+    //(print:_x) health lost//
+    
 As you scramble back to your feet, you see two arrows bury themselves in the creature&#39;s flank, followed by one of Edda&#39;s long Javelins, which sinks deep into the flesh of its back. With a pained, angry bellow, the creature turns and makes back for the forest at a limping trot, trailing blood and breathing in ragged grunts.
     (set:$health to it - 10)
     [[Continue-&gt;Patrol Hub]]
@@ -1634,16 +1624,14 @@ Your companions come to your side and try to help you to your feet, but you can 
 (if: $energy &lt; 0)[(set:$energy to 0)]
 ]
 }
-//Current Energy: (print:$energy)/100//</tw-passagedata><tw-passagedata pid="99" name="Eir Hub" tags="" position="1325,1450" size="200,100">(display: &quot;header&quot;)
-
-(if: $reputation&#39;s &quot;Eir&quot; is &quot;hostile&quot;)[
+//Current Energy: (print:$energy)/100//</tw-passagedata><tw-passagedata pid="99" name="Eir Hub" tags="" position="1325,1450" size="200,100">(display: &quot;header&quot;)(if: $reputation&#39;s &quot;Eir&quot; is &quot;hostile&quot;)[
 You approach Eir&#39;s stall with a sense of unease. Her sharp eyes flicker up to meet yours, lacking the warmth they once held. &quot;So, you&#39;ve returned,&quot; she remarks coolly. &quot;What is it that you want this time? We trusted you and you betrayed us, murderer.&quot;
 
 Her gaze does not leave yours as she repeats the word, louder, not shouting but with a ringing clarity that carries through the marketplace, &quot;Murderer!&quot;
 
 [[Return to the village crossroads-&gt;Village Hub]]
-
-](else-if: $reputation&#39;s &quot;Eir&quot; is &quot;unknown&quot;)[
+](else:)[
+(if: $reputation&#39;s &quot;Eir&quot; is &quot;unknown&quot;)[
 (set: $reputation&#39;s &quot;Eir&quot; to &quot;friendly&quot;)
 
 Behind the stall stands a tall, striking woman with long, silver hair flowing over her shoulders. Sharp, keen eyes meet yours, seeming to see not just you but through you, as if reading the pages of your life&#39;s story. Despite the color of her hair her face is strangely ageless, and she carries herself with a quiet, dignified grace.
@@ -1654,14 +1642,14 @@ Eir looks up from arranging a selection of fragrant herbs and greets you with a 
 ]
 (set:$effort to 0)(display:&quot;Effort&quot;)
 [[Ask about Grendel&#39;s impact on daily life-&gt;Eir grendel daily life?]]
-[[Ask about old rituals or customs]]
 [[View wares-&gt;Purchase herbs or other goods]]
-[[Excuse yourself and continue exploring the market-&gt;Market Hub]]</tw-passagedata><tw-passagedata pid="100" name="Eir grendel daily life?" tags="" position="1725,1600" size="100,100">(display: &quot;header&quot;)
+[[Excuse yourself and continue exploring the market-&gt;Market Hub]]
+]</tw-passagedata><tw-passagedata pid="100" name="Eir grendel daily life?" tags="" position="1725,1600" size="100,100">(display: &quot;header&quot;)
 Eir&#39;s expression grows thoughtful as she considers your question.
 &quot;In times past, our ancestors had a different relationship to  Grendel&#39;s folk--the Shadow Walkers or //Sceadugenga// as they are called in the old tongue. Though are worlds are seperate, there was respect and balance. Men and women would leave offerings, and fulfill certain rites and agreements, in order to maintain peace with the spirits of the forest. Now, with King Hrothgar&#39;s conversion to the new faith, those old ways are forbidden. The fear remains, and with no way to appease it, in the darkness it festers and grows.&quot;
 
 She pauses, her eyes distant. &quot;Children are warned to stay close to home, to mistrust their neighbors, to fear the forest and wild places. Even the bravest warriors speak of a malaise that grips their hearts. To people gripped by fear, the very land feels tainted, as if Grendel&#39;s threat has seeped into the soil and air, poisoning everything. They fear the very //land// itself,&quot; she says sadly. &quot;Do you understand?&quot;
-
+[[Ask about the old rites and agreements-&gt;Ask about old rituals]]
 [[Continue speaking with Eir-&gt;Eir Hub]]
 [[Continue exploring the market--&gt;Market Hub]]</tw-passagedata><tw-passagedata pid="101" name="Elders Approach" tags="" position="2650,1125" size="100,100">(display: &quot;header&quot;)(set:$energy to it - 8)(set:$effort to 8)(display:&quot;Effort&quot;)
 
@@ -2012,9 +2000,10 @@ Your arrow flies wide of the carefully chosen mark, burying itself in the thick 
 
 The beast surges forward with an eager snarl, now looming huge before you, and you instinctively dive out of the line of its charge. You manage to roll slightly out of the way as the beast comes by, but it&#39;s huge slashing head smashes against you hard enough to lift you from your feet and knock you sprawling to the ground.
 
-	(if: $totalArmorBonus &gt; 6)[(set:$pigDefeated to true)
+	(if: $totalArmorBonus &gt; 6 and $health &gt; 30)[
 Fortunately your armor protects you from the worst of the onslaught, and no part of your body seems to be punctured or broken.
-
+{    (set:_x to (random:20,40))(set:$health to it - _x)}
+    //(print:_x) health lost//
 As you scramble back to your feet, you see two arrows bury themselves in the creature&#39;s flank, followed by one of Edda&#39;s long Javelins, which sinks deep into the flesh of its back. With a pained, angry bellow, the creature turns and makes back for the forest at a limping trot, trailing blood and breathing in ragged grunts.
     (set:$health to it - 10)
     [[Continue-&gt;Patrol Hub]]
@@ -2049,17 +2038,18 @@ The ground trembles beneath you as the creature comes. You draw your sword, awar
 
 You manage to twist sidways, avoiding the threshing spikes on the creature&#39;s head as it swipes at you, and the point of your sword just finds the beast&#39;s eye, prompting a great angry bellow of pain. It circles back to face you, spraying blood as it shakes its head wildly.
 
-Then, with two satisfying //thwack// sounds, you one arrow and then another bury themselves in the creature&#39;s flank, followed by one of Edda&#39;s long Javelins, which sinks deep into the flesh of its back. With a pained, angry bellow, the creature turns and makes back for the forest at a limping trot, trailing blood and breathing in ragged grunts.(set:$pigDefeated to true)
+Then, with two satisfying //thwack// sounds, you one arrow and then another bury themselves in the creature&#39;s flank, followed by one of Edda&#39;s long Javelins, which sinks deep into the flesh of its back. With a pained, angry bellow, the creature turns and makes back for the forest at a limping trot, trailing blood and breathing in ragged grunts.
 [[Continue-&gt;Patrol Hub]]
 ](else:)[
 
 You twist sideways, attempting to catch the creature&#39;s eye with the point of your sword while avoiding the threshing spikes on its head. Instead, the blade slashes off to the side, leaving a bloody gauge across its face but not blinding it or doing significant injury. You manage to avoid the main force of the beast&#39;s charge, but it&#39;s huge slashing head smashes against you hard enough to lift you from your feet and knock you sprawling to the ground.
 
-	(if: $totalArmorBonus &gt; 6)[(set:$pigDefeated to true)
+	(if: $totalArmorBonus &gt; 6 and $health &gt; 30)[
 Fortunately your armor protects you from the worst of the onslaught, and no part of your body seems to be punctured or broken.
-
+{    (set:_x to (random:20,40))(set:$health to it - _x)}
+    //(print:_x) health lost//
 As you scramble back to your feet, you see two arrows bury themselves in the creature&#39;s flank, followed by one of Edda&#39;s long Javelins, which sinks deep into the flesh of its back. With a pained, angry bellow, the creature turns and makes back for the forest at a limping trot, trailing blood and breathing in ragged grunts.
-    (set:$health to it - 10)
+
     [[Continue-&gt;Patrol Hub]]
     ](else:)[
 
@@ -2099,9 +2089,10 @@ The arrow seems to barely penetrate the scaly armor of the animal&#39;s head, an
 
 The beast surges forward with an eager snarl, now looming huge before you, and you instinctively dive out of the line of its charge. You manage to roll slightly out of the way as the beast comes by, but it&#39;s huge slashing head smashes against you hard enough to lift you from your feet and knock you sprawling to the ground.
 
-	(if: $totalArmorBonus &gt; 6)[
+	(if: $totalArmorBonus &gt; 6 and $health &gt; 30)[
 Fortunately your armor protects you from the worst of the onslaught, and no part of your body seems to be punctured or broken.
-
+{    (set:_x to (random:20,40))(set:$health to it - _x)}
+    //(print:_x) health lost//
 As you scramble back to your feet, you see two arrows bury themselves in the creature&#39;s flank, followed by one of Edda&#39;s long Javelins, which sinks deep into the flesh of its back. With a pained, angry bellow, the creature turns and makes back for the forest at a limping trot, trailing blood and breathing in ragged grunts.
     (set:$health to it - 10)
     [[Continue-&gt;Patrol Hub]]
@@ -2148,8 +2139,10 @@ The five of you labor for some time to sever the beast&#39;s great head from its
 
 You jerk your spear up, attempting to catch the creature under the throat. Instead, the blade slashes off to the side, slicing through the beast&#39;s hide but not penetrating deeply or stopping the animal&#39;s charge. You manage to roll slightly out of the way as the beast comes by, but it&#39;s huge slashing head smashes against you hard enough to lift you from your feet and knock you sprawling to the ground.
 
-	(if: $totalArmorBonus &gt; 6)[
+	(if: $totalArmorBonus &gt; 6 and $health &gt; 30)[
 Fortunately your armor protects you from the worst of the onslaught, and no part of your body seems to be punctured or broken.
+{    (set:_x to (random:20,40))(set:$health to it - _x)}
+    //(print:_x) health lost//
 
 As you scramble back to your feet, you see two arrows bury themselves in the creature&#39;s flank, followed by one of Edda&#39;s long Javelins, which sinks deep into the flesh of its back. With a pained, angry bellow, the creature turns and makes back for the forest at a limping trot, trailing blood and breathing in ragged grunts.
     (set:$health to it - 10)
@@ -2191,8 +2184,10 @@ Then, with two satisfying //thwack// sounds, you one arrow and then another bury
 
 You twist sideways, attempting to catch the creature&#39;s eye with the point of your sword while avoiding the threshing spikes on its head. Instead, the blade slashes off to the side, leaving a bloody gauge across its face but not blinding it or doing significant injury. You manage to avoid the main force of the beast&#39;s charge, but it&#39;s huge slashing head smashes against you hard enough to lift you from your feet and knock you sprawling to the ground.
 
-	(if: $totalArmorBonus &gt; 6)[
+	(if: $totalArmorBonus &gt; 6 and $health &gt; 40)[
 Fortunately your armor protects you from the worst of the onslaught, and no part of your body seems to be punctured or broken.
+{    (set:_x to (random:20,40))(set:$health to it - _x)}
+    //(print:_x) health lost//
 
 As you scramble back to your feet, you see two arrows bury themselves in the creature&#39;s flank, followed by one of Edda&#39;s long Javelins, which sinks deep into the flesh of its back. With a pained, angry bellow, the creature turns and makes back for the forest at a limping trot, trailing blood and breathing in ragged grunts.
     (set:$health to it - 10)
@@ -2221,7 +2216,7 @@ The creature&#39;s counterattack is swift and merciless. Pain explodes through y
 (display:&quot;GameOver&quot;)</tw-passagedata><tw-passagedata pid="135" name="Find Rest" tags="" position="325,200" size="100,100">{
 (set:_q to &quot;Find somewhere to rest&quot;)
 (if:$activeQuests contains _q)[
-Quest complete: (print:_q)
+//Quest complete: (print:_q)//
 	(set:$activeQuests to it - (a: _q))
     (set:$completedQuests to it + (a: _q))
 ]
@@ -3121,7 +3116,7 @@ He turns back to you, eyes narrowed. &quot;You come into my hall, accuse my than
 (set: $knownLore to (a:&quot;Grendel has been attacking Heorot hall.&quot;))
 (set: $achievements to (a:&quot;Arrived at Kattinge Village&quot;))
 
-
+(set:$confidedAdventurers to &quot;Confided the secret of the Sceadugenga to Hroald, Ciar, Edda and Lothar&quot;)
 (set:$standingStonesLocation to &quot;There are standing stones in the fen with a strange aura (location known)&quot;)
 (set:$standingStonesComms to &quot;The standing stones in the fen act as some sort of communication portal.&quot;)
 (set:$grendelFenLore to &quot;The fen is frequented by large creatures, human-like but not human, perhaps Grendel or the Sceadugenga (location known)&quot;)
@@ -3849,12 +3844,14 @@ Father Aelfric, as he introduces himself, nods understandingly, though his eyes 
 ](else:)[ (for: each _item, ...$food)[
 (set: _eatLabel to &quot;consume &quot; + _item&#39;s &quot;name&quot;) 
 (set: _foodEnergy to 10)
+(set: _foodHealing to 0)
 (if: _item contains &quot;energy&quot;)[(set: _foodEnergy to &quot;energy&quot; of _item)]
-&lt;li&gt;(print: &quot;name&quot; of _item) |  Energy: (print: _foodEnergy) | (link: &quot;description&quot;)[(print: _item&#39;s &quot;description&quot;) ] | (link:&quot;eat&quot;)[
+(if: _item contains &quot;healing&quot;)[(set: _foodHealing to &quot;healing&quot; of _item)]
+&lt;li&gt;(print: &quot;name&quot; of _item) |  Energy: (print: _foodEnergy) | Healing: (print: _foodHealing) |(link: &quot;description&quot;)[(print: _item&#39;s &quot;description&quot;) ] | (link:&quot;eat&quot;)[
 (set: $foodToEat to _item)
 (display: &quot;eat something&quot;)
 (replace: ?energy)[ [Current Energy: (print: $energy)]&lt;energy|]
-
+(replace: ?health)[ [Current Health: (print: $health)]&lt;health|]
 ]
 &lt;/li&gt;
 ]]
@@ -4041,21 +4038,25 @@ Ivar settles back into his seat, the crackling fire casting dancing shadows acro
 [[Ask Ivar another tale-&gt;Ask Ivar about the lore of the land]]
 [[Continue-&gt;Elders Hub]]</tw-passagedata><tw-passagedata pid="190" name="Lie about what happened against Datrub" tags="" position="3275,3600" size="100,100"></tw-passagedata><tw-passagedata pid="191" name="Listen to the boasting nobleman" tags="" position="3150,1000" size="100,100">(display:&quot;header&quot;)
 
-“You see,” the prince declares, his voice rich with pride, “these lands are teeming with resources just waiting to be developed. The locals are backward pagan sluggards who would rather live in a wilderness than work a farm and pay their proper tithe to the church. In Jutland,&quot; he chuckles, &quot;we have quite the reverse issue; far too many peasants. They become troublesome and forget their place. My father and Hrothgar have forged an agreement to relocate some of our... excess population to the fertile grounds near Heorot. With God&#39;s blessing,&quot; he crosses himself, &quot;we&#39;ll transform this blighted wilderness into thriving Christian settlements.”
+“You see,” the prince declares, his voice rich with pride, “these lands are teeming with resources just waiting to be developed. The locals are backward pagan sluggards who would rather live in a wilderness than work a farm and pay their proper tithe to the church. In Jutland our vexation is quite the reverse: far too //many// peasants. They grow troublesome and require ever more frequent and,&quot; he chuckles nastily, &quot;//vigorous// reminders of their place in the natural order.&quot;
 
-The young man carries on in grandiose terms, discussing the many ways his family&#39;s blessing will shine out upon the people of Heorot. &quot;Hrothgar&#39;s hall is mighty,&quot; he declares, &quot;but some of his thanes seem... lacking. Take Unferth, for instance. Does that one even embrace the Christian faith? I heard he clings to pagan ways, skulking in shadows and whispering to spirits. A true warrior wields a sword, not witchraft.&quot;
+He sniffs the wine in his jeweled silver goblet and swishes it before taking a sip, relishing the attention of the crowd. &quot;My father and Hrothgar have forged an agreement to relocate some of our... excess population to the fertile grounds near Heorot. With God&#39;s blessing,&quot; he crosses himself, &quot;we&#39;ll yet transform this blighted wilderness into thriving Christian settlements.”
 
-Murmurs and scandalized titters ripple through the crowd.
-The nobleman turns, mock apologetic, to his friend, a confident smirk on his face. &quot;I speak only truth. My people, the Salian Franks, excel in battle //and //in righteousness. Hrothgar deserves thanes who embody both virtues. I dare say it would be small challenge for me to best Unferth myself and prove a worthier addition to his court. Perhaps I shall do so.&quot;
+The young man carries on in grandiose terms, discussing the many ways his family&#39;s blessing will shine out upon the people of Heorot.
+
+&quot;Hrothgar&#39;s hall is mighty,&quot; he declares, &quot;but some of his thanes seem... lacking. Take Unferth, for instance. Does that one even embrace the Christian faith? I heard he clings to pagan ways, skulking in shadows and whispering to spirits. A true warrior wields a sword, not witchraft.&quot;
+
+Murmurs and scandalized titters ripple through the crowd. The nobleman turns, mock apologetic, to his friend, a confident smirk on his face. &quot;I speak only truth. Do we Salian Franks not excel in both battle //and //in righteousness? Hrothgar deserves thanes who embody both virtues. I dare say it would be small challenge for me to best Unferth myself and prove a worthier addition to his court. Perchance I shall do so.&quot;
 
 Suddenly, with a collective gasp, the crowd parts for Unferth.
+
 &quot;Bold words,&quot; he says in a soft voice that carries through the suddenly silent hall. &quot;Some might consider them a mortal insult.&quot;
 
 The Salian prince squares his shoulders, not backing down. &quot;Hrothgar&#39;s hall needs warriors who are both skilled in combat and righteous. Perhaps it&#39;s time for new blood.&quot;
 
-&quot;I believe you said that you think you could defeat me in combat?&quot; Unferth tilts his head quizzically.
+&quot;So you believe you could best me in combat?&quot; Unferth tilts his head quizzically, his voice detached and conversational, laced with bored disdain.
 
-&quot;Without a doubt I //could//,&quot; the nobleman boasts. &quot;And when I //do//, it will be clear who truly deserves a place at Hrothgar&#39;s side.&quot;
+&quot;Without a doubt I //could//,&quot; boasts the nobleman loudly, &quot;and when I //do//, it shall be clear to all who truly deserves a place at Hrothgar&#39;s side.&quot;
 
 A faint smile touches Unferth&#39;s lips. &quot;Is that a formal challenge then? I won&#39;t deny you. I am Hrothgar&#39;s trusted thane,&quot; he bows toward the throne, &quot;and must prove my worth.&quot;
 
@@ -4067,9 +4068,9 @@ A collective gasp rises from the onlookers, followed by a rush of puzzled whispe
 
 &quot;Will you fight me with only your dirk then?&quot; cries the prince, face now flushed with outrage at Unferth&#39;s implied insult. The crowd draws back to all sides as he tears his sword from its sheath, brandishing it savagely.
 
-King Hrothgar watches from his high seat, a subtle gleam of amusement in his eyes but offering no intervention. The Frankish prince, spurred by pride and the prospect of claiming such a prize, accepts eagerly. &quot;So be it,&quot; he declares. &quot;Let all witness as I prove my worth.&quot; He pauses as an attendant comes forward to strap a shield to his left arm, heavy and adorned with gold trimming and the black eagle of Frankish royalty.
+King Hrothgar watches from his high seat, a subtle gleam of amusement in his eyes but offering no intervention. &quot;So be it,&quot; declares the prince, &quot;let all witness as I prove my worth.&quot; He pauses as an attendant comes forward to strap a shield to his left arm, heavy and adorned with gold trimming and the black eagle of Frankish royalty.
 
-Unferth draws a long, straight, sturdy looking dagger with his right hand, twirls it artfully and squares off like a fencer. The taller Frank, armed with long sword and shield, storms forward, armor clanging. His attacks are swift and powerful, but Unferth sidesteps with minimal effort, his footwork precise and economical. Attack after attack, the young prince presses on, his frustration mounting as each strike meets only air or the faint check of Unferth&#39;s parry.
+Unferth draws a long, straight, sturdy looking dagger with his right hand, twirls it once around his finger, and squares off like a fencer. The taller Frank, armed with long sword and shield, storms forward, armor clanging. His attacks are swift and powerful, but Unferth sidesteps with minimal effort, his footwork precise and economical. Attack after attack, the young prince presses on, trying various 	 his frustration mounting as each strike meets only air or the faint check of Unferth&#39;s parry.
 
 Unferth&#39;s demeanor remains almost languid, his eyes never leaving his opponent. The Frank suddenly lunges forward with a particularly wild overhand strike, and, quick as a viper, Unferth&#39;s left hand darts to his belt and sends a small throwing knife whistling through the air to finds its mark in the young prince&#39;s throat.
 
@@ -4284,12 +4285,10 @@ Raised lofts, screened off with curtains, encircle the perimeter of the hall, ac
 The inn&#39;s patrons are a diverse mix. Interspersed with the local fishermen and craftspeople of the village are groups of mercenaries and hunters, out-of-towners whose demeanor and attire mark them as opportunists and adventurers. They sit together in boisterous clusters, sharing stories and jests, their laughter louder and more carefree than the locals&#39;. Many wear armor, and weapons are stacked at the ends of several of the long tables.
 
 The crowd includes not just Danes and other Scyldings from nearby regions, but a variety of people apparently drawn from far and wide by the promise of Hrothgar’s bounties and the lurid tale of Grendel. Gauls with their distinctive braided hair and colorful tunics, Goths with their intricate tattoos and fierce expressions, and even a few Lombards.
-
 (if: &quot;Adventurers&quot; of $reputation is &quot;unknown&quot;)[
 One party of four adventurers grabs your attention. Their clothing reveal an unlikely combination of origins, and most unusually, the group appears to include two armed female adventurers. A tall Norseman with a broad smile and a voice that booms above the din holds court at the head of the table, entertaining his companions with a tale tale about his exploits. Their faces show a mixture of admiration, mirth, and skepticism. As their conversation shifts, you hear them speak of bold plan to scour the forest in search of Grendel, intent on destroying the creature’s hiding places and earning the king&#39;s favor.
 
-[[Observe the adventurers-&gt;Adventurers observe]]
-]
+[[Observe the adventurers-&gt;Adventurers observe]] ]
 [[Continue-&gt;Inn Hub]]</tw-passagedata><tw-passagedata pid="209" name="Observe the royal advisors" tags="" position="4650,950" size="100,100">(display: &quot;header&quot;)
 
 The grand hall of Heorot pulses with life, a tapestry of flickering torchlight and murmuring voices. Warriors boast of their exploits, their armor gleaming under the glow of hearth fires. Nobles negotiate alliances over goblets of mead, while servants weave through the crowd with practiced grace.
@@ -4356,7 +4355,6 @@ Hrothgar leans forward, fixing you with a glacial, menacing gaze, his face a lan
 [[Beg for Hrothgar&#39;s mercy]]
 [[Propose a diplomatic approach]]</tw-passagedata><tw-passagedata pid="215" name="Offer them a gift to break the ice" tags="" position="1425,500" size="100,100">(display: &quot;header&quot;)
 {
-[[Hold out several silver coins-&gt;Offer them silver for information]]
 &lt;ul&gt;
 (if: $food&#39;s length is 0)[
  &lt;li&gt;nothing.&lt;/li&gt;
@@ -4370,7 +4368,9 @@ Hrothgar leans forward, fixing you with a glacial, menacing gaze, his face a lan
 ]&lt;/li&gt;
 ]]
 &lt;/ul&gt;
-}</tw-passagedata><tw-passagedata pid="216" name="Offer them silver for information" tags="" position="1250,500" size="100,100">(display:&quot;header&quot;)
+}
+[[Hold out several silver coins-&gt;Offer them silver for information]]
+[[Continue-&gt;Fishermen Convo Hub]]</tw-passagedata><tw-passagedata pid="216" name="Offer them silver for information" tags="" position="1250,500" size="100,100">(display:&quot;header&quot;)
 The man&#39;s eyes do not lower from yours for a long moment, as the suspicion on face hardens into hostility. He slowly and deliberately traces the mark of the cross in the air in front of him, as if warding off an evil aura you were radiating.
 
 &quot;Hrothgar deals harshly with spies. We&#39;ve nothing to say to outlanders about such matters.&quot; (set: $reputation&#39;s &quot;Kattinge fishermen&quot; to &quot;hostile&quot;)
@@ -4521,10 +4521,8 @@ Lothar takes a hearty swig of ale, wiping his mouth with the back of his hand. &
 
 Hroald chuckles softly. &quot;We were considering setting out at dawn&quot;
 
-[[Ask to join the patrol]]
-](else:)[
-[[Propose a patrol into the forest in the morning-&gt;Party night before patrol]]
-]
+[[Ask to join the patrol]]](else:)[
+[[Propose a patrol into the forest in the morning-&gt;Party night before patrol]]]
 {(if: $recruitedParty)[
 [[Propose that the group accompanies you to Heorot to speak with Unferth about work-&gt;Make for Heorot Hall]] &lt;br&gt;
 ]
@@ -4534,9 +4532,7 @@ Hroald chuckles softly. &quot;We were considering setting out at dawn&quot;
 (if: $activeQuests contains $thrythQuest)[
 [[Propose that you all set out for Thryth farmstead in the morning, to investigate the recent Grendel attacks-&gt;Set out for Thryth farmstead]]&lt;br&gt;
 ]
-}
-[[Back-&gt;Adventurers Hub]]</tw-passagedata><tw-passagedata pid="229" name="Play a tune to make some coin" tags="" position="1150,1625" size="100,100">You find an empty table near the hearth, and take out your prized 
-You begin to play, the familiar melody flowing from your fingers and filling the room.
+}[[Back-&gt;Adventurers Hub]]</tw-passagedata><tw-passagedata pid="229" name="Play a tune to make some coin" tags="" position="1150,1625" size="100,100">You find an empty table near the hearth, and take out your prized lyre. You begin to play, the familiar melody flowing from your fingers and filling the room.
 ---
 {(set: $success to  (random: 1, 10) + $energy/10)
 (set: $success to it /2)
@@ -4547,8 +4543,6 @@ You begin to play, the familiar melody flowing from your fingers and filling the
 (set: $sp to $sp + $success)
 (if: $energy &gt; 20)[(set: $energy to $energy - 20)]}
 ---
-
-
 
 Your song, a lively tune about brave warriors and epic battles, gradually draws the attention of the patrons. The noise in the inn decreases as more people turn to listen, their conversations pausing.
 {
@@ -4569,7 +4563,7 @@ When you finish, a smattering of applause greets you, and a few coins are tossed
 (set: $bardReputation to &quot;low&quot;)
 The patrons barely notice your attempt, their conversations continuing unabated. The fishermen glance your way but quickly return to their animated discussions. The mercenaries and hunters, more interested in their own stories and boasts, pay you little heed. Even the innkeeper, busy with his duties, seems unimpressed by your performance.
 
-As you finish your song, only a few polite claps greet you, and no coins are forthcoming. The bard steps back up, taking his lute with a sympathetic nod. The innkeeper gives you a curt nod. &quot;Maybe next time, bard.&quot;]
+As you finish your song, only a few polite claps greet you, and no coins are forthcoming. The innkeeper gives you a curt nod. &quot;Maybe next time, bard.&quot;]
 }
 [[Continue hanging out in the bar-&gt;Inn Hub]]</tw-passagedata><tw-passagedata pid="230" name="Pledge your help in restoring the old balance" tags="" position="2375,2775" size="100,100">(display: &quot;header&quot;)
 The leader inclines their head, and for a moment, you sense a shared understanding—a flicker of hope amidst the shadows.
@@ -4653,10 +4647,8 @@ Name: (print: &quot;name&quot; of _item) | (link: &quot;description&quot; )[(pri
 ](else:)[
 [[Continue-&gt;Heorot Hub]]
 ]</tw-passagedata><tw-passagedata pid="233" name="Private Room" tags="" position="200,1950" size="100,100">(display: &quot;header&quot;)
-
 (if: $reputation&#39;s &quot;Innkeeper&quot; is not &quot;valued customer&quot;)[
-{	(if: $sp&lt;20)[
-    	(set: $reputation&#39;s &quot;Innkeeper&quot; to &quot;Riff-raff&quot;)
+	(if: $sp&lt;20)[    	(set: $reputation&#39;s &quot;Innkeeper&quot; to &quot;Riff-raff&quot;)
 You lack sufficient funds	
 [[Continue-&gt;Innkeeper]]	
 	](else:)[
@@ -4669,16 +4661,13 @@ You lack sufficient funds
             &quot;description&quot;,&quot;keys to the door and chest in the private room in the inn&quot;
             )))
               }
-You hand over the coins, and the innkeeper&#39;s demeanor shifts to one of more pronounced hospitality. He smiles broadly, pocketing the silver. &quot;Ah, a discerning guest! Follow me, please.&quot;
+The innkeeper smiles broadly, pocketing your silver, and his demeanor shifts immediately to.  &quot;Ah, a discerning guest! Follow me, please.&quot;
 
-The innkeeper leads you through the bustling tavern and up a narrow wooden staircase. The steps creak underfoot, a testament to their age. As you ascend, the noise from the tavern below fades, replaced by the soft flicker of a torch mounted on the wall, casting warm, dancing shadows.
-
-At the top of the stairs, the innkeeper stops at a door made of sturdy oak, its surface polished to a warm sheen. He unlocks it with a key and swings it open, revealing your room.
+He leads you through the bustling tavern and up a narrow wooden stair to a hallway above the main room, and to a door at the end of it, which he opens with a key.
 
 &quot;Here we are, finest room in the house,&quot; he says with a hint of pride.
-&lt;br&gt;(Room keys added to inventory)
-&lt;br&gt;(display:&quot;Find Rest&quot;)
-	]}
+&lt;br&gt;//Room keys added to inventory//
+&lt;br&gt;(display:&quot;Find Rest&quot;)]
 ](else:)[The familiar sight of the room is comforting.]
 (if: $reputation&#39;s &quot;Innkeeper&quot; is &quot;valued customer&quot;)[
 The room is small but meticulously clean. The walls are paneled with dark, polished wood, and the floor is covered with a woven rush mat, softening your steps. A single straw mattress rests on a wooden frame, covered with a thick woolen blanket. 
@@ -4686,7 +4675,6 @@ The room is small but meticulously clean. The walls are paneled with dark, polis
 A sturdy chest made of oak sits at the foot of the bed. A small window fitted with wooden shutters opens onto  a view of the village below and allows the cool evening breeze to filter in. 
 
 On a wooden stand near the door, a ceramic washbasin filled with fresh water and a neatly folded linen towel await your use. A simple wooden chair and a small table complete the furnishings. On the table is a dish of walnuts and a loaf of fresh bread with butter, and a jug of fresh drinking water.
-
 {
 (for: each _item, ...$privateRoomLarder)[
 ---
@@ -4699,15 +4687,16 @@ On a wooden stand near the door, a ceramic washbasin filled with fresh water and
 
 ]
 ---
-}
 
+}
 The scent of beeswax from the polished wood mingles with the faint aroma of lavender from the blanket, creating a soothing atmosphere. You can faintly hear the low hum of conversation and occaisional clink of cups from tavern below.
 
 You stretch out on the mattress, feeling the weight of your travels begin to lift as you close your eyes, ready to face whatever the next day brings.
 
-[[Drift off to sleep-&gt;Wake up in the private room]]
+[[Drift off to sleep-&gt;Wake up in the private room]]&lt;br&gt;
 [[Return the public room-&gt;Inn Hub]]
-]</tw-passagedata><tw-passagedata pid="234" name="Probe Unferth’s Role" tags="" position="4100,1000" size="100,100">(display: &quot;header&quot;)
+]
+</tw-passagedata><tw-passagedata pid="234" name="Probe Unferth’s Role" tags="" position="4100,1000" size="100,100">(display: &quot;header&quot;)
 Unferth’s smile broadens slightly, and he nods with approval. “Perceptive. My role extends beyond the battlefield and the drinking hall, unlike many of Hrothgar&#39;s thanes. I am responsible for the stability and security of Heorot in all its phases, regarding both external threats and internal discord. Essentially, I have authority over everything that is beneath Hrothgar&#39;s dignity to attend to personally, and everything his Majesty finds distasteful.”
 
 He leans in slightly, “In times such as these, vigilance is paramount. Newcomers such as yourself are both potential allies and risks. I seek to understand your intentions, your loyalties, and your potential contributions to our cause.”
@@ -4802,13 +4791,13 @@ Eir&#39;s face brightens as she gestures to her wares. &quot;I have many herbs t
 (for: each _item, ...$potions)[(set:_label to &quot;purchase &quot; + &quot;name&quot; of _item)
 (set: _descriptionLabel to &quot;Description of &quot; + _item&#39;s &quot;name&quot;)
 ---
-(print: &quot;name&quot; of _item) |  Price: (print: &quot;price&quot; of _item) silver penningar | (link: &quot;description&quot; )[(print: &quot;description&quot; of _item)] | (link-repeat:&quot;purchase&quot;)[
+(print: &quot;name&quot; of _item) |  Price: (print: &quot;price&quot; of _item) silver penningar | (link: &quot;description&quot; )[ Healing: [(print:&quot;healing&quot; of _item) | Energy: (print:&quot;energy&quot; of _item) | (print: &quot;description&quot; of _item)] 
+] | (link-repeat:&quot;purchase&quot;)[
 (set: $purchaseItem to _item)
 (set: $purchaseCategory to $food)
 (display: &quot;Purchase confirmation&quot;)
 (replace: ?sp)[ [Your current silver: (print: $sp)]&lt;sp|]
 ]
-
 ]
 ### Charms:
 (for: each _item, ...$charms)[(set:_label to &quot;purchase &quot; + &quot;name&quot; of _item)
@@ -4854,7 +4843,7 @@ The hall erupts into action. Thanes and warriors scramble to arm themselves, the
 
 Aeschere turns back to you, his expression stern but grateful. “Your information has likely averted a disaster. Stay vigilant, and continue to serve Heorot well. This kingdom needs all the allies it can get.”
 
-[[Follow the arresting party]]</tw-passagedata><tw-passagedata pid="243" name="Request Audience with Sir Thryth" tags="" position="3500,2825" size="100,100">(display: &quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
+[[Follow the arresting party]]</tw-passagedata><tw-passagedata pid="243" name="Request Audience with Sir Thryth" tags="" position="3525,2825" size="100,100">(display: &quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
 As the guard leads you toward the house, you see at least eight men at arms patrolling the grounds, watching the laboring thralls and supervising their contrustrions. Many of them look up at you in suspicion.
 
 Sir Thryth is tall and broad-shouldered, clad in fine garments adorned with the symbols of his faith—a silver cross prominently displayed around his neck. His hair and beard are dark and neatly trimmed, his eyes cold and calculating. He is flanked by a pair of large, capable-looking men at arms with halberds.
@@ -5237,11 +5226,13 @@ To the east, the gentle hills are a green mottle of pasture, orchards, and unten
 A woman leading a small her of goats across a meadow stops to raise her hand in greeting.
 
 [[Hail the woman for conversation-&gt;Shephard convo]]
-[[Wave but continue walking-&gt;Continue toward Thryth]]</tw-passagedata><tw-passagedata pid="256" name="Shephard Christian Yes mean" tags="" position="3300,2450" size="100,100"></tw-passagedata><tw-passagedata pid="257" name="Shephard Christian Yes nice" tags="" position="3275,2650" size="100,100">(display:&quot;header&quot;)
+[[Wave but continue walking-&gt;Continue toward Thryth]]</tw-passagedata><tw-passagedata pid="256" name="Shephard Christian Yes mean" tags="" position="3450,2550" size="100,100">(display:&quot;header&quot;)
+&quot;Hmm,&quot; she says thoughtfully, &quot;then I suppose you&#39;ll find yourself at home with Sir Thryth. Good day then, stranger,&quot; she turns and walks off into the pasture without waiting for your response.
+[[Continue-&gt;Continue toward Thryth]]</tw-passagedata><tw-passagedata pid="257" name="Shephard Christian Yes nice" tags="" position="3275,2650" size="100,100">(display:&quot;header&quot;)
 &quot;Hmm,&quot; she says thoughtfully, &quot;then I suppose not all Christians are like Sir Thryth.&quot;
-[[Continue-&gt;Shephard Thryth briefing]]</tw-passagedata><tw-passagedata pid="258" name="Shephard Christian no" tags="" position="3125,2575" size="100,100">(display:&quot;header&quot;)
+[[Continue-&gt;Shephard Thryth briefing]]</tw-passagedata><tw-passagedata pid="258" name="Shephard Christian no" tags="" position="3150,2600" size="100,100">(display:&quot;header&quot;)
 &quot;Hmm,&quot; she says thoughtfully, &quot;then I should warn you to prepare yourself to choose your words carefully with Sir Thryth. Even asking the wrong question can be very dangerous.&quot;
-[[Continue-&gt;Shephard Thryth briefing]]</tw-passagedata><tw-passagedata pid="259" name="Shephard Sir Thryth info" tags="" position="3075,2350" size="100,100"></tw-passagedata><tw-passagedata pid="260" name="Shephard Thryth briefing" tags="" position="3175,2450" size="100,100">(display: &quot;header&quot;)(set:$effort to 1)(display:&quot;Effort&quot;)
+[[Continue-&gt;Shephard Thryth briefing]]</tw-passagedata><tw-passagedata pid="259" name="Shephard Thryth briefing" tags="" position="3175,2450" size="100,100">(display: &quot;header&quot;)(set:$effort to 1)(display:&quot;Effort&quot;)
 
 //&quot;Sir Thryth// is a foreigner from beyond the Southern Sea who despises our ways and hopes to force us to his own beliefs.&quot;
 
@@ -5251,8 +5242,7 @@ She spits at the sound of the name and looks off into the distance for a long mo
 (set:$lore to $thrythLoreUnpopular)(display:&quot;addLore&quot;)
 }
 [[What do you mean, they waged war?]]
-[[What can you tell me of Sir Thryth?-&gt;Shephard Sir Thryth info]]
-[[Back-&gt;Shephard convo]]</tw-passagedata><tw-passagedata pid="261" name="Shephard convo" tags="" position="3375,2325" size="100,100">(display:&quot;header&quot;)(set:$effort to 1)(display:&quot;Effort&quot;)
+[[Back-&gt;Shephard convo]]</tw-passagedata><tw-passagedata pid="260" name="Shephard convo" tags="" position="3375,2325" size="100,100">(display:&quot;header&quot;)(set:$effort to 1)(display:&quot;Effort&quot;)
 
 Her goats bleat and eye you suspiciously, but the shephard clomps toward you across the meadow with no apparent anxiety. &quot;What brings such fine and noble folk out this way I wonder?&quot; She eyes the unusual appearance of your party. &quot;You&#39;ve come from abroad? What news have you?&quot;
 
@@ -5264,7 +5254,7 @@ Her goats bleat and eye you suspiciously, but the shephard clomps toward you acr
 ]
 
 [[Ask about the attacks on Thryth farmstead]]
-[[Excuse yourself and continue on toward Thryth-&gt;Continue toward Thryth]]</tw-passagedata><tw-passagedata pid="262" name="Sigrid and the Dragon of Jelling" tags="" position="3050,2175" size="100,100">(display: &quot;header&quot;)
+[[Excuse yourself and continue on toward Thryth-&gt;Continue toward Thryth]]</tw-passagedata><tw-passagedata pid="261" name="Sigrid and the Dragon of Jelling" tags="" position="3050,2175" size="100,100">(display: &quot;header&quot;)
 
 
 &quot;In ancient times, the Kingdom of Jelling was home to a magnificent temple dedicated to //Freyja// goddess of love and abundance. Pilgrims from distant realms would journey to this sacred site, seeking blessings and leaving offerings. The temple stood beside towering rune stones, inscribed with the wisdom of the gods and the history of our people.&quot;
@@ -5290,7 +5280,7 @@ Ivar&#39;s voice softens, laden with sorrow. &quot;The cursed runes exacted thei
 &quot;They say the dragon carried Sigrid&#39;s body to the realms beyond, granting her passage to the afterlife. But the story doesn&#39;t end there. Sigrid and the dragon merged their spirits, becoming celestial guardians who watch over the land to this day. In times of great need, it&#39;s said they appear to those pure of heart, offering guidance and healing.&quot;
 
 [[Ask Ivar another tale-&gt;Ask Ivar about the lore of the land]]
-[[Continue-&gt;Elders Hub]]</tw-passagedata><tw-passagedata pid="263" name="Sit at the hearth" tags="" position="275,1575" size="100,100">(display: &quot;header&quot;)
+[[Continue-&gt;Elders Hub]]</tw-passagedata><tw-passagedata pid="262" name="Sit at the hearth" tags="" position="275,1575" size="100,100">(display: &quot;header&quot;)
 The fire’s warmth seeps into your bones, a welcome contrast to the chill that clings to the late afternoon air outside.
 
 From this vantage point, the room unfurls before you like a tapestry. The firelight flickers across the faces of the patrons, casting shadows that dance and play on the rough wooden walls. The mingled scents of roasted meat, stale ale, and woodsmoke create a heady atmosphere that speaks of countless evenings spent in revelry and camaraderie.
@@ -5299,13 +5289,13 @@ To your left, a group of local fishermen sits huddled around a table, their face
 
 
 [[Drift off to sleep-&gt;Wake up at the hearth]]
-[[Rise from the hearth-&gt;Inn Hub]]</tw-passagedata><tw-passagedata pid="264" name="Sleep Drekaborg" tags="" position="3450,5000" size="100,100">(display:&quot;header&quot;)
+[[Rise from the hearth-&gt;Inn Hub]]</tw-passagedata><tw-passagedata pid="263" name="Sleep Drekaborg" tags="" position="3450,5000" size="100,100">(display:&quot;header&quot;)
 As you settle into your bedroll, the ground feels cold and unyielding beneath you. The absence of a fire makes the chill more pronounced, but you draw your cloak tightly around you. The vast expanse of the night sky stretches above, a tapestry of stars that seem both distant and comforting.
 
 Questions swirl in your mind: Unferth&#39;s true intentions, the nature of the dragon you&#39;re seeking, the eerie silence of this place. Yet, amid the uncertainty, a sense of purpose steadies you. The soft breathing of your companions and the whisper of the wind through the trees lull you toward sleep.
 
 Energy restored! (set:$energy to 100)
-[[Continue-&gt;Draconic Surprise]]</tw-passagedata><tw-passagedata pid="265" name="Sleep at the church" tags="" position="2025,2500" size="100,100">(display:&quot;header&quot;)
+[[Continue-&gt;Draconic Surprise]]</tw-passagedata><tw-passagedata pid="264" name="Sleep at the church" tags="" position="2025,2500" size="100,100">(display:&quot;header&quot;)
 (display:&quot;Find Rest&quot;)
 The priest smiles gently. &quot;Of course. We have a small room at the back where travelers can find refuge. It’s not much, but it is warm and safe.&quot;
 
@@ -5321,7 +5311,7 @@ You wake up feeling refreshed after your night at the church.
 {(set: $energy to 100)(display:&quot;Initialize Larders&quot;)}
 //Energy restored to (print:$energy)/100//
 
-[[Continue-&gt;Village Hub]]</tw-passagedata><tw-passagedata pid="266" name="Sleep in Hayloft" tags="" position="0,2050" size="100,100">(if:$sp&lt;1)[
+[[Continue-&gt;Village Hub]]</tw-passagedata><tw-passagedata pid="265" name="Sleep in Hayloft" tags="" position="0,2050" size="100,100">(if:$sp&lt;1)[
 The innkeeper frowns down at you with pity or perhaps boredom.
 &quot;Sorry, it costs a silver piece, can&#39;t let you crowd the paying customers,&quot; he says, &quot;You can stay by the hearth here for tonight, but you best find some coin if you want to be hanging about. We can&#39;t take in strays.&quot;
 
@@ -5330,7 +5320,7 @@ The innkeeper frowns down at you with pity or perhaps boredom.
 Exhausted, you make your way to the hayloft. Finding an unoccupied spot, you unroll the blanket from your pack and settle in for a night&#39;s rest.(display:&quot;Find Rest&quot;)
 
 [[Drift off to sleep-&gt;Wake up in the Inn]]
-]</tw-passagedata><tw-passagedata pid="267" name="Smith Grendel Inquiry" tags="" position="1275,1075" size="100,100">(display: &quot;header&quot;)
+]</tw-passagedata><tw-passagedata pid="266" name="Smith Grendel Inquiry" tags="" position="1275,1075" size="100,100">(display: &quot;header&quot;)
 
 The smith, overhearing from his place at the anvil, glances up briefly and replies in a rumbling voice without breaking the rhythm of his work, &quot;Fishermen whisper of shadows in the deep, farmers speak of creatures stalking the fields. Rumors flow through this market like water, but little enough is of substances.&quot;
 
@@ -5345,7 +5335,7 @@ The smith laughs. &quot;The only sure thing is the strength of good steel.&quot;
 He cools the blade in a trough of oil, the metal hissing like a serpent. Finally turning to face you, he adds, &quot;How well armed and armored are you, friend? We&#39;ve wares to suit your needs.&quot;
 
 [[Examine the wares-&gt;Smith weapons]]
-[[Continue-&gt;Market Hub]]</tw-passagedata><tw-passagedata pid="268" name="Smith weapons" tags="" position="1300,825" size="100,100">(display: &quot;header&quot;)
+[[Continue-&gt;Market Hub]]</tw-passagedata><tw-passagedata pid="267" name="Smith weapons" tags="" position="1300,825" size="100,100">(display: &quot;header&quot;)
 [[Continue exploring the market-&gt;Market Hub]]
 
 [Your current silver: $sp]&lt;sp|
@@ -5360,7 +5350,7 @@ He cools the blade in a trough of oil, the metal hissing like a serpent. Finally
 ]
 
 ]
-}</tw-passagedata><tw-passagedata pid="269" name="Stand Your Ground" tags="" position="5075,1000" size="100,100">In the tense silence of the hall, you choose to stand your ground. &quot;Your Majesty,&quot; you begin, your voice steady despite the rising hostility, &quot;true strength also lies in wisdom and the ability to adapt. Facing the Grendel threat requires more than bravery; it requires understanding and perhaps a different tactic.&quot;
+}</tw-passagedata><tw-passagedata pid="268" name="Stand Your Ground" tags="" position="5075,1000" size="100,100">In the tense silence of the hall, you choose to stand your ground. &quot;Your Majesty,&quot; you begin, your voice steady despite the rising hostility, &quot;true strength also lies in wisdom and the ability to adapt. Facing the Grendel threat requires more than bravery; it requires understanding and perhaps a different tactic.&quot;
 
 The words hang heavy in the air, and the reaction is immediate and fierce. King Hrothgar&#39;s face contorts with fury, his voice thundering through the hall. &quot;Insolence! You challenge not only my methods but my very honor as king!&quot;
 
@@ -5372,7 +5362,7 @@ In moments, you&#39;re overpowered and dragged away. The last sights and sounds 
 
 As you&#39;re led to your grim fate, the realization hits you: your journey, your story, ends here. In seeking to bring a new perspective to King Hrothgar, you&#39;ve inadvertently sealed your doom. The hall of Heorot fades into the distance, along with the untold tales and secrets you hoped to uncover.
 
-(display:&quot;GameOver&quot;)</tw-passagedata><tw-passagedata pid="270" name="Stand ground against Scea" tags="" position="400,4650" size="100,100">(display:&quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
+(display:&quot;GameOver&quot;)</tw-passagedata><tw-passagedata pid="269" name="Stand ground against Scea" tags="" position="400,4650" size="100,100">(display:&quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
 (display: &quot;updateCombatBonus&quot;)
 
 Your comrades cluster nervously around you, clutching their weapons. The air is thick with the scent of moss and an electric buzz of dread. As the last rays of sunlight retreat, the shadows cast by the ancient trees grow longer, more menacing.
@@ -5403,7 +5393,7 @@ Current combat bonus: $totalCombatBonus
 Exhaustion overtakes your courage, and your martial training abandons you.
 [[Curl into a ball and play dead-&gt;Scream]]
 [[Scream-&gt;Scream]]
-]</tw-passagedata><tw-passagedata pid="271" name="Start" tags="" position="500,25" size="100,100">### Grendelverse Book 1: Shadows of Grendel
+]</tw-passagedata><tw-passagedata pid="270" name="Start" tags="" position="500,25" size="100,100">### Grendelverse Book 1: Shadows of Grendel
 
 Welcome to **Grendelverse**! This is a dynamic text role-playing game (RPG) set in the world of the epic saga **Beowulf**, one of the earliest and gnarliest literary works in (Old) English, and a major influence on Tolkein and basically all modern fantasy.
 
@@ -5419,8 +5409,10 @@ Now you can explore the surreal and mysterious world of Grendel and the Ring-Dan
 &lt;br&gt;[[Saved Games-&gt;Games Dashboard]]
 ]
 (click: &quot;Beowulf&quot;)[(goto-url: &#39;https://oldenglishpoetry.camden.rutgers.edu/beowulf/&#39;)]
-}</tw-passagedata><tw-passagedata pid="272" name="Status" tags="" position="50,1025" size="100,100">**Vitals**: //Health// (if: $energy &gt; 125)[(set: $energy to 125)](print: $health)/100 | [//Energy//: (print: $energy)/100]&lt;energy|(display:&quot;updateCombatBonus&quot;)
-Current armor bonus: $totalArmorBonus</tw-passagedata><tw-passagedata pid="273" name="Stay in the Tree to Rest" tags="" position="5100,4250" size="100,100">(display: &quot;header&quot;)</tw-passagedata><tw-passagedata pid="274" name="Step forward and tell Unferth you’ve succeeded in drawing out the traitors as he assigned you!" tags="" position="5575,3000" size="100,100">(display: &quot;header&quot;)
+}</tw-passagedata><tw-passagedata pid="271" name="Status" tags="" position="50,1025" size="100,100">{(if: $energy &gt; 125)[(set: $energy to 125)]
+(display:&quot;updateCombatBonus&quot;)}
+**Vitals**: [//Health// (print: $health)/100]&lt;health| | [//Energy//: (print: $energy)/100]&lt;energy|
+Current armor bonus: $totalArmorBonus</tw-passagedata><tw-passagedata pid="272" name="Stay in the Tree to Rest" tags="" position="5100,4250" size="100,100">(display: &quot;header&quot;)</tw-passagedata><tw-passagedata pid="273" name="Step forward and tell Unferth you’ve succeeded in drawing out the traitors as he assigned you!" tags="" position="5575,3000" size="100,100">(display: &quot;header&quot;)
 Step forward and tell Unferth you’ve succeeded in drawing out the traitors as he assigned you!
 
 You step forward confidently, raising your voice to address Unferth and Hrothgar. &quot;My lords,&quot; you begin, trying to project a sense of assurance. &quot;As Unferth assigned me, I have succeeded in drawing out the traitors. We have identified those who still practice the old ways and harbor sympathies for the Sceadugenga.&quot;
@@ -5440,7 +5432,7 @@ Hrothgar considers this, then nods decisively. &quot;Very well. Guards, take the
 The guards step forward, seizing Torsten and your companions. You feel a pang of guilt as they are led away, but you know that your actions have bought you time and potentially saved your own life.
 
 Unferth approaches you, his expression unreadable. &quot;You have done well to bring this to our attention,&quot; he repeats. &quot;But be cautious. Trust is a fragile thing, and deception can only take you so far.&quot;
-[[Continue-&gt;Torsten&#39;s Execution]]</tw-passagedata><tw-passagedata pid="275" name="Step forward and try to explain to Hrothgar and Unferth the importance of returning the horn" tags="" position="5325,3800" size="100,100">(display: &quot;header&quot;)
+[[Continue-&gt;Torsten&#39;s Execution]]</tw-passagedata><tw-passagedata pid="274" name="Step forward and try to explain to Hrothgar and Unferth the importance of returning the horn" tags="" position="5325,3800" size="100,100">(display: &quot;header&quot;)
 Step Forward and Try to Explain to Hrothgar and Unferth the Importance of Returning the Horn
 
 You step forward, taking a deep breath to steady your nerves. &quot;My lords, please listen,&quot; you begin, addressing both Hrothgar and Unferth. &quot;This artifact is not merely a weapon; it is a sacred horn of the Sceadugenga. It was stolen from them, and returning it could help us make peace and prevent further bloodshed.&quot;
@@ -5470,7 +5462,7 @@ Hrothgar raises his voice, addressing the assembled crowd. &quot;These traitors 
 The guards force you and your companions to kneel, the sharp edge of the executioner&#39;s blade glinting in the torchlight. You close your eyes, bracing for the inevitable.
 
 In that final moment, you cannot help but wonder if there was another way, another path you could have taken to avoid this grim fate.
-(display:&quot;GameOver&quot;)</tw-passagedata><tw-passagedata pid="276" name="Suggest Retreat" tags="" position="1575,3850" size="100,100">(display: &quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
+(display:&quot;GameOver&quot;)</tw-passagedata><tw-passagedata pid="275" name="Suggest Retreat" tags="" position="1575,3850" size="100,100">(display: &quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
 
 (if:$pigDefeated)[
 &quot;Quickly, back to the forest,&quot; you decide, turning to make your way back up the bank toward toward the return path, passing the spot where you fought the monstrous pig-like animal.
@@ -5507,7 +5499,7 @@ Armor bonus: $totalArmorBonus
 	[[Ready your spear-&gt;FenPigSpear]]&lt;br&gt;
     ]
 ]
-}]</tw-passagedata><tw-passagedata pid="277" name="Tell Edda to attack the fen creature" tags="" position="1950,3975" size="100,100">(display: &quot;header&quot;)(set:$effort to 3)(display:&quot;Effort&quot;)
+}]</tw-passagedata><tw-passagedata pid="276" name="Tell Edda to attack the fen creature" tags="" position="1950,3975" size="100,100">(display: &quot;header&quot;)(set:$effort to 3)(display:&quot;Effort&quot;)
 &quot;Edda,&quot; you whisper, barely more than a breath. &quot;Can you hit it from here?&quot;
 
 She assesses the distance, her gaze calculating. &quot;It&#39;s a fair throw, but I can make it.&quot;
@@ -5531,7 +5523,7 @@ The disturbance ripples outward, both literally and figuratively. From the surro
 Ciar&#39;s raven takes flight with an alarmed cry, circling overhead before disappearing into the fog. &quot;You&#39;ve roused the whole fen!&quot; Ciar exclaims, her voice edged with urgency.
 
 [[Suggest Retreat]]
-[[Observe roused fen creatures]]</tw-passagedata><tw-passagedata pid="278" name="Throne Intro" tags="" position="5200,250" size="100,100">(display: &quot;header&quot;)(set:$effort to 7)(display:&quot;Effort&quot;)
+[[Observe roused fen creatures]]</tw-passagedata><tw-passagedata pid="277" name="Throne Intro" tags="" position="5200,250" size="100,100">(display: &quot;header&quot;)(set:$effort to 7)(display:&quot;Effort&quot;)
 You take a deep breath and make your way through the bustling hall, weaving between tables and stepping over the rushes on the floor. The atmosphere is thick with the mingling scents of roasted meat, spiced ale, and burning wood. The closer you get to the dais, the more aware you become of the weight of eyes on you. Conversations hush, and curious glances follow your progress. As you approach the thrones, you catch sight of King Hrothgar, his presence imposing even amidst the grandeur of the hall. Beside him, Queen Wealhtheow watches with an air of serene authority.
 
 Stopping a respectful distance from the thrones, you bow deeply, introducing yourself and offering your services to the court.
@@ -5542,7 +5534,7 @@ You straighten, feeling the weight of the moment. The hall is silent now, all at
 
 [[Boldly approach the King and declare yourself a great skald, here to entertain the court and compose an ode to the greatness of Heorot-&gt;Roll: Bard it up in Heorot!]]
 [[Offer your skills as a warrior-&gt;Roll: Combat skills boast]]
-[[Offer your skills as a diplomat in seeking a peaceful solution-&gt;Offer king advice]]</tw-passagedata><tw-passagedata pid="279" name="Thryth Hub" tags="" position="2875,2875" size="200,100">(display: &quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
+[[Offer your skills as a diplomat in seeking a peaceful solution-&gt;Offer king advice]]</tw-passagedata><tw-passagedata pid="278" name="Thryth Hub" tags="" position="2875,2875" size="200,100">(display: &quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
 
 Thryth farmstead consists of a single timber  great house and a bunch of long barracks and smaller outlying sheds, vast fields planted to neat rows of bright green barley, rye, and wheat.
 
@@ -5596,11 +5588,11 @@ Sir Thryth is tall and broad-shouldered, clad in a fine cloak of deep red and we
 ]
 [[Depart for Kattinge/Heorot-&gt;Village Hub]]&lt;br&gt;
 }
-</tw-passagedata><tw-passagedata pid="280" name="Torsten Forest Trip Prep" tags="" position="2325,2325" size="100,100">(display: &quot;header&quot;)
+</tw-passagedata><tw-passagedata pid="279" name="Torsten Forest Trip Prep" tags="" position="2325,2325" size="100,100">(display: &quot;header&quot;)
 
 Torsten tells you to take your time and prepare yourself mentally and physically. Whenever you are ready, you can meet him here at the great oak at dawn.
 
-[[Continue-&gt;Village Hub]]</tw-passagedata><tw-passagedata pid="281" name="Torsten Forest Trip Query" tags="" position="2525,2225" size="100,100">(display: &quot;header&quot;)
+[[Continue-&gt;Village Hub]]</tw-passagedata><tw-passagedata pid="280" name="Torsten Forest Trip Query" tags="" position="2525,2225" size="100,100">(display: &quot;header&quot;)
 Intrigued by Torsten&#39;s connection to the land and his observations, you ask if he would be willing to guide you to the forest, to show you firsthand the changes he&#39;s noticed.
 
 Torsten looks at you for a long moment, his eyes reflecting a lifetime of knowledge and respect for the natural world. Finally, he nods slowly. &quot;I will take you,&quot; he says, his voice carrying a note of solemnity. &quot;But you must tread lightly and with respect. The forest, especially now, is a place of deep mystery and ancient energies. What we find there may not always welcome human intrusion.&quot;
@@ -5613,11 +5605,11 @@ Torsten eyes the weapon at your belt and meets your eyes. “A show of drawn ste
 
 [[Tell Torsten you need more time to prepare for the trip-&gt;Torsten Forest Trip Prep]]
 
-[[Agree to follow Torsten’s lead and not bare a weapon in the Shadow Walksers’ domain-&gt;Journey Into the Forest]]</tw-passagedata><tw-passagedata pid="282" name="Torsten Guide" tags="" position="2725,2075" size="100,100">(display: &quot;header&quot;)
+[[Agree to follow Torsten’s lead and not bare a weapon in the Shadow Walksers’ domain-&gt;Journey Into the Forest]]</tw-passagedata><tw-passagedata pid="281" name="Torsten Guide" tags="" position="2725,2075" size="100,100">(display: &quot;header&quot;)
 You ask Torsten about any changes in the natural world that might be attributed to Grendel. His eyes, reflecting years of observing the land, grow distant as he replies, &quot;The land speaks, for those who listen. The forests grow quieter, the animals more restless. It&#39;s as if the earth itself senses a disturbance, a disharmony. It&#39;s subtle, but it&#39;s there, like a faint echo of something ancient and troubled.&quot;
 
 
-[[Ask Torsten to Guide you in the forest-&gt;Torsten Forest Trip Query]]</tw-passagedata><tw-passagedata pid="283" name="Torsten pagan pushback" tags="" position="2675,2400" size="100,100">(display:&quot;header&quot;)
+[[Ask Torsten to Guide you in the forest-&gt;Torsten Forest Trip Query]]</tw-passagedata><tw-passagedata pid="282" name="Torsten pagan pushback" tags="" position="2675,2400" size="100,100">(display:&quot;header&quot;)
 &quot;Torsten, isn&#39;t what you&#39;re proposing forbidden paganry and witchcraft? Hrothgar has declared such practices punishable by death.&quot;
 
 Torsten meets your gaze steadily, the lines on his weathered face deepening. &quot;I understand your hesitation,&quot; he replies softly. &quot;But consider this: before Hrothgar&#39;s edicts, before the rise of new faiths and laws, our people lived in harmony with these lands. The old ways are not mere superstition; they are the threads that weave us into the fabric of this world.&quot;
@@ -5632,7 +5624,7 @@ He pauses, his gaze searching yours. &quot;I am not asking you to defy the king 
 
 (set:$effort to 3)(display:&quot;Effort&quot;)
 [[Agree to follow Torsten&#39;s lead and journey into the forest-&gt;Journey Into the Forest]]
-[[Ask for more time to consider-&gt;Village Hub]]</tw-passagedata><tw-passagedata pid="284" name="Torsten&#39;s Execution" tags="" position="5300,1900" size="100,100">(display: &quot;header&quot;)
+[[Ask for more time to consider-&gt;Village Hub]]</tw-passagedata><tw-passagedata pid="283" name="Torsten&#39;s Execution" tags="" position="5300,1900" size="100,100">(display: &quot;header&quot;)
 (set: $grendelComes to true)
 Back at Heorot the air is thick with anticipation and unease as word of Torsten&#39;s arrest spreads. Hrothgar, his face a mask of grim determination, orders the gathering of villagers in the marketplace for the public judgment. You follow the throng of people, the weight of what is to come heavy in the air.
 
@@ -5665,7 +5657,7 @@ Then Unferth is at your side, his face ashen. “You’ve seen now the harsh rea
 [[Drink yourself to sleep at the Inn-&gt;Inn Post Execution]]
 [[Sleep at the Church-&gt;Church Post Execution]]
 
-[[Continue-&gt;Heorot Hub]]</tw-passagedata><tw-passagedata pid="285" name="Try to navigate back to Heorot" tags="" position="4125,2575" size="100,100">You must try and sail back to shore! rough times. 
+[[Continue-&gt;Heorot Hub]]</tw-passagedata><tw-passagedata pid="284" name="Try to navigate back to Heorot" tags="" position="4125,2575" size="100,100">You must try and sail back to shore! rough times. 
 ---
 {(set: $success to  (random: 1, 10) + $energy/10)
 (set: $success to it /2)
@@ -5684,12 +5676,12 @@ Your success: _success / 10!
 
 So sad, you drowned in the sea and/or were eaten by monsters :&#39;(
 (display:&quot;GameOver&quot;)
-]</tw-passagedata><tw-passagedata pid="286" name="Try to speak to the voices" tags="" position="2150,3425" size="100,100">(display: &quot;header&quot;)(set:$effort to 10)(display:&quot;Effort&quot;)
+]</tw-passagedata><tw-passagedata pid="285" name="Try to speak to the voices" tags="" position="2150,3425" size="100,100">(display: &quot;header&quot;)(set:$effort to 10)(display:&quot;Effort&quot;)
 
 &quot;Hello?&quot; you call out to the voices. It is hard to tell in the indistinct jumble, but it seems to you that some of the voices pause, as if they heard you, but many continue along unchanged, and the continuous shifting of the soundscape makes it hard to tell if there was any genuine response.
 
 You experiment a few more times, but are unable to tell conclusively whether the unseen speakers can hear you.
-[[Continue-&gt;Fen standing stones]]</tw-passagedata><tw-passagedata pid="287" name="Try to wrestle the chest from Bjorn and throw it into the sea, hoping to appease the serpents and rid yourself of the cursed artifact." tags="" position="4225,2725" size="100,100">You know you must act quickly. The serpents&#39; presence is making the situation more dangerous by the moment, and Bjorn&#39;s madness could get everyone killed. You nod to your companions, and they understand immediately. It&#39;s time to take decisive action.
+[[Continue-&gt;Fen standing stones]]</tw-passagedata><tw-passagedata pid="286" name="Try to wrestle the chest from Bjorn and throw it into the sea, hoping to appease the serpents and rid yourself of the cursed artifact." tags="" position="4225,2725" size="100,100">You know you must act quickly. The serpents&#39; presence is making the situation more dangerous by the moment, and Bjorn&#39;s madness could get everyone killed. You nod to your companions, and they understand immediately. It&#39;s time to take decisive action.
 
 &quot;Get ready,&quot; you whisper to Ciar, Edda, and Hroald. They move into position, ready to back you up. You grab the chest, trying to wrestle it from Bjorn&#39;s grip. His eyes widen in surprise and anger, and he tightens his hold, snarling.
 
@@ -5750,7 +5742,7 @@ Your companions nod, their resolve hardening. Together, you move to the helm, tr
 Despite the loss of Bjorn and the threat of the sea serpents, you must find a way to navigate back to the safety of the village. With no other choice, you take the helm and begin steering the boat back towards the distant shore, hoping against hope that you can make it back safely.
 
 [[Try to navigate back to Heorot]]
-]</tw-passagedata><tw-passagedata pid="288" name="Under Attack at Torsten&#39;s" tags="" position="5525,4000" size="100,100">(display: &quot;header&quot;)
+]</tw-passagedata><tw-passagedata pid="287" name="Under Attack at Torsten&#39;s" tags="" position="5525,4000" size="100,100">(display: &quot;header&quot;)
 Unferth steps forward, his gaze fixed on you. &quot;What is the meaning of this? Where do you think you are going with that chest?&quot;
 
 Hrothgar&#39;s expression is equally severe, his hand resting on the hilt of his sword. &quot;Explain yourselves, or face the consequences.&quot;
@@ -5763,7 +5755,7 @@ Options:
 
 [[Step forward and try to explain to Hrothgar and Unferth the importance of returning the horn]]
 
-[[You see a weak point in their defenses leading to the forest, although you’ll be exposed to arrows as you flee. Draw your weapon, order your companions to charge, perhaps you can survive and escape]]</tw-passagedata><tw-passagedata pid="289" name="Unferth Convo Hub" tags="" position="4250,1000" size="200,200">(display: &quot;header&quot;)(set:$effort to 0)(display:&quot;Effort&quot;)
+[[You see a weak point in their defenses leading to the forest, although you’ll be exposed to arrows as you flee. Draw your weapon, order your companions to charge, perhaps you can survive and escape]]</tw-passagedata><tw-passagedata pid="288" name="Unferth Convo Hub" tags="" position="4250,1000" size="200,200">(display: &quot;header&quot;)(set:$effort to 0)(display:&quot;Effort&quot;)
 
 Unferth gestures to a quieter corner of the hall, away from the noise and bustle. His demeanor is calm and collected, a stark contrast to the boisterous warriors and the stern Hrothgar. “Walk with me, if you will. I’d like to know more about you and your journey.”
 
@@ -5785,7 +5777,7 @@ Unferth gestures to a quieter corner of the hall, away from the noise and bustle
 (if:$activeQuests contains $AescherePoisonUnferthQuest)[
 [[Tell Unferth that Aeschere tasked you with slipping &quot;holy water&quot; into his drink]]&lt;br&gt;
 ]}
-[[Excuse yourself and circulate the hall-&gt;Heorot Hub]]</tw-passagedata><tw-passagedata pid="290" name="Unferth Quest Hub" tags="" position="3725,1650" size="200,200">(display: &quot;header&quot;)(set:$effort to 1)(display:&quot;Effort&quot;)
+[[Excuse yourself and circulate the hall-&gt;Heorot Hub]]</tw-passagedata><tw-passagedata pid="289" name="Unferth Quest Hub" tags="" position="3725,1650" size="200,200">(display: &quot;header&quot;)(set:$effort to 1)(display:&quot;Effort&quot;)
 
 &quot;It is so rare to find someone with both the will and the capability to assist,&quot; Unferth reflects dramatically, pausing to nod slowly as if musing over something ironic. &quot;There are several ways you might aid Heorot. Each task comes with its own risks. The rewards are commensurate with the dangers involved.&quot;
 
@@ -5806,7 +5798,7 @@ He leans in slightly, his voice dropping to a confidential tone. &quot;However, 
 [[Tell Unferth that Aeschere tasked you with slipping &quot;holy water&quot; into his drink]]&lt;br&gt;
 ]}
 
-[[Continue-&gt;Unferth Convo Hub]]</tw-passagedata><tw-passagedata pid="291" name="Unferth duel aftermath" tags="" position="3075,1225" size="100,100">(display:&quot;header&quot;)
+[[Continue-&gt;Unferth Convo Hub]]</tw-passagedata><tw-passagedata pid="290" name="Unferth duel aftermath" tags="" position="3075,1225" size="100,100">(display:&quot;header&quot;)
 Gasps and murmurs ripple through the crowd. Women avert their gazes, some stifling cries, while the men exchange uneasy glances. A few offer polite applause, but there&#39;s a palpable distance—a recognition of Unferth&#39;s lethal skill mingled with a discomfort at the cold efficiency of his actions.
 
 Unferth does not even glance at the fallen nobleman, but turns back toward the servant, who stands with a stunned look on her face, holding Unferth&#39;s legendary sword in front of her stiff armed, as if it might turn into a snake.
@@ -5817,7 +5809,7 @@ King Hrothgar observes the scene, a faint smile playing on his lips. He makes no
 
 The prince&#39;s retinue gather his body, their faces contorted with suppressed anger and helplessness. They cast wary glances at Unferth but make no move against him. The laws of the hall—and the undeniable outcome of a fair duel—leave them with little recourse.
 
-[[Continue-&gt;Heorot Hub]]</tw-passagedata><tw-passagedata pid="292" name="Unferth music introduction" tags="" position="4550,650" size="100,100">(display: &quot;header&quot;)
+[[Continue-&gt;Heorot Hub]]</tw-passagedata><tw-passagedata pid="291" name="Unferth music introduction" tags="" position="4550,650" size="100,100">(display: &quot;header&quot;)
 As the hall settles back to its usual revelry following the attention, a tall, pale man wearing a black cloak over gleaming black armor approaches you through the crowd, several thanes stepping aside in deference. His sharp eyes study yours.’
 
 “Your song was impressive,” he says, his voice measured and calm. “It’s rare to hear such skill and artistry in these parts. May I ask, from whence you hail?”
@@ -5828,7 +5820,7 @@ You nod, grateful for the recognition. “I am a skald from the Scylding lands, 
 
 The man smiles slightly, his eyes never leaving yours. “Ah, a fellow lover of tales. I am Unferth, one of King Hrothgar’s thanes. It is my duty to keep an eye on the happenings within the hall and beyond, to ensure the safety and prosperity of our kingdom.”
 
-[[Continue-&gt;Unferth Convo Hub]]</tw-passagedata><tw-passagedata pid="293" name="Unferth sword introduction" tags="" position="4600,725" size="100,100">As the hall settles back to its usual revelry, a tall, pale man wearing a black cloak over gleaming black armor approaches you through the crowd, several thanes stepping aside in deference. His sharp eyes study yours.
+[[Continue-&gt;Unferth Convo Hub]]</tw-passagedata><tw-passagedata pid="292" name="Unferth sword introduction" tags="" position="4600,725" size="100,100">As the hall settles back to its usual revelry, a tall, pale man wearing a black cloak over gleaming black armor approaches you through the crowd, several thanes stepping aside in deference. His sharp eyes study yours.
 
 “Your skills are impressive,” he says, his voice measured and calm.  May I ask, from whence you hail?”
 
@@ -5838,7 +5830,7 @@ You nod, grateful for the recognition. “I am a warrior from the Scylding lands
 
 The man smiles slightly, his eyes never leaving yours. “Ah, a fellow warrior. I am Unferth, one of King Hrothgar’s thanes. It is my duty to keep an eye on the happenings within the hall and beyond, to ensure the safety and prosperity of our kingdom.”
 
-[[Continue-&gt;Unferth Convo Hub]]</tw-passagedata><tw-passagedata pid="294" name="Village Hub" tags="" position="2050,275" size="200,200">(display: &quot;header&quot;)(set:$effort to 3)(display:&quot;Effort&quot;)
+[[Continue-&gt;Unferth Convo Hub]]</tw-passagedata><tw-passagedata pid="293" name="Village Hub" tags="" position="2050,275" size="200,200">(display: &quot;header&quot;)(set:$effort to 3)(display:&quot;Effort&quot;)
 (set: _loreKey to &quot;The elders of Kattinge Village gather near the well.&quot;)
 You stand at the crossroads at the edge of Kattinge Village. The sky hangs low with heavy gray clouds, and the cries of gulls pierce the distant rush of waves against the rocky shore beyond the protection of the small harbor.
 
@@ -5867,7 +5859,7 @@ In the other direction, a small stone church stands at the far edge of the villa
 [[Explore the outskirts of the village-&gt;Outskirts]]
 (if: $activeQuests contains &quot;Investigate Thryth Farmstead&quot;)[
 [[Set out for Thryth farmstead]]
-]</tw-passagedata><tw-passagedata pid="295" name="Visit the inn" tags="" position="625,825" size="100,100">(display: &quot;header&quot;)
+]</tw-passagedata><tw-passagedata pid="294" name="Visit the inn" tags="" position="625,825" size="100,100">(display: &quot;header&quot;)
 (set:$effort to 5)(display:&quot;Effort&quot;)
 The public drinking house stands prominently along the road, a beacon of warmth and revelry against the gathering dusk. The entrance is marked by a simple sign, a wooden board hanging from an iron bracket. The sign bears the image of a drinking horn, a common symbol for a place of gathering and refreshment. The path leading to the door is well-trodden.
 
@@ -5880,7 +5872,7 @@ The sounds from inside grow louder as you approach—the laughter and chatter of
 Next to the inn is a stable. Though it is small, quite a few horses graze in the pasture visible from the road.
 [[Enter the inn-&gt;Inn Hub]]
 [[Inquire about purchasing a horse]]
-[[Continue exploring the village-&gt;Village Hub]]</tw-passagedata><tw-passagedata pid="296" name="Vow to defeat Eirkr and free Véfrøðr" tags="" position="2300,4925" size="100,100">(display: &quot;header&quot;)
+[[Continue exploring the village-&gt;Village Hub]]</tw-passagedata><tw-passagedata pid="295" name="Vow to defeat Eirkr and free Véfrøðr" tags="" position="2300,4925" size="100,100">(display: &quot;header&quot;)
 &quot;We agree to your plan,&quot; you tell Véfrøðr. &quot;If we can render you docile with the potion, it will remove a significant threat and give us the element of surprise. We&#39;ll need to return to Heorot to acquire the sleeping draught.&quot;
 
 &quot;Camp again here upon your return,&quot; Véfrøðr says. &quot;I will check here each night.&quot;
@@ -5888,7 +5880,7 @@ Next to the inn is a stable. Though it is small, quite a few horses graze in the
 (set:$activeQuests to it + (a:&quot;Liberate Véfrøðr&quot;))
 (set:$reputation&#39;s &quot;Véfrøðr&quot; to &quot;trusted&quot;)
 [[Ask another question...-&gt;Dragon Convo Hub]]
-[[Set Out for Heorot Immediately-&gt;Village Hub]]</tw-passagedata><tw-passagedata pid="297" name="Wait and watch fen creature" tags="" position="2175,4125" size="100,100">(display: &quot;header&quot;)
+[[Set Out for Heorot Immediately-&gt;Village Hub]]</tw-passagedata><tw-passagedata pid="296" name="Wait and watch fen creature" tags="" position="2175,4125" size="100,100">(display: &quot;header&quot;)
 The creature continues to glide forward, now only 20 feet feet from the water&#39;s edge.
 
 &quot;(print:$name), watch out!&quot; cries Ciar, but you are entranced by the sight of the creature&#39;s form now visible beneath the water. It&#39;s skin is smooth and covered in rippling patterns, and you can see its tremendous bulk looming in the murk below the surface of the water. It&#39;s head is wide and spade-shaped, and traced with strange ridges.
@@ -5897,7 +5889,7 @@ As you watch, the creature&#39;s head rises from the water, so smoothly it makes
 
 Suddenly there is a great sideways thrashing as the creature pumps it&#39;s tell, and it comes forward, upward and out of the water towards you in a great wave, it&#39;s cavernous mouth yawning open to sieze you.
 
-[[Retreat!-&gt;Run from frog]]</tw-passagedata><tw-passagedata pid="298" name="Wake up at the hearth" tags="" position="300,1825" size="100,100">(display:&quot;header&quot;)
+[[Retreat!-&gt;Run from frog]]</tw-passagedata><tw-passagedata pid="297" name="Wake up at the hearth" tags="" position="300,1825" size="100,100">(display:&quot;header&quot;)
 
 You wake up at the hearth in the inn&#39;s common room, to the sound of the inn-keeper&#39;s daughter sweeping the night&#39;s refuse out of the open front door. The smell of fresh baking bread and the distant sounds of conversation waft in from the street.
 //Energy restored to 100/100//
@@ -5906,7 +5898,7 @@ You wake up at the hearth in the inn&#39;s common room, to the sound of the inn-
 (display:&quot;Find Rest&quot;)
 }
 
-[[Continue-&gt;Sit at the hearth]]</tw-passagedata><tw-passagedata pid="299" name="Wake up in the Inn" tags="" position="500,1600" size="100,100">(display:&quot;header&quot;)
+[[Continue-&gt;Sit at the hearth]]</tw-passagedata><tw-passagedata pid="298" name="Wake up in the Inn" tags="" position="500,1600" size="100,100">(display:&quot;header&quot;)
 
 You wake up in the inn and stumble outside to get some fresh air...
 //Energy restored to 100/100//
@@ -5914,18 +5906,18 @@ You wake up in the inn and stumble outside to get some fresh air...
 (display:&quot;Find Rest&quot;)
 }
 
-[[Continue-&gt;Village Hub]]</tw-passagedata><tw-passagedata pid="300" name="Wake up in the private room" tags="" position="225,2150" size="100,100">(display:&quot;header&quot;)
+[[Continue-&gt;Village Hub]]</tw-passagedata><tw-passagedata pid="299" name="Wake up in the private room" tags="" position="225,2150" size="100,100">(display:&quot;header&quot;)
 
 You wake up in your swanky private room, feeling extremely refreshed!
 //Energy restored to 125//
 {(set: $energy to 125)(display:&quot;Initialize Larders&quot;)}
 
-[[Continue-&gt;Private Room]]</tw-passagedata><tw-passagedata pid="301" name="What do you mean, they waged war?" tags="" position="3200,2300" size="100,100">(display: &quot;header&quot;)(set:$effort to 1)(display:&quot;Effort&quot;)
+[[Continue-&gt;Private Room]]</tw-passagedata><tw-passagedata pid="300" name="What do you mean, they waged war?" tags="" position="3200,2300" size="100,100">(display: &quot;header&quot;)(set:$effort to 1)(display:&quot;Effort&quot;)
 &quot;You&#39;ll see for yourself when you crest the next hill yonder,&quot; she says sadly. &quot;Our people have known for ages that this road you walk is the boundary between the valley, here, and the forest, there.&quot; She points carefully at the boundary as she speaks, as if explaining something to a child, not unkindly.
 
 &quot;It&#39;s plain as day, but if you continue into the forest, you&#39;ll find even clearer signs, markers and warnings. The Sceadugenga do not intrude in our affairs if we leave them to theirs, but Thryth&#39;s men have ventured across the boundary, hunting, clearing and even burning the woods on other side. I have seen the smoke myself, although I have no notion why they would do such a thing.&quot;
 
-[[Continue-&gt;Shephard convo]]</tw-passagedata><tw-passagedata pid="302" name="Wouldn&#39;t that render you very vulnerable? Why would you trust us that much?" tags="" position="3400,6425" size="100,100">(display:&quot;header&quot;)
+[[Continue-&gt;Shephard convo]]</tw-passagedata><tw-passagedata pid="301" name="Wouldn&#39;t that render you very vulnerable? Why would you trust us that much?" tags="" position="3400,6425" size="100,100">(display:&quot;header&quot;)
 
 Véfrøðr cocks his long head thoughtfully, weighing his words.
 &quot;Well,&quot; he begins awkwardly, &quot;Yes, it really does. You might be able to kill me, although you should know it&#39;s not all that easy or all that safe to kill a dragon even if it can&#39;t wake up... But essentially, as you may have deduced, I&#39;m fairly desperate to escape this situation. Fairly desperate.
@@ -5936,7 +5928,7 @@ Véfrøðr cocks his long head thoughtfully, weighing his words.
 
 &quot;Finally, I don&#39;t think you would have pointed out that it would make me vulnerable if you really wanted to kill me, would you? You&#39;d have acted like you would never think to attack me now that we are allies. But I do have to trust you, don&#39;t i? I won&#39;t actually know what you&#39;re going to do until it&#39;s too late; it&#39;s the essential irony of the plan.&quot;
 
-[[Continue-&gt;Dragon Convo Hub]]</tw-passagedata><tw-passagedata pid="303" name="You see a weak point in their defenses leading to the forest, although you’ll be exposed to arrows as you flee. Draw your weapon, order your companions to charge, perhaps you can survive and escape" tags="" position="4875,3850" size="100,100">(display: &quot;header&quot;)
+[[Continue-&gt;Dragon Convo Hub]]</tw-passagedata><tw-passagedata pid="302" name="You see a weak point in their defenses leading to the forest, although you’ll be exposed to arrows as you flee. Draw your weapon, order your companions to charge, perhaps you can survive and escape" tags="" position="4875,3850" size="100,100">(display: &quot;header&quot;)
 You See a Weak Point in Their Defenses Leading to the Forest, Although You’ll Be Exposed to Arrows as You Flee. Draw Your Weapon, Order Your Companions to Charge, Perhaps You Can Survive and Escape.
 
 You assess the situation quickly, your eyes darting to a weak point in the enemy&#39;s formation where the guards seem less concentrated. With a deep breath, you draw your weapon and shout to your companions, &quot;Charge! Head for the forest!&quot;
@@ -5955,13 +5947,13 @@ The forest is a labyrinth of twisted trees and dense foliage. You stumble over r
 
 Hours pass, and you realize you are hopelessly lost. The forest is silent except for the occasional rustle of leaves and the distant hoot of an owl. The air is cool and carries the earthy scent of moss and decay. You are in a small clearing and stop to catch your breath, the weight of your exhaustion pressing down on you. 
 
-[[Continue-&gt;Forest wandering hub]]</tw-passagedata><tw-passagedata pid="304" name="_slink" tags="" position="275,1000" size="100,100"></tw-passagedata><tw-passagedata pid="305" name="addAchievement" tags="" position="325,1175" size="100,100">{
+[[Continue-&gt;Forest wandering hub]]</tw-passagedata><tw-passagedata pid="303" name="_slink" tags="" position="275,1000" size="100,100"></tw-passagedata><tw-passagedata pid="304" name="addAchievement" tags="" position="325,1175" size="100,100">{
 (if:$achievements does not contain $a)[
 //Achievement: (print:$a)//
 (set: $achievements to it + (a: $a))
 ]
 }
-&lt;!--(set:$a to &quot;&quot;)(display:&quot;addAchievement&quot;)--&gt;</tw-passagedata><tw-passagedata pid="306" name="destroy the cursed artifact" tags="" position="4375,2600" size="100,100">(display: &quot;header&quot;)
+&lt;!--(set:$a to &quot;&quot;)(display:&quot;addAchievement&quot;)--&gt;</tw-passagedata><tw-passagedata pid="305" name="destroy the cursed artifact" tags="" position="4375,2600" size="100,100">(display: &quot;header&quot;)
 (set: $grendelComes to true)
 The sun is just beginning to rise as you and your companions make your way down to the docks. The sky is painted with streaks of orange and pink, reflecting off the calm waters of the harbor. The air is crisp and salty, a welcome change from the musty confines of Heorot. The docks are quiet at this early hour, with only a few fishermen preparing their boats for the day&#39;s work.
 
@@ -6032,20 +6024,26 @@ Current energy: $energy
 ]
 [[Try to wrestle the chest from Bjorn and throw it into the sea, hoping to appease the serpents and rid yourself of the cursed artifact.]]
 [[Open the chest and give the artifact to the serpent]]
-}</tw-passagedata><tw-passagedata pid="307" name="eat something" tags="" position="175,600" size="100,100">(if: $energy &lt; 100)[
-{(set: _foodEnergy to 10)
-(if: $foodToEat contains &quot;energy&quot;)[(set: _foodEnergy to $foodToEat&#39;s &quot;energy&quot;)]}
-You consume a (print: $foodToEat&#39;s &quot;name&quot;) and gain (print: _foodEnergy) energy!
-{
+}</tw-passagedata><tw-passagedata pid="306" name="eat something" tags="" position="175,600" size="100,100">{
+(if: $energy &lt; 100)[
+(set: _foodEnergy to 10)
+(if: $foodToEat contains &quot;energy&quot;)[(set: _foodEnergy to $foodToEat&#39;s &quot;energy&quot;)]
+//You consume a (print: $foodToEat&#39;s &quot;name&quot;) and gain (print: _foodEnergy) energy!//&lt;br&gt;
 (set: $food to it - (a: $foodToEat))
 (set: $energy to $energy + _foodEnergy)
-}
+(if:$energy &gt; 125)[(set: $energy to 125)]
 ](else:)[
-You are already full (at max energy).
-]</tw-passagedata><tw-passagedata pid="308" name="getNewQuest" tags="" position="50,1325" size="100,100">{
+You are already full (at max energy).&lt;br&gt;
+]
+(if: $foodToEat contains &quot;healing&quot;)[
+(set:$health to it + $foodToEat&#39;s &quot;healing&quot;)
+//You are healed (print:$foodToEat&#39;s &quot;healing&quot;) points//&lt;br&gt;
+(if:$health &gt; 100)[(set: $energy to 100)]
+]
+}</tw-passagedata><tw-passagedata pid="307" name="getNewQuest" tags="" position="50,1325" size="100,100">{
 (set: $activeQuests to it + (a: $newQuest))
 //Quest acquired: (print:$newQuest)//
-}</tw-passagedata><tw-passagedata pid="309" name="go to torsten" tags="" position="4025,2900" size="100,100">(display: &quot;header&quot;)
+}</tw-passagedata><tw-passagedata pid="308" name="go to torsten" tags="" position="4025,2900" size="100,100">(display: &quot;header&quot;)
 Arriving at Torsten&#39;s Hut
 
 As you approach Torsten&#39;s modest home, the early morning light casts long shadows across the cobblestone path. The scent of herbs and freshly turned earth fills the air, and a faint smoke rises from the chimney. You knock on the wooden door, and after a moment, it creaks open to reveal Torsten, his face lined with age and wisdom.
@@ -6080,12 +6078,13 @@ Options:
 
 [[Agree to Return the Horn]]: Decide to undertake the journey to return the sacred horn to the Sceadugenga, hoping to foster peace between the two groups.
 
-[[Decline and Seek Another Solution]]: Choose to find another way to deal with the artifact, wary of the potential dangers of approaching the Sceadugenga.</tw-passagedata><tw-passagedata pid="310" name="header" tags="" position="425,425" size="100,100"> [[Character Sheet]][[Log-&gt;Plot log]]{(link:&quot;Quick Save&quot;)[
+[[Decline and Seek Another Solution]]: Choose to find another way to deal with the artifact, wary of the potential dangers of approaching the Sceadugenga.</tw-passagedata><tw-passagedata pid="309" name="header" tags="" position="425,425" size="100,100"> [[Character Sheet]][[Log-&gt;Plot log]]{(link:&quot;Quick Save&quot;)[
   (if:(save-game:$saveSlot))[
 	  (if: (saved-games:) contains $saveSlot)[//Game saved!//]
   ](else: )[ //Sorry, I couldn&#39;t save your game.]
-][[Dashboard-&gt;Games Dashboard]]&lt;br&gt;}</tw-passagedata><tw-passagedata pid="311" name="initialize" tags="" position="50,175" size="100,100">{
+][[Dashboard-&gt;Games Dashboard]]&lt;br&gt;}</tw-passagedata><tw-passagedata pid="310" name="initialize" tags="" position="50,175" size="100,100">{
 (display:&quot;Initialize Plot&quot;)
+(display:&quot;Initialize Plot Variables&quot;)
 (display:&quot;Initialize Charms and Potions&quot;)
 (set: $lastScene to &quot;Start&quot;)
 (set:$recruitedParty to false)
@@ -6152,7 +6151,7 @@ Options:
 (display: &quot;Initialize smithy&quot;)
 (display: &quot;Initialize Larders&quot;)
 (display:&quot;Initialize Food Shops&quot;)
-}</tw-passagedata><tw-passagedata pid="312" name="inquireCurseBreak" tags="" position="3050,6075" size="100,100">(display:&quot;header&quot;)
+}</tw-passagedata><tw-passagedata pid="311" name="inquireCurseBreak" tags="" position="3050,6075" size="100,100">(display:&quot;header&quot;)
 
 &quot;Is there a way to break the curse and free you from this bondage?&quot; you ask.
 
@@ -6161,7 +6160,7 @@ Véfrøðr&#39;s gaze holds a glimmer of hope tempered by resignation. &quot;The
 It pauses, then continues solemnly. &quot;But know this: many have tried. All have failed. Eirikr&#39;s power has only grown over the centuries. Confronting him is no simple task.&quot;
 
 [[Inquire About the Risks of Facing Such Dark Magic-&gt;AskAboutRisks]]
-[[Continue-&gt;Dragon Convo Hub]]</tw-passagedata><tw-passagedata pid="313" name="questComplete" tags="" position="175,1225" size="100,100">{
+[[Continue-&gt;Dragon Convo Hub]]</tw-passagedata><tw-passagedata pid="312" name="questComplete" tags="" position="175,1225" size="100,100">{
 &lt;br&gt;//Quest completed: (print:$doneQuest)//&lt;br&gt;
 (set: $activeQuests to it - (a: $doneQuest))
 (if:$completedQuests does not contain $doneQuest)[
@@ -6169,26 +6168,27 @@ It pauses, then continues solemnly. &quot;But know this: many have tried. All ha
 ]
 }
 &lt;!--(set:$doneQuest to &quot;&quot;)(display:&quot;questComplete&quot;)--&gt;
-</tw-passagedata><tw-passagedata pid="314" name="updateCombatBonus" tags="" position="200,100" size="100,100">{
+</tw-passagedata><tw-passagedata pid="313" name="updateCombatBonus" tags="" position="200,100" size="100,100">{
 (set: $totalCombatBonus to 0)
 (set: $totalArmorBonus to 0)
 (for: each _item, ...$weaponsAndArmor)[
 	(set: $totalCombatBonus to it + &quot;combat&quot; of _item)
     (set: $totalArmorBonus to it + &quot;armor&quot; of _item)
 ]
-}</tw-passagedata><tw-passagedata pid="315" name="archeryRoll" tags="" position="1925,4350" size="100,100">(set: $success to  (random: 1, 10) + $energy/10)
+}</tw-passagedata><tw-passagedata pid="314" name="archeryRoll" tags="" position="1925,4350" size="100,100">(set: $success to  (random: 1, 10) + $energy/10)
 (set: $success to it /2)
 (set:$success to (round:it))
 (if:$misc contains $archeryCharm)[(set:$success to it + 3)]
 Your success: $success / 10!
-(if: $energy &gt; 20)[(set: $energy to $energy - 20)]</tw-passagedata><tw-passagedata pid="316" name="silvertongueBonus" tags="" position="200,1350" size="100,100">(if:$misc contains $silvertongueCharm)[(set:$success to it+3)
-//+3 bonus added from (print:$silvertongueCharm&#39;s &quot;name&quot;)//
-]</tw-passagedata><tw-passagedata pid="317" name="tyrsEmblemBonus" tags="" position="50,1550" size="100,100">(if:$misc contains $tyrsEmblem)[(set:$success to it+3)
+(if: $energy &gt; 20)[(set: $energy to $energy - 20)]</tw-passagedata><tw-passagedata pid="315" name="silvertongueBonus" tags="" position="200,1350" size="100,100">(if:$misc contains $silvertongueCharm)[(set:$success to it+3)
+//+3
+bonus added from (print:$silvertongueCharm&#39;s &quot;name&quot;)//
+]</tw-passagedata><tw-passagedata pid="316" name="tyrsEmblemBonus" tags="" position="50,1550" size="100,100">(if:$misc contains $tyrsEmblem)[(set:$success to it+3)
 //+3 bonus added from (print:$tyrsEmblem&#39;s &quot;name&quot;)//
-]</tw-passagedata><tw-passagedata pid="318" name="Ask Sir Thryth about the workers who were attacked" tags="" position="3075,3200" size="100,100">(display:&quot;header&quot;)(set:$ThrythInvestigation to it+20)
+]</tw-passagedata><tw-passagedata pid="317" name="Ask Sir Thryth about the workers who were attacked" tags="" position="3075,3200" size="100,100">(display:&quot;header&quot;)(set:$ThrythInvestigation to it+20)
 he doesn&#39;t care. there was a team of thralls and the overseer. or whatever.
 back
-[[Continue-&gt;Thryth Hub]]</tw-passagedata><tw-passagedata pid="319" name="Drink Seersmead at the stones" tags="" position="2300,3200" size="100,100">(display: &quot;header&quot;)(set:$effort to 10)(display:&quot;Effort&quot;)
+[[Continue-&gt;Thryth Hub]]</tw-passagedata><tw-passagedata pid="318" name="Drink Seersmead at the stones" tags="" position="2300,3200" size="100,100">(display: &quot;header&quot;)(set:$effort to 10)(display:&quot;Effort&quot;)
 {
 
 (set: $food to it - (a: $seersMead))
@@ -6215,17 +6215,17 @@ You are sucked down into the depths of madness by the whispering voices of hungr
 (display:&quot;GameOver&quot;)
 
 ]
-</tw-passagedata><tw-passagedata pid="320" name="Draugr encounter" tags="" position="2775,4525" size="100,100"></tw-passagedata><tw-passagedata pid="321" name="Listen closely to the voices" tags="" position="2200,3275" size="100,100">(display: &quot;header&quot;)(set:$effort to 10)(display:&quot;Effort&quot;)
+</tw-passagedata><tw-passagedata pid="319" name="Draugr encounter" tags="" position="2775,4525" size="100,100"></tw-passagedata><tw-passagedata pid="320" name="Listen closely to the voices" tags="" position="2200,3275" size="100,100">(display: &quot;header&quot;)(set:$effort to 10)(display:&quot;Effort&quot;)
 
 As you focus your intention on the faint voices and pace slowly around the circle, you can distinguish that some voices appear to be louder in some places, as though the speaker of each voice were located somewhere in the circle. The voices vary greatly, some masculine, some feminine, some old, some young, some strange and inhuman sounding. In a few places there is music or other strange sounds, a strange, rapid high pitched sqwuak of metallic tones. 
 (set:$energy to it - 20)
 As you listen, you pick up more and more streams of sound, but in no case are you able to keep hold of any stream for very long; as soon as you catch hold of it, it slips away, or is overshadowed by another.
-[[Continue-&gt;Fen standing stones]]</tw-passagedata><tw-passagedata pid="322" name="addLore" tags="" position="375,1300" size="100,100">{
+[[Continue-&gt;Fen standing stones]]</tw-passagedata><tw-passagedata pid="321" name="addLore" tags="" position="375,1300" size="100,100">{
 (if:$knownLore does not contain $lore)[
 //Known lore added: (print:$lore)//
 (set: $knownLore to it + (a: $lore))
 ]
-}</tw-passagedata><tw-passagedata pid="323" name="Fen Tower Observe" tags="" position="1600,3250" size="100,100">(display: &quot;header&quot;)(set:$effort to 2)(display:&quot;Effort&quot;)
+}</tw-passagedata><tw-passagedata pid="322" name="Fen Tower Observe" tags="" position="1600,3250" size="100,100">(display: &quot;header&quot;)(set:$effort to 2)(display:&quot;Effort&quot;)
 From the top of the tower you can see back to the forest where you came from in one direction. Looking the other way, the fen disappears into the mist, but sharp craggy peaks piercing upward into the lighter gray of the overcast sky.
 
 Patiently watching for a while, you a variety of birds flying about, diving for fish in the water, and going about their business. A couple of small deer make their away along a copse of scraggly, half-drowned trees. Some very large shapes move in the water, trailing ripples and occasionally emitting a loud croak like a frog crossed with a bull.
@@ -6233,9 +6233,9 @@ Patiently watching for a while, you a variety of birds flying about, diving for 
 Then, off in the horizon, the mist clears as the sun breaks through the cloud, and you spot them: two tall figures striding along the fen&#39;s edge, twice the height of mortal men. They move //fast//, with a with strange, fluid grace despite their gangly, inhuman proportions. Then they are gone, obscured by trees and then swallowed once more in the mist.
 
 (set:$lore to $grendelFenLore)(display:&quot;addLore&quot;)
-[[Back-&gt;Fen Tower]] </tw-passagedata><tw-passagedata pid="324" name="Attempt to persuade Sir Thryth to compensate Marta for her husband&#39;s death" tags="" position="2825,3400" size="100,100">(display:&quot;header&quot;)
+[[Back-&gt;Fen Tower]] </tw-passagedata><tw-passagedata pid="323" name="Attempt to persuade Sir Thryth to compensate Marta for her husband&#39;s death" tags="" position="2825,3400" size="100,100">(display:&quot;header&quot;)
 Sir Thryth&#39;s head twitches in annoyance as he processes your words, apparently collecting himself and choosing his own words carefully. &quot;Olag&#39;s contract was very clear, and he signed it freeely and of his own volition. He was to be paid on completion of our seasonal harvest, as a percentage of the profits. The harvest has not yet come in, and so his current share is nothing; in fact, it is uncertain whether the harvest will be profitable at all at this point, due to the lackadaisical and cowardly disposition of my thralls, now compounded by the loss of an entire work group. Am I to be bled dry paying for every harlot and orphan in Christendom to live as gentry? Is there not a church near Heorot and funded by the King, that gives succor to such wayward souls?
-[[Continue-&gt;Thryth Hub]]</tw-passagedata><tw-passagedata pid="325" name="Offer a donation to the church" tags="" position="1725,2950" size="100,100">(display:&quot;header&quot;)
+[[Continue-&gt;Thryth Hub]]</tw-passagedata><tw-passagedata pid="324" name="Offer a donation to the church" tags="" position="1725,2950" size="100,100">(display:&quot;header&quot;)
 Father Aelfric bows his head and holds his hands together in front of his heart. &quot;Thank you most kindly, child,&quot; he says.
 {
 &lt;br&gt;
@@ -6286,11 +6286,11 @@ Father Aelfric bows his head and holds his hands together in front of his heart.
 
 
 }
-[[Continue-&gt;Church Hub]]</tw-passagedata><tw-passagedata pid="326" name="Ask Aelfric if he can help Marta and her children" tags="" position="1925,2725" size="100,100">(display:&quot;header&quot;)
+[[Continue-&gt;Church Hub]]</tw-passagedata><tw-passagedata pid="325" name="Ask Aelfric if he can help Marta and her children" tags="" position="1925,2725" size="100,100">(display:&quot;header&quot;)
 &quot;Suuuure dude&quot;, he says, &quot;the more the merrier.&quot;
-[[Continue-&gt;Church Hub]]</tw-passagedata><tw-passagedata pid="327" name="Marta at Church" tags="" position="1925,2600" size="100,100">(display:&quot;header&quot;)
+[[Continue-&gt;Church Hub]]</tw-passagedata><tw-passagedata pid="326" name="Marta at Church" tags="" position="1925,2600" size="100,100">(display:&quot;header&quot;)
 She and the kids are just loving it here two thumbs up good job.
-[[Continue-&gt;Church Hub]]</tw-passagedata><tw-passagedata pid="328" name="Patrol Doom" tags="" position="525,4225" size="100,100">(display:&quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
+[[Continue-&gt;Church Hub]]</tw-passagedata><tw-passagedata pid="327" name="Patrol Doom" tags="" position="525,4225" size="100,100">(display:&quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
 Your party forms a tight circle, backs to each other, weapons ready. The forest around you seems to close in, and you can feel the presence of the Sceadugenga, hidden just out of sight, their eyes fixed on you.
 
 Suddenly, an eerie call echoes through the trees. It&#39;s unlike any birdcall you&#39;ve ever heard—louder, deeper, and filled with an unsettling resonance. The sound seems to come from everywhere and nowhere at once, and is soon answered by another call from a different direction, creating a haunting symphony that reverberates through the forest.
@@ -6303,12 +6303,13 @@ Hroald steps closer to you, his voice a low growl. &quot;Sceadugenga,&quot; he m
 
 [[Attack the Sceadugenga]]
 [[Flee at full speed]]
-[[Retreat carefully in formation-&gt;Stand ground against Scea]]</tw-passagedata><tw-passagedata pid="329" name="Grendel Attack Inn" tags="" position="250,3850" size="100,100">(display:&quot;header&quot;)(set:$energy to 50)(set:$effort to 9)(display:&quot;Effort&quot;)
+[[Retreat carefully in formation-&gt;Stand ground against Scea]]</tw-passagedata><tw-passagedata pid="328" name="Grendel Attack Inn" tags="" position="250,3850" size="100,100">(display:&quot;header&quot;)(set:$energy to 50)(set:$effort to 9)(display:&quot;Effort&quot;)
 You are awoken early the next morning when some one burst in and is telling the innkeeper about the attack on heorot
 
 yo it&#39;s baaad bro, dead dudes everywhere.
 (set:$a to $witnessHeorotRuin)(display:&quot;addAchievement&quot;)
-(display:&quot;GameOver&quot;)</tw-passagedata><tw-passagedata pid="330" name="Drekaborg side entrance" tags="" position="2975,5075" size="100,100">detect trap, set off trap </tw-passagedata><tw-passagedata pid="331" name="Tell Unferth that Aeschere tasked you with spying on him" tags="" position="4075,1375" size="100,100">(display: &quot;header&quot;)
+(display:&quot;GameOver&quot;)</tw-passagedata><tw-passagedata pid="329" name="Drekaborg side entrance" tags="" position="2975,5075" size="100,100">detect trap, set off trap.deaded.
+(display:&quot;GameOver&quot;)</tw-passagedata><tw-passagedata pid="330" name="Tell Unferth that Aeschere tasked you with spying on him" tags="" position="4075,1375" size="100,100">(display: &quot;header&quot;)
 
 Unferth is grateful and approving!
 He knows Aeschere spies on him when he can and the reverse is true as well... he&#39;s glad that you made the right choice.
@@ -6322,7 +6323,7 @@ He knows Aeschere spies on him when he can and the reverse is true as well... he
 He says, since you&#39;re such a smart, trustworthy person and all, maybe you&#39;d be interested in working with him on some other orders of business?
 
 [[Agree and inquire how you can help-&gt;Unferth Quest Hub]]
-[[Decline for now and excuse yourself-&gt;Heorot Hub]] </tw-passagedata><tw-passagedata pid="332" name="Tell Unferth that Aeschere tasked you with slipping &quot;holy water&quot; into his drink" tags="" position="4175,1500" size="100,100">(display: &quot;header&quot;)
+[[Decline for now and excuse yourself-&gt;Heorot Hub]] </tw-passagedata><tw-passagedata pid="331" name="Tell Unferth that Aeschere tasked you with slipping &quot;holy water&quot; into his drink" tags="" position="4175,1500" size="100,100">(display: &quot;header&quot;)
 Unferth is grateful and approving!
 He knows Aeschere spies on him when he can and the reverse is true as well...
 But this is pretty over the frigging top.
@@ -6353,7 +6354,7 @@ Since you&#39;re such a smart, trustworthy person and all, maybe you&#39;d be in
 [[Decline for now and excuse yourself-&gt;Heorot Hub]] 
 
 
-</tw-passagedata><tw-passagedata pid="333" name="questFailed" tags="" position="50,1675" size="100,100">{
+</tw-passagedata><tw-passagedata pid="332" name="questFailed" tags="" position="50,1675" size="100,100">{
 &lt;br&gt;//Quest failed: (print:$failedQuest)//&lt;br&gt;
 (set: $activeQuests to it - (a: $failedQuest))
 (if:$completedQuests does not contain $failedQuest)[
@@ -6362,7 +6363,7 @@ Since you&#39;re such a smart, trustworthy person and all, maybe you&#39;d be in
 ]
 }
 &lt;!--(set:$failedQuest to &quot;&quot;)(display:&quot;questFailed&quot;)--&gt;
-</tw-passagedata><tw-passagedata pid="334" name="Initialize Charms and Potions" tags="" position="0,750" size="100,100">{(set:$protectionCharm to (dm:
+</tw-passagedata><tw-passagedata pid="333" name="Initialize Charms and Potions" tags="" position="0,750" size="100,100">{(set:$protectionCharm to (dm:
     &quot;name&quot;, &quot;Freya&#39;s Guardian Amulet&quot;,
     &quot;price&quot;, 85,
     &quot;description&quot;, &quot;An amulet blessed by Freya, the Norse goddess of love and war, offering enhanced protection against dark magic.&quot;,    &quot;bonus&quot;,&quot;Magical defense +3&quot;
@@ -6382,6 +6383,7 @@ Since you&#39;re such a smart, trustworthy person and all, maybe you&#39;d be in
     &quot;name&quot;,&quot;Seiðrmjöð&quot;,
     &quot;description&quot;, &quot;A potion that grants seer-sight and heightened sensitivy to magical energies. Do not combine with alcohol.&quot;,
     &quot;price&quot;, 75,
+    &quot;healing&quot;, -25,
     &quot;energy&quot;, -25
 ))
 (set:$silvertongueCharm to   (dm:
@@ -6394,21 +6396,24 @@ Since you&#39;re such a smart, trustworthy person and all, maybe you&#39;d be in
 
   (dm:
     &quot;name&quot;,&quot;minor restorative&quot;,
-    &quot;description&quot;,&quot;A fragrant elixir infused with chamomile and thyme, restores half of your energy.&quot;,
+    &quot;description&quot;,&quot;A fragrant elixir infused with chamomile and thyme, restores your energy and heals common ailments.&quot;,
     &quot;price&quot;, 8,
-    &quot;energy&quot;, 30
+    &quot;energy&quot;, 30,
+    &quot;healing&quot;, 20
   ),
   (dm:
     &quot;name&quot;,&quot;major restorative&quot;,
-    &quot;description&quot;, &quot;A potent blend of wormwood, and sage, and more exotic ingredients, replenishes most of your energy and makes you fee great.&quot;,
+    &quot;description&quot;, &quot;A potent blend of wormwood, sage, and somewhat more exotic ingredients, replenishes most of your energy and makes you feel great.&quot;,
     &quot;price&quot;, 15,
-    &quot;energy&quot;, 70
+    &quot;energy&quot;, 70,
+        &quot;healing&quot;, 60
   ),
   (dm:
     &quot;name&quot;,&quot;superior restorative&quot;,
-    &quot;description&quot;, &quot;A concentrated essence of lavender and rosemary, accelerating the healing process and easing pain. Good for what ails you and then some!&quot;,
+    &quot;description&quot;, &quot;A concentrated essence of lavender and rosemary, infused via a special process, offers accelerated healing process, pain relief, and instant energy. Good for what ails you and then some!&quot;,
     &quot;price&quot;, 25,
-    &quot;energy&quot;, 125
+    &quot;energy&quot;, 125,
+            &quot;healing&quot;, 100
   ),
   $seersMead
 ))
@@ -6431,12 +6436,12 @@ Since you&#39;re such a smart, trustworthy person and all, maybe you&#39;d be in
 
 
 
-}</tw-passagedata><tw-passagedata pid="335" name="hanumanAmuletBonus" tags="" position="50,1450" size="100,100">(if:$misc contains $unferthReward)[(set:$success to it+3)
+}</tw-passagedata><tw-passagedata pid="334" name="hanumanAmuletBonus" tags="" position="50,1450" size="100,100">(if:$misc contains $unferthReward)[(set:$success to it+3)
 //+3 bonus added from (print:$unferthReward&#39;s &quot;name&quot;)//
 ]
-</tw-passagedata><tw-passagedata pid="336" name="seaCharmBonus" tags="" position="150,1450" size="100,100">(if:$misc contains $seaCharm)[(set:$success to it+3)
+</tw-passagedata><tw-passagedata pid="335" name="seaCharmBonus" tags="" position="150,1450" size="100,100">(if:$misc contains $seaCharm)[(set:$success to it+3)
 //+3 bonus added from (print:$seaCharm&#39;s &quot;name&quot;)//
-]</tw-passagedata><tw-passagedata pid="337" name="GameOver" tags="" position="300,325" size="100,100">//&#39;&#39;Game Over!&#39;&#39;//
+]</tw-passagedata><tw-passagedata pid="336" name="GameOver" tags="" position="300,325" size="100,100">//&#39;&#39;Game Over!&#39;&#39;//
 (link: &quot;Reload from last save of current game&quot;)[(load-game:$saveSlot)]
 [[Start a new game-&gt;Landfall]]
 ---
@@ -6469,7 +6474,7 @@ You are unknown in town.
 no completed quests.
 ]&lt;ul&gt;(for: each _quest, ...$completedQuests)[&lt;li&gt;(print: _quest)&lt;/li&gt;]
 &lt;/ul&gt;
----</tw-passagedata><tw-passagedata pid="338" name="Poison Thryth" tags="" position="2575,2925" size="100,100">(display: &quot;header&quot;)(set:$effort to 2)(display:&quot;Effort&quot;)
+---</tw-passagedata><tw-passagedata pid="337" name="Poison Thryth" tags="" position="2575,2925" size="100,100">(display: &quot;header&quot;)(set:$effort to 2)(display:&quot;Effort&quot;)
 
 ---
 {(set: $success to  (random: 1, 10) + $energy/10)
@@ -6494,11 +6499,11 @@ the superstitious people all think it was the curse of the shadow walkers...
 Mod-Thryth
 ](else:)[
 
-]</tw-passagedata><tw-passagedata pid="339" name="Ask Sir Thryth safety" tags="" position="2725,2975" size="100,100">(display: &quot;header&quot;)(set:$ThrythInvestigation to it+20)
+]</tw-passagedata><tw-passagedata pid="338" name="Ask Sir Thryth safety" tags="" position="2725,2975" size="100,100">(display: &quot;header&quot;)(set:$ThrythInvestigation to it+20)
 &quot;Were there any unusual events or activities leading up to the attack?&quot; you ask. &quot;Anything that might have provoked such aggression?&quot;
 
 Sir Thryth&#39;s eyes flicker with a hint of annoyance. &quot;Nothing of consequence. We are clearing this land as per King Hrothgar&#39;s directives. Expanding civilization into the wilderness.&quot;
-[[Continue-&gt;Thryth Hub]]</tw-passagedata><tw-passagedata pid="340" name="HeaderBackup" tags="" position="700,650" size="100,100">
+[[Continue-&gt;Thryth Hub]]</tw-passagedata><tw-passagedata pid="339" name="HeaderBackup" tags="" position="700,650" size="100,100">
 [[HeaderBackup]]
 #### Shadows of Grendel      (link:&quot;Menu&quot;)[
 [[Character Sheet]][[Plot log]](link:&quot;Quick Save&quot;)[
@@ -6510,7 +6515,7 @@ Sir Thryth&#39;s eyes flicker with a hint of annoyance. &quot;Nothing of consequ
     Sorry, I couldn&#39;t save your game.
   ]
 ][[Dashboard-&gt;Games Dashboard]]
-]</tw-passagedata><tw-passagedata pid="341" name="Initialize Attributes" tags="" position="175,200" size="100,100">(set: $health to 100)
+]</tw-passagedata><tw-passagedata pid="340" name="Initialize Attributes" tags="" position="175,200" size="100,100">(set: $health to 100)
 (set: $energy to 65)
 (set:$attrs to (dm:
 &quot;wisdom&quot;,1,
@@ -6519,7 +6524,7 @@ Sir Thryth&#39;s eyes flicker with a hint of annoyance. &quot;Nothing of consequ
 &quot;strength&quot;, -2,
 &quot;dexterity&quot;, 2,
 &quot;constitution&quot;, 0
-))</tw-passagedata><tw-passagedata pid="342" name="Heorot view" tags="" position="3250,350" size="100,100"></tw-passagedata><tw-passagedata pid="343" name="Edit Attributes" tags="" position="875,250" size="100,100">(link:&quot;View/Edit Attribute Bonuses&quot;)[
+))</tw-passagedata><tw-passagedata pid="341" name="Heorot view" tags="" position="3250,350" size="100,100"></tw-passagedata><tw-passagedata pid="342" name="Edit Attributes" tags="" position="875,250" size="100,100">(link:&quot;View/Edit Attribute Bonuses&quot;)[
 
 (set:_x to $attrs&#39;s &quot;charisma&quot;)
 [Charisma:(print:_x) (if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes]]&lt;cha| |  (link-repeat:&quot;+1&quot;)[
@@ -6559,7 +6564,7 @@ Sir Thryth&#39;s eyes flicker with a hint of annoyance. &quot;Nothing of consequ
 (for:each _a, ...(data-names:$attrs))[(set:_x to $attrs&#39;s _a)
 //(print:_a):(print:_x) ((if:_x&gt;1)[outstanding](else-if:_x&gt;0)[solid](else-if:_x&gt;-2)[average](else:)[yikes])//&lt;br&gt;
 ]}
-]</tw-passagedata></tw-storydata>
+]</tw-passagedata><tw-passagedata pid="343" name="Initialize Plot Variables" tags="" position="125,525" size="100,100"></tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
