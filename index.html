@@ -578,27 +578,17 @@ He continues, &quot;None of these qualities are enough. The Draugr are relentles
 
 Rage and fear cloud your judgment as you draw your weapon and charge toward the dragon with a battle cry. Your companions shout warnings behind you, but their voices seem distant and unreal.
 
-Véfrøðr&#39;s expression shifts from mild amusement to resignation. &quot;Foolish,&quot; he rumbles, his voice heavy with regret. &quot;I had hoped for understanding, but it seems violence is all your kind truly understands.&quot;
-
 The dragon&#39;s head rises gracefully, almost lazily, and his jaws part slightly. You see the faint glow building deep in his throat—a furnace of ancient power awakening.
 
 The last thing you see is a brilliant flash of emerald and gold as dragonfire engulfs you. The heat is so intense that you feel no pain—only a brief moment of clarity as you realize the magnitude of your mistake.
-
-Your companions&#39; anguished cries echo through the ruins as your story comes to its abrupt and fiery end. The dragon settles back onto his perch, closing his eyes in what might be mourning for yet another life lost to the ancient curse that binds him.
 
 (display:&quot;GameOver&quot;)</tw-passagedata><tw-passagedata pid="40" name="Attack Véfrøðr" tags="" position="3750,5450" size="100,100">(display: &quot;header&quot;)
 
 Despite the dragon&#39;s apparent willingness to parley, suspicion and fear override your better judgment. You signal to your companions and suddenly lunge forward, weapon raised, hoping to catch the ancient wyrm off guard.
 
-Véfrøðr&#39;s eyes flash with disappointment rather than surprise. &quot;So be it,&quot; he says with weary resignation. &quot;I had dared to hope that mortals had grown wiser in my long captivity, but I see that folly remains your defining trait.&quot;
+Véfrøðr&#39;s eyes flash with disappointment rather than surprise. &quot;So be it,&quot; he says with weary resignation.
 
-The dragon moves with fluid grace that belies his enormous size. His serpentine neck coils back like a striking snake, and you realize with dawning horror that your attack was not unexpected—it was anticipated.
-
-&quot;Know that I am bound by ancient magic to defend this place,&quot; Véfrøðr intones as power builds in his throat. &quot;Your aggression leaves me no choice, though I would have preferred discourse to destruction.&quot;
-
-Emerald flames, hot as the heart of a forge and bright as the summer sun, pour forth from the dragon&#39;s maw. The magical fire consumes everything in its path—your weapon, your armor, your very flesh—reducing you to ash in moments.
-
-As consciousness fades, your last thought is a bitter recognition that your impulsive violence has not only ended your own life, but likely doomed any chance of breaking the curse that might have freed this tragic creature.
+The dragon moves with fluid grace as his serpentine neck coils back like a striking snake. The great jaws part slightly in a grin, and you see the glow building deep in his throat—a furnace of ancient power awakening and the last thing you see is a brilliant flash of emerald and gold as dragonfire engulfs you. The heat is so intense that you feel no pain—only a brief moment of clarity as you realize the magnitude of your mistake.
 
 (display:&quot;GameOver&quot;)</tw-passagedata><tw-passagedata pid="41" name="Attack the Sceadugenga" tags="" position="350,4225" size="100,100">(display: &quot;header&quot;)(set:$effort to 5)(display:&quot;Effort&quot;)
 (display: &quot;updateCombatBonus&quot;)
@@ -6000,11 +5990,11 @@ Sir Thryth is tall and broad-shouldered, clad in a fine cloak of deep red and we
 //Your success: (print:$success)/10//&lt;br&gt;
 (if: $energy &gt; 20)[(set: $energy to $energy - 20)]
 ---
-(if:$success &gt; 8)[
+(if:$success &gt; 7)[
 Hrothgar&#39;s name, invoked with a forceful tone of high-handed authority, seem to catch Thryth by surprise, almost a slap to the face.
 &quot;It is my honor to host King Hrothgar&#39;s delegate,&quot; he says, somewhat stiffly, bidding you follow him.(set:$reputation&#39;s &quot;Thryth&quot; to &quot;high&quot;)
 [[Continue-&gt;Thryth Hub]]
-](else-if: $success &gt; 5 )[
+](else-if: $success &gt; 4 )[
 Thryth looks you up and down, at first skeptical and then thoughtful, as if digesting your words carefully before choosing his response.(set:$reputation&#39;s &quot;Thryth&quot; to &quot;mid&quot;)
 [[Continue-&gt;Thryth Hub]]
 ](else:)[
